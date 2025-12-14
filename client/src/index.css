@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+body {
+  background-color: #020617; /* same as navbar */
+}
+
+
+
+
+/* here is the hero section */
+@keyframes revenueMove {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes timeMove {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes usersFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-revenueMove {
+  animation: revenueMove 6s ease-in-out infinite;
+}
+
+.animate-timeMove {
+  animation: timeMove 7s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-usersFloat {
+  animation: usersFloat 5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
