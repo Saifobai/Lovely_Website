@@ -1,13 +1,14 @@
 import Hero from "../../components/home/Hero";
-import Navbar from "../../components/Navbar";
-import { AboutPage } from "../about/AboutPage";
+import Navbar from "../../components/navbar/Navbar";
+import { AboutUs } from "../../sections/AboutUs";
+import ContactUs from "../../sections/ContactUs";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#020617] text-white">
-      <Navbar />
+    <section id="home" className="min-h-screen bg-[#020617] text-white">
       <Hero />
-      <AboutPage />
-    </div>
+      <AboutUs />
+      <ContactUs />
+    </section>
   );
 }
