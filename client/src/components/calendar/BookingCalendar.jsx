@@ -36,9 +36,7 @@ export default function BookingCalendar() {
   const days = Array.from({ length: 7 }).map((_, i) => addDays(start, i));
 
   const submitBooking = async () => {
-    if (!selectedDate || !selectedTime || !email) {
-      return;
-    }
+    if (!selectedDate || !selectedTime || !email) return;
 
     setLoading(true);
 
@@ -57,7 +55,6 @@ export default function BookingCalendar() {
       const data = await response.json();
       setLoading(false);
 
-      // Save booking details for popup
       setConfirmedBooking({
         date: format(selectedDate, "MMMM dd, yyyy"),
         time: selectedTime,
@@ -66,13 +63,7 @@ export default function BookingCalendar() {
         link: data.googleCalendarLink,
       });
 
-      // Show success popup
-      setSuccess(true);
-
-      // Optional calendar behavior
-      if (data.googleCalendarLink) {
-        window.open(data.googleCalendarLink, "_blank");
-      }
+      setSuccess(true); // 👈 ONLY show modal
     } catch (error) {
       setLoading(false);
       console.error("Booking error:", error);
@@ -257,14 +248,32 @@ export default function BookingCalendar() {
             </div>
 
             <button
-              onClick={() => window.open(confirmedBooking.link, "_blank")}
-              className="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 hover:opacity-90 text-white rounded-lg mb-3"
+              onClick={() => {
+                alert("✅ Booking confirmed! Adding to Google Calendar…");
+                window.open(confirmedBooking.link, "_blank");
+
+                // Close modal
+                setSuccess(false);
+
+                // Reset selection
+                setSelectedTime("");
+                setEmail("");
+
+                // Trigger refresh
+                setSelectedDate(new Date(selectedDate));
+              }}
+              className="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg mb-3"
             >
               📅 Add to Google Calendar
             </button>
 
             <button
-              onClick={() => setSuccess(false)}
+              onClick={() => {
+                setSuccess(false);
+                setSelectedTime("");
+                setEmail("");
+                setSelectedDate(new Date(selectedDate));
+              }}
               className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90 text-white rounded-lg"
             >
               Close
