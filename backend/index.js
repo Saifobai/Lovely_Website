@@ -1,36 +1,28 @@
+import "dotenv/config";
 import express from "express";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import cors from "cors";
-import { google } from "googleapis";
+import connectToDb from "./config/mongodb.js"
+import bookingRoutes from "./routes/bookingsRoutes.js";
 
+
+
+// middleware
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+    origin: "http://localhost:5173",  // Change this to your frontend URL
+    credentials: true, // Allows cookies and authentication headers
+}));
 
-const auth = new google.auth.JWT(
-    process.env.GOOGLE_CLIENT_EMAIL,
-    null,
-    process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-    ["https://www.googleapis.com/auth/calendar"]
-);
+// connecting to the database
+connectToDb()
 
-const calendar = google.calendar({ version: "v3", auth });
+app.use("/api/bookings", bookingRoutes);
 
-app.post("/api/book", async (req, res) => {
-    const { name, email, date } = req.body;
-
-    const event = {
-        summary: `Meeting with ${name}`,
-        description: email,
-        start: { dateTime: date },
-        end: { dateTime: new Date(new Date(date).getTime() + 30 * 60000) },
-    };
-
-    await calendar.events.insert({
-        calendarId: "primary",
-        resource: event,
-    });
-
-    res.json({ success: true });
-});
-
-app.listen(5000, () => console.log("Server running on 5000"));
+app.listen(5000, () => console.log("Server running on port 5000"));
+console.log("PRIVATE KEY RAW:", process.env.GOOGLE_PRIVATE_KEY);

@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+
+import BookingCalendar from "../../components/calendar/BookingCalendar";
 export default function BookingPage() {
   const navigate = useNavigate();
   return (
@@ -18,6 +20,7 @@ export default function BookingPage() {
         <p className="text-gray-400 mb-10">
           Choose a date and time that works for you.
         </p>
+        <BookingCalendar />
       </div>
     </section>
   );

@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import ContactInfoCard from "../components/contact/ContactInfoCard";
 import ContactForm from "../components/contact/ContactForm";
-
-import CalendarModal from "../components/calendar/CalendarModal";
 import { Mail, Phone, MapPin } from "lucide-react";
-import BookAppointmentCard from "../components/calendar/BookAppointmentCard";
 import Section from "../components/layout/Section";
 
 const ContactUs = () => {
@@ -61,9 +58,6 @@ const ContactUs = () => {
         {/* RIGHT */}
         <ContactForm />
       </div>
-
-      {/* 🔥 CALENDAR POPUP */}
-      {openCalendar && <CalendarModal onClose={() => setOpenCalendar(false)} />}
     </Section>
   );
 };
