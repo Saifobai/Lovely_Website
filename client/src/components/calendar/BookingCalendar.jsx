@@ -23,6 +23,7 @@ export default function BookingCalendar() {
   const [bookedTimes, setBookedTimes] = useState([]);
   const [success, setSuccess] = useState(false);
   const [confirmedBooking, setConfirmedBooking] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -56,6 +57,7 @@ export default function BookingCalendar() {
       setLoading(false);
 
       setConfirmedBooking({
+        bookingId: data.bookingId,
         date: format(selectedDate, "MMMM dd, yyyy"),
         time: selectedTime,
         email,
@@ -73,7 +75,7 @@ export default function BookingCalendar() {
   useEffect(() => {
     const loadBookings = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/bookings/${format(
+        `http://localhost:5000/api/bookings/date/${format(
           selectedDate,
           "yyyy-MM-dd"
         )}`
@@ -84,7 +86,7 @@ export default function BookingCalendar() {
     };
 
     loadBookings();
-  }, [selectedDate]);
+  }, [selectedDate, refreshKey]);
 
   const isToday =
     format(selectedDate, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
@@ -260,7 +262,8 @@ export default function BookingCalendar() {
                 setEmail("");
 
                 // Trigger refresh
-                setSelectedDate(new Date(selectedDate));
+
+                setRefreshKey((prev) => prev + 1);
               }}
               className="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg mb-3"
             >
@@ -272,7 +275,8 @@ export default function BookingCalendar() {
                 setSuccess(false);
                 setSelectedTime("");
                 setEmail("");
-                setSelectedDate(new Date(selectedDate));
+
+                setRefreshKey((prev) => prev + 1);
               }}
               className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90 text-white rounded-lg"
             >

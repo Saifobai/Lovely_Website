@@ -5,6 +5,7 @@ import HomePage from "./pages/Home/HomePage";
 import BookingPage from "./pages/bookingpage/BookingPage";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
+import CancelPage from "./pages/bookingpage/CancelPage";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -49,6 +50,21 @@ export default function App() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <BookingPage />
+              </motion.div>
+            }
+          />
+
+          <Route
+            path="/cancel/:id"
+            element={
+              <motion.div
+                variants={pageVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <CancelPage />
               </motion.div>
             }
           />

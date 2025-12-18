@@ -1,6 +1,7 @@
 import { google } from "googleapis";
 import Booking from "../models/bookingModel.js";
 import { sendAdminEmail, sendUserEmail } from "../services/emailService.js";
+import mongoose from "mongoose";
 
 
 const privateKey = process.env.GOOGLE_PRIVATE_KEY;
@@ -52,7 +53,7 @@ export const createBooking = async (req, res) => {
             },
         };
 
-        await calendar.events.insert({
+        const googleEvent = await calendar.events.insert({
             calendarId: "primary",
             resource: event,
         });
@@ -64,7 +65,12 @@ export const createBooking = async (req, res) => {
             `https://calendar.google.com/calendar/u/0/r/eventedit?text=Consultation+Call&dates=${startIso}/${endIso}&details=30+minute+consultation&ctz=${timezone}`
         );
 
-        await Booking.create({ date, time, email });
+        const newBooking = await Booking.create({
+            date,
+            time,
+            email,
+            googleEventId: googleEvent.data.id
+        });
 
         // Send emails
         await sendUserEmail({
@@ -72,6 +78,8 @@ export const createBooking = async (req, res) => {
             date,
             time,
             timezone,
+            link: publicLink,
+            bookingId: newBooking._id.toString(),
         });
 
         await sendAdminEmail({
@@ -84,6 +92,7 @@ export const createBooking = async (req, res) => {
         res.json({
             success: true,
             googleCalendarLink: publicLink,
+            bookingId: newBooking._id.toString(),
         });
 
 
@@ -113,3 +122,59 @@ export const getBookedTimes = async (req, res) => {
         res.status(500).json({ success: false });
     }
 };
+
+
+// ---------------------------------------
+// cancelBooking (not implemented)
+// ---------------------------------------
+export const cancelBooking = async (req, res) => {
+    console.log("🔥 CANCEL ENDPOINT HIT 🔥", req.params.id);
+    try {
+        const { id } = req.params;
+
+        // 🚫 Guard against missing or invalid id
+        if (!id || id === "undefined") {
+            return res.status(400).json({
+                success: false,
+                message: "Missing booking id",
+            });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid booking id" });
+        }
+
+        const booking = await Booking.findById(id);
+
+        if (!booking) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+
+        // 🗓️ Attempt to delete Google Calendar event (non-blocking)
+        try {
+            if (booking.googleEventId) {
+                await calendar.events.delete({
+                    calendarId: "primary",
+                    eventId: booking.googleEventId,
+                });
+            }
+        } catch (googleError) {
+            console.warn(
+                "⚠️ Google event delete failed (continuing):",
+                booking.googleEventId
+            );
+        }
+
+        // ALWAYS delete from DB
+        await Booking.findByIdAndDelete(id);
+
+        res.json({ success: true });
+
+    } catch (error) {
+        console.error("Cancel error:", error);
+        res.status(500).json({ success: false, message: "Cancel failed" });
+    }
+};
+
+
+
