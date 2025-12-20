@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import MegaMenu from "../MegaMenu";
 import NavItems from "./NavItems";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeItem, setActiveItem] = useState("Home");
-
   const megaRef = useRef(null);
 
   useEffect(() => {
@@ -37,35 +38,19 @@ const Navbar = () => {
     >
       <nav className="w-[80%] mx-auto px-6 py-5 flex items-center justify-between text-white">
         {/* LOGO */}
-        <div className="text-2xl font-bold">
-          Lovely<span className="text-blue-500"></span>
-        </div>
+        <div className="text-2xl font-bold">Lovely</div>
 
         {/* LINKS */}
         <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <NavItems href="#home" active={activeItem === "Home"}>
-            YOU
-          </NavItems>
+          <NavItems href="#home">{t("navbar.you")}</NavItems>
+          <NavItems href="#about">{t("navbar.us")}</NavItems>
 
-          <NavItems href="#about" active={activeItem === "About"}>
-            US
-          </NavItems>
-
-          {/* <NavItems href="#services" active={activeItem === "Services"}>
-            Services
-          </NavItems> */}
-
-          {/* <NavItems href="#portfolio" active={activeItem === "Portfolio"}>
-            Portfolio
-          </NavItems> */}
-
-          {/* MEGA MENU */}
           <li ref={megaRef} className="relative group cursor-pointer">
             <button
               onClick={() => setOpen((prev) => !prev)}
               className="flex items-center gap-1 text-gray-300 hover:text-white transition"
             >
-              Services
+              {t("navbar.services")}
               <svg
                 className="w-4 h-4 mt-[1px]"
                 fill="none"
@@ -77,25 +62,20 @@ const Navbar = () => {
               </svg>
             </button>
 
-            {/* underline */}
             <span
               className="absolute left-0 -bottom-2 h-[2px] w-full bg-blue-500 rounded-full
-      scale-x-0 origin-left transition-transform duration-300
-      group-hover:scale-x-100"
+              scale-x-0 origin-left transition-transform duration-300
+              group-hover:scale-x-100"
             />
 
             {open && <MegaMenu />}
           </li>
 
-          <NavItems href="#contact" active={activeItem === "Contact"}>
-            Contact
-          </NavItems>
+          <NavItems href="#contact">{t("navbar.contact")}</NavItems>
         </ul>
 
-        {/* CTA */}
-        <button className="bg-blue-600 hover:bg-blue-500 transition px-5 py-2 rounded-lg text-sm font-semibold">
-          Get Started
-        </button>
+        {/* LANGUAGE */}
+        <LanguageSwitcher />
       </nav>
     </header>
   );

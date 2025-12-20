@@ -15,11 +15,11 @@ export default function BookingPage() {
           ← Back to Home
         </button>
 
-        <h1 className="text-4xl font-bold mb-4">Book a Consultation</h1>
+        {/* <h1 className="text-4xl font-bold mb-4">Book a Consultation</h1> */}
 
-        <p className="text-gray-400 mb-10">
+        {/* <p className="text-gray-400 mb-10">
           Choose a date and time that works for you.
-        </p>
+        </p> */}
         <BookingCalendar />
       </div>
     </section>

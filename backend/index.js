@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connectToDb from "./config/mongodb.js"
 import bookingRoutes from "./routes/bookingsRoutes.js";
-
+// import "./services/smsReminderService.js";
 
 
 // middleware
@@ -22,7 +22,8 @@ app.use(cors({
 // connecting to the database
 connectToDb()
 
+
 app.use("/api/bookings", bookingRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));
-console.log("PRIVATE KEY RAW:", process.env.GOOGLE_PRIVATE_KEY);
+
