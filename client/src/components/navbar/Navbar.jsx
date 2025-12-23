@@ -44,8 +44,9 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
           <NavItems href="#home">{t("navbar.you")}</NavItems>
           <NavItems href="#about">{t("navbar.us")}</NavItems>
+          <NavItems href="#services">{t("navbar.services")}</NavItems>
 
-          <li ref={megaRef} className="relative group cursor-pointer">
+          {/* <li ref={megaRef} className="relative group cursor-pointer">
             <button
               onClick={() => setOpen((prev) => !prev)}
               className="flex items-center gap-1 text-gray-300 hover:text-white transition"
@@ -69,7 +70,7 @@ const Navbar = () => {
             />
 
             {open && <MegaMenu />}
-          </li>
+          </li> */}
 
           <NavItems href="#contact">{t("navbar.contact")}</NavItems>
         </ul>

@@ -7,4 +7,14 @@ export default defineConfig({
   plugins: [react(),
   tailwindcss(),
   ],
+  optimizeDeps: {
+    // This forces Vite to process these libraries correctly
+    include: ['@pixi/react', 'pixi.js'],
+  },
+  resolve: {
+    alias: {
+      // If you are using v7, this ensures the correct entry point
+      '@pixi/react': '@pixi/react',
+    },
+  },
 })
