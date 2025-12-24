@@ -164,3 +164,40 @@ canvas {
     transform: translate(-10%, -10%);
   }
 }
+
+.noise-overlay {
+  /* ... (The CSS provided in the previous turn) ... */
+  opacity: 0.035; /* Let's make it slightly subtler for the hero */
+}
+
+.hollow-text {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  color: transparent;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* We won't use the hover effect on the hero title, just the hollow look */
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(500px); } /* Adjust based on form height */
+}
+
+.animate-scanline {
+  animation: scanline 3s linear infinite;
+}
+
+
+/* Add this for the image in the hero */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 8s infinite ease-in-out;
+}
+
+/* For the reveal effect */
+.hollow-text {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  color: transparent;
+}
