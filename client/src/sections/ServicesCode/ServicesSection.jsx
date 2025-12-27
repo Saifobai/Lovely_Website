@@ -841,7 +841,7 @@ export default function ServicesSection() {
             onMouseLeave={() => setModal({ active: false, index })}
             onClick={() => setSelectedService(service)}
           >
-            <h2 className="hollow-text text-5xl md:text-8xl font-bold uppercase group-hover:italic">
+            <h2 className="hollow-text text-5xl md:text-6xl font-bold uppercase group-hover:italic">
               {service.title}
             </h2>
             <div className="text-right">
@@ -868,7 +868,7 @@ export default function ServicesSection() {
         ref={cursor}
         initial={{ scale: 0 }}
         animate={{ scale: modal.active && !selectedService ? 1 : 0 }}
-        className="fixed top-0 left-0 w-[350px] h-[480px] rounded-3xl overflow-hidden pointer-events-none z-10 hidden lg:block"
+        className="fixed top-0 left-0 w-[240px] h-[320px] rounded-2xl overflow-hidden pointer-events-none z-10 hidden lg:block"
         style={{ x: "-50%", y: "-50%" }}
       >
         <div
@@ -892,8 +892,8 @@ export default function ServicesSection() {
         ref={cursorLabel}
         initial={{ scale: 0 }}
         animate={{ scale: modal.active && !selectedService ? 1 : 0 }}
-        className="fixed top-0 left-0 px-6 py-3 rounded-full bg-blue-600 text-white z-20 pointer-events-none text-[10px] font-mono uppercase tracking-widest"
-        style={{ x: "-50%", y: "260px" }}
+        className="fixed top-0 left-0 px-5 py-2 rounded-full bg-blue-600 text-white z-20 pointer-events-none text-[10px] font-mono uppercase tracking-widest"
+        style={{ x: "-50%", y: "140px" }}
       >
         View Protocol
       </motion.div>

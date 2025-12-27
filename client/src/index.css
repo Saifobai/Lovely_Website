@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  background-color: #020617; /* same as navbar */
+  background-color: #050505;
   padding-top: 80px;
 }
 
@@ -105,17 +105,7 @@ canvas {
 /* --- 1. THE NOISE GRAIN EFFECT --- */
 /* This creates a distinct, vibrating film texture */
 .noise-overlay {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-  background-size: 100px 100px; /* Tiling size */
-  opacity: 0.05; /* Subtle texture (5%) */
-  pointer-events: none; /* Let clicks pass through */
-  z-index: 50; /* Sit on top of everything */
-  animation: noise-shift 0.2s infinite steps(4); /* The "Crazy" vibration */
+ 
 }
 
 @keyframes noise-shift {
@@ -170,12 +160,6 @@ canvas {
   opacity: 0.035; /* Let's make it slightly subtler for the hero */
 }
 
-.hollow-text {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
-  color: transparent;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-/* We won't use the hover effect on the hero title, just the hollow look */
 
 @keyframes scanline {
   0% { transform: translateY(-100%); }
@@ -196,8 +180,42 @@ canvas {
   animation: pulse-slow 8s infinite ease-in-out;
 }
 
-/* For the reveal effect */
-.hollow-text {
-  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-  color: transparent;
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-slower {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-spin-slower {
+  animation: spin-slower 20s linear infinite;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+
+/* Add to your CSS */
+.ease-expo {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.translate-z-50 {
+  transform: translateZ(50px);
+}
+
+.translate-z-100 {
+  transform: translateZ(100px);
 }

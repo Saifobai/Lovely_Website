@@ -71,7 +71,7 @@ export default function Footer() {
             <div className="flex flex-col justify-between items-end">
               <button
                 onClick={scrollToTop}
-                className="group w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500"
+                className="bg-blue-500 group w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500"
               >
                 <ArrowUpRight className="w-6 h-6 transition-transform group-hover:-rotate-45" />
               </button>
