@@ -7,6 +7,7 @@ import connectToDb from "./config/mongodb.js"
 import bookingRoutes from "./routes/bookingsRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import paypalRoutes from "./routes/paypalRoutes.js";
+import { expirePendingBookings } from "./jobs/expireBookings.js";
 // import "./services/emailReminderService.js";
 // import "./services/smsReminderService.js";
 
@@ -39,6 +40,9 @@ app.use(cors({
 
 // connecting to the database
 connectToDb()
+
+
+setInterval(expirePendingBookings, 60 * 1000);
 
 // ======================
 // ROUTES

@@ -636,6 +636,8 @@
 // );
 
 //==============End of version 2 ==================
+//================================================
+//=================================================
 
 //  frontend with twilio sms later
 // import { useEffect, useState } from "react";
@@ -954,3 +956,233 @@
 //===========================================================
 //=================== Version 4 =========================
 //===========================================================
+
+import React, { useEffect, useState } from "react";
+import { addDays, format, startOfWeek, addWeeks, isSameDay } from "date-fns";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Globe } from "lucide-react";
+
+import { TIMES } from "../../constants/time";
+import { createBooking, fetchBookedTimes } from "../../api/booking.api";
+
+import PendingPaymentModal from "./PendingPaymentModal";
+import NavBtn from "../ui/NavBtn";
+
+/* ======================================================
+   BOOKING CALENDAR
+====================================================== */
+export default function BookingCalendar() {
+  /* -------------------- STATE -------------------- */
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState("");
+  const [email, setEmail] = useState("");
+  const [weekOffset, setWeekOffset] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const [bookedTimes, setBookedTimes] = useState([]);
+  const [pendingBooking, setPendingBooking] = useState(null);
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  /* -------------------- DATE LOGIC -------------------- */
+  const start = startOfWeek(addWeeks(new Date(), weekOffset), {
+    weekStartsOn: 1,
+  });
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const days = Array.from({ length: 7 }).map((_, i) => addDays(start, i));
+
+  /* -------------------- FETCH BOOKED SLOTS -------------------- */
+  const loadBookedSlots = async () => {
+    const data = await fetchBookedTimes(format(selectedDate, "yyyy-MM-dd"));
+    setBookedTimes(data.bookedTimes || []);
+  };
+
+  useEffect(() => {
+    loadBookedSlots();
+  }, [selectedDate]);
+
+  /* -------------------- SUBMIT BOOKING -------------------- */
+  const submitBooking = async () => {
+    if (!selectedTime || !email) return;
+
+    setLoading(true);
+
+    try {
+      const data = await createBooking({
+        date: format(selectedDate, "yyyy-MM-dd"),
+        time: selectedTime,
+        email,
+        timezone,
+      });
+
+      // ✅ REQUIRED NORMALIZED SHAPE
+      setPendingBooking({
+        id: data.bookingId,
+        expiresAt: data.expiresAt,
+      });
+    } catch (err) {
+      console.error("Booking failed:", err);
+    }
+
+    setLoading(false);
+  };
+
+  /* -------------------- TIME RULES -------------------- */
+  const isToday = isSameDay(selectedDate, new Date());
+  const currentTime = new Date().toTimeString().slice(0, 5);
+
+  /* ======================================================
+     RENDER
+  ======================================================= */
+  return (
+    <div className="relative w-full max-w-5xl mx-auto py-12 px-4">
+      <div className="bg-[#050505] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl">
+        {/* ---------- HEADER ---------- */}
+        <div className="p-8 border-b border-white/5 flex justify-between items-center">
+          <div>
+            <h2 className="text-4xl font-bold uppercase italic text-white">
+              Schedule <span className="text-blue-500">Protocol</span>
+            </h2>
+            <p className="text-xs font-mono text-slate-500 mt-2 flex items-center gap-2">
+              <Globe size={14} /> {timezone}
+            </p>
+          </div>
+
+          <div className="hidden md:block text-right">
+            <p className="text-white font-bold">30-Min Strategy Call</p>
+            <p className="text-xs text-slate-500 font-mono">
+              Phase-01 Deployment
+            </p>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-12">
+          {/* ---------- DATE PICKER ---------- */}
+          <div className="lg:col-span-7 p-8 border-r border-white/5">
+            <div className="flex justify-between items-center mb-8">
+              <h3 className="text-xs font-mono text-blue-500 uppercase">
+                Select Date
+              </h3>
+
+              <div className="flex gap-2 items-center">
+                <NavBtn
+                  icon={<ChevronLeft size={18} />}
+                  onClick={() => setWeekOffset((p) => p - 1)}
+                />
+
+                <span className="text-white font-bold min-w-[120px] text-center">
+                  {format(start, "MMMM yyyy")}
+                </span>
+
+                <NavBtn
+                  icon={<ChevronRight size={18} />}
+                  onClick={() => setWeekOffset((p) => p + 1)}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-7 gap-3">
+              {days.map((day, i) => {
+                const active = isSameDay(day, selectedDate);
+                const isPast = day < today;
+
+                return (
+                  <motion.button
+                    key={i}
+                    disabled={isPast}
+                    whileHover={!isPast ? { scale: 1.05 } : {}}
+                    onClick={() => {
+                      setSelectedDate(day);
+                      setSelectedTime("");
+                    }}
+                    className={`p-4 rounded-2xl border transition
+                      ${
+                        isPast
+                          ? "opacity-10 cursor-not-allowed"
+                          : active
+                          ? "bg-white text-black"
+                          : "bg-white/5 text-white hover:border-blue-500"
+                      }`}
+                  >
+                    <span className="text-xs font-mono uppercase">
+                      {format(day, "EEE")}
+                    </span>
+                    <div className="text-xl font-bold">{format(day, "dd")}</div>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ---------- TIME SLOTS ---------- */}
+          <div className="lg:col-span-5 p-8 bg-white/[0.01]">
+            <h3 className="text-xs font-mono text-blue-500 uppercase mb-8">
+              Available Slots
+            </h3>
+
+            <div className="grid grid-cols-2 gap-3 max-h-[360px] overflow-y-auto">
+              {TIMES.map((t) => {
+                const booked = bookedTimes.includes(t);
+                const past = isToday && t <= currentTime;
+                const disabled = booked || past;
+
+                return (
+                  <button
+                    key={t}
+                    disabled={disabled}
+                    onClick={() => setSelectedTime(t)}
+                    className={`py-4 rounded-xl font-mono text-sm border transition
+                      ${
+                        disabled
+                          ? "opacity-20 cursor-not-allowed"
+                          : selectedTime === t
+                          ? "bg-blue-600 text-white"
+                          : "bg-white/5 hover:border-blue-500"
+                      }`}
+                  >
+                    {booked ? "BOOKED" : past ? "EXPIRED" : t}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ---------- EMAIL + ACTION ---------- */}
+        <div className="p-8 border-t border-white/5 flex flex-col md:flex-row gap-6">
+          <input
+            type="email"
+            placeholder="user@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="flex-1 bg-white/5 px-6 py-4 rounded-xl text-white"
+          />
+
+          <button
+            onClick={submitBooking}
+            disabled={loading || !selectedTime || !email}
+            className="min-w-[220px] bg-white text-black rounded-xl font-bold uppercase tracking-widest text-xs"
+          >
+            {loading ? "Processing..." : "Proceed to Payment"}
+          </button>
+        </div>
+      </div>
+
+      {/* ---------- PENDING PAYMENT MODAL ---------- */}
+      <AnimatePresence>
+        {pendingBooking && (
+          <PendingPaymentModal
+            booking={pendingBooking}
+            onClose={() => {
+              setPendingBooking(null);
+              loadBookedSlots();
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

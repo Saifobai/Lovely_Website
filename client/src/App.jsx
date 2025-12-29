@@ -6,6 +6,7 @@ import BookingPage from "./pages/bookingpage/BookingPage";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
 import CancelPage from "./pages/bookingpage/CancelPage";
+import PayPalSuccess from "./pages/payment/PaypalSuccess";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -50,6 +51,21 @@ export default function App() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <BookingPage />
+              </motion.div>
+            }
+          />
+
+          <Route
+            path="/paypal-success"
+            element={
+              <motion.div
+                variants={pageVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <PayPalSuccess />
               </motion.div>
             }
           />
