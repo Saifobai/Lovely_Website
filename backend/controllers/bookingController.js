@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import Booking from "../models/bookingModel.js";
-import { sendAdminEmail, sendUserEmail } from "../services/emailService.js";
+import { sendAdminEmail, sendUserPendingPaymentEmail } from "../services/emailService.js";
 import mongoose from "mongoose";
 
 
@@ -26,106 +26,106 @@ const calendar = google.calendar({ version: "v3", auth });
 // CREATE BOOKING
 // ---------------------------------------
 
-export const createBooking = async (req, res) => {
-    try {
-        const { date, time, email, timezone } = req.body;
+// export const createBooking = async (req, res) => {
+//     try {
+//         const { date, time, email, timezone } = req.body;
 
-        if (!date || !time || !email || !timezone) {
-            return res.status(400).json({ message: "Missing required fields" });
-        }
+//         if (!date || !time || !email || !timezone) {
+//             return res.status(400).json({ message: "Missing required fields" });
+//         }
 
-        const localDateTime = new Date(`${date}T${time}:00`);
+//         const localDateTime = new Date(`${date}T${time}:00`);
 
-        const utcStart = new Date(
-            localDateTime.toLocaleString("en-US", { timeZone: timezone })
-        );
+//         const utcStart = new Date(
+//             localDateTime.toLocaleString("en-US", { timeZone: timezone })
+//         );
 
-        const utcEnd = new Date(utcStart.getTime() + 30 * 60000);
+//         const utcEnd = new Date(utcStart.getTime() + 30 * 60000);
 
-        const event = {
-            summary: "Consultation Call",
-            description: `30 minute consultation with ${email}`,
-            start: {
-                dateTime: utcStart.toISOString(),
-                timeZone: "UTC",
-            },
-            end: {
-                dateTime: utcEnd.toISOString(),
-                timeZone: "UTC",
-            },
-        };
+//         const event = {
+//             summary: "Consultation Call",
+//             description: `30 minute consultation with ${email}`,
+//             start: {
+//                 dateTime: utcStart.toISOString(),
+//                 timeZone: "UTC",
+//             },
+//             end: {
+//                 dateTime: utcEnd.toISOString(),
+//                 timeZone: "UTC",
+//             },
+//         };
 
-        const googleEvent = await calendar.events.insert({
-            calendarId: "primary",
-            resource: event,
-        });
+//         const googleEvent = await calendar.events.insert({
+//             calendarId: "primary",
+//             resource: event,
+//         });
 
-        const startIso = utcStart.toISOString().replace(/-|:|\.\d\d\d/g, "");
-        const endIso = utcEnd.toISOString().replace(/-|:|\.\d\d\d/g, "");
+//         const startIso = utcStart.toISOString().replace(/-|:|\.\d\d\d/g, "");
+//         const endIso = utcEnd.toISOString().replace(/-|:|\.\d\d\d/g, "");
 
-        const publicLink = encodeURI(
-            `https://calendar.google.com/calendar/u/0/r/eventedit?text=Consultation+Call&dates=${startIso}/${endIso}&details=30+minute+consultation&ctz=${timezone}`
-        );
+//         const publicLink = encodeURI(
+//             `https://calendar.google.com/calendar/u/0/r/eventedit?text=Consultation+Call&dates=${startIso}/${endIso}&details=30+minute+consultation&ctz=${timezone}`
+//         );
 
-        const newBooking = await Booking.create({
-            date,
-            time,
-            email,
-            googleEventId: googleEvent.data.id
-        });
+//         const newBooking = await Booking.create({
+//             date,
+//             time,
+//             email,
+//             googleEventId: googleEvent.data.id
+//         });
 
-        // Send emails
-        await sendUserEmail({
-            email,
-            date,
-            time,
-            timezone,
-            link: publicLink,
-            bookingId: newBooking._id.toString(),
-        });
+//         // Send emails
+//         await sendUserEmail({
+//             email,
+//             date,
+//             time,
+//             timezone,
+//             link: publicLink,
+//             bookingId: newBooking._id.toString(),
+//         });
 
-        await sendAdminEmail({
-            email,
-            date,
-            time,
-        });
-
-
-
-
-        res.json({
-            success: true,
-            googleCalendarLink: publicLink,
-            bookingId: newBooking._id.toString(),
-        });
+//         await sendAdminEmail({
+//             email,
+//             date,
+//             time,
+//         });
 
 
 
-    } catch (error) {
-        console.error("Calendar booking error:", error);
-        res.status(500).json({ success: false, message: "Booking failed" });
-    }
-};
+
+//         res.json({
+//             success: true,
+//             googleCalendarLink: publicLink,
+//             bookingId: newBooking._id.toString(),
+//         });
+
+
+
+//     } catch (error) {
+//         console.error("Calendar booking error:", error);
+//         res.status(500).json({ success: false, message: "Booking failed" });
+//     }
+// };
 
 
 
 // ---------------------------------------
 // GET BOOKED TIMES FOR A DATE
 // ---------------------------------------
-export const getBookedTimes = async (req, res) => {
-    try {
-        const { date } = req.params;
-        const bookings = await Booking.find({ date });
+// export const getBookedTimes = async (req, res) => {
+//     try {
+//         const { date } = req.params;
+//         const bookings = await Booking.find({ date });
 
-        res.json({
-            success: true,
-            bookedTimes: bookings.map((b) => b.time),
-        });
+//         res.json({
+//             success: true,
+//             bookedTimes: bookings.map((b) => b.time),
+//         });
 
-    } catch (error) {
-        res.status(500).json({ success: false });
-    }
-};
+//     } catch (error) {
+//         res.status(500).json({ success: false });
+//     }
+// };
 
 
 // ---------------------------------------
@@ -363,3 +363,78 @@ export const cancelBooking = async (req, res) => {
 //         res.status(500).json({ success: false, message: "Cancel failed" });
 //     }
 // };
+
+
+
+
+// ===================================== code with payment version =====================//
+
+export const createBooking = async (req, res) => {
+    try {
+        const { date, time, email, timezone } = req.body;
+
+        if (!date || !time || !email || !timezone) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        // ⏳ Hold for 1 hour
+        const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+
+        const booking = await Booking.create({
+            date,
+            time,
+            email,
+            timezone,
+            expiresAt,
+            status: "PENDING_PAYMENT",
+        });
+
+        // TODO: create Stripe session here
+        const paymentLink = `http://localhost:5173/pay/${booking._id}`;
+
+        // 🔔 Send PENDING email (new template)
+        await sendUserPendingPaymentEmail({
+            email,
+            date,
+            time,
+            timezone,
+            bookingId: booking._id.toString(),
+            paymentLink,
+            expiresAt,
+        });
+
+        await sendAdminEmail({ email, date, time });
+
+        res.json({
+            success: true,
+            bookingId: booking._id,
+            status: "PENDING_PAYMENT",
+            expiresAt,
+        });
+
+    } catch (error) {
+        console.error("Booking error:", error);
+        res.status(500).json({ success: false });
+    }
+};
+
+
+
+
+export const getBookedTimes = async (req, res) => {
+    try {
+        const { date } = req.params;
+        const bookings = await Booking.find({
+            date,
+            status: { $in: ["PENDING_PAYMENT", "CONFIRMED"] },
+        });
+
+        res.json({
+            success: true,
+            bookedTimes: bookings.map((b) => b.time),
+        });
+
+    } catch (error) {
+        res.status(500).json({ success: false });
+    }
+};
