@@ -424,17 +424,27 @@ export const createBooking = async (req, res) => {
 export const getBookedTimes = async (req, res) => {
     try {
         const { date } = req.params;
+        const now = new Date();
+
         const bookings = await Booking.find({
             date,
             status: { $in: ["PENDING_PAYMENT", "CONFIRMED"] },
         });
 
-        res.json({
-            success: true,
-            bookedTimes: bookings.map((b) => b.time),
+        const slots = bookings.map((b) => {
+            const isExpired =
+                b.status === "PENDING_PAYMENT" &&
+                now - new Date(b.createdAt) > 60 * 60 * 1000;
+
+            return {
+                time: b.time,
+                status: isExpired ? "AVAILABLE" : b.status,
+            };
         });
 
-    } catch (error) {
-        res.status(500).json({ success: false });
+        return res.json({ slots }); // ✅ HERE
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Failed to load slots" });
     }
 };

@@ -979,7 +979,8 @@ export default function BookingCalendar() {
   const [weekOffset, setWeekOffset] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const [bookedTimes, setBookedTimes] = useState([]);
+  // const [bookedTimes, setBookedTimes] = useState([]);
+  const [slots, setSlots] = useState([]);
   const [pendingBooking, setPendingBooking] = useState(null);
 
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -997,7 +998,7 @@ export default function BookingCalendar() {
   /* -------------------- FETCH BOOKED SLOTS -------------------- */
   const loadBookedSlots = async () => {
     const data = await fetchBookedTimes(format(selectedDate, "yyyy-MM-dd"));
-    setBookedTimes(data.bookedTimes || []);
+    setSlots(data.slots || []);
   };
 
   useEffect(() => {
@@ -1125,9 +1126,14 @@ export default function BookingCalendar() {
 
             <div className="grid grid-cols-2 gap-3 max-h-[360px] overflow-y-auto">
               {TIMES.map((t) => {
-                const booked = bookedTimes.includes(t);
+                const slot = slots.find((s) => s.time === t);
+                const status = slot?.status || "AVAILABLE";
+
+                const isPending = status === "PENDING_PAYMENT";
+                const isConfirmed = status === "CONFIRMED";
                 const past = isToday && t <= currentTime;
-                const disabled = booked || past;
+
+                const disabled = isPending || isConfirmed || past;
 
                 return (
                   <button
@@ -1135,15 +1141,24 @@ export default function BookingCalendar() {
                     disabled={disabled}
                     onClick={() => setSelectedTime(t)}
                     className={`py-4 rounded-xl font-mono text-sm border transition
-                      ${
-                        disabled
-                          ? "opacity-20 cursor-not-allowed"
-                          : selectedTime === t
-                          ? "bg-blue-600 text-white"
-                          : "bg-white/5 hover:border-blue-500"
-                      }`}
+        ${
+          isConfirmed
+            ? "opacity-30 cursor-not-allowed bg-white/10"
+            : isPending
+            ? "opacity-40 cursor-wait border-yellow-500/40 text-yellow-400"
+            : selectedTime === t
+            ? "bg-blue-600 text-white"
+            : "bg-white/5 hover:border-blue-500"
+        }
+      `}
                   >
-                    {booked ? "BOOKED" : past ? "EXPIRED" : t}
+                    {isConfirmed
+                      ? "BOOKED"
+                      : isPending
+                      ? "PENDING"
+                      : past
+                      ? "EXPIRED"
+                      : t}
                   </button>
                 );
               })}
