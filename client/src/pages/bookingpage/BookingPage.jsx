@@ -520,10 +520,213 @@
 
 //========================================================
 
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { ChevronDown } from "lucide-react";
+// import BookingCalendar from "../../components/calendar/BookingCalendar";
+
+// const SERVICES = [
+//   {
+//     id: "strategy",
+//     title: "30-Min Strategy Call",
+//     price: "$150",
+//     desc: "High-level architectural review and deployment roadmap.",
+//     consultant: "Alex Riviera",
+//     role: "Solutions Architect",
+//   },
+//   {
+//     id: "audit",
+//     title: "Security Protocol Audit",
+//     price: "$450",
+//     desc: "Deep dive into AES-256 implementation and node security.",
+//     consultant: "Sarah Chen",
+//     role: "Security Lead",
+//   },
+//   {
+//     id: "sync",
+//     title: "Global Sync Setup",
+//     price: "$300",
+//     desc: "Optimizing multi-region latency and node synchronization.",
+//     consultant: "Marcus Vane",
+//     role: "Network Engineer",
+//   },
+//   {
+//     id: "scaling",
+//     title: "Infrastructure Scaling",
+//     price: "$600",
+//     desc: "Enterprise-grade scaling strategy for SaaS platforms.",
+//     consultant: "Alex Riviera",
+//     role: "Solutions Architect",
+//   },
+//   {
+//     id: "custom",
+//     title: "Custom Implementation",
+//     price: "Custom",
+//     desc: "Bespoke digital solutions tailored to your unique stack.",
+//     consultant: "The Core Team",
+//     role: "Full-Stack Agency",
+//   },
+// ];
+
+// export default function BookingPage() {
+//   const navigate = useNavigate();
+//   const [activeService, setActiveService] = useState(SERVICES[0]);
+//   const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+//   return (
+//     <section className="relative h-screen bg-[#050505] text-white overflow-hidden flex items-center justify-center p-6 font-sans">
+//       {/* TERMINATE SESSION - Pushed to very top left */}
+//       <button
+//         onClick={() => navigate("/")}
+//         className="absolute top-8 left-10 z-50 text-[10px] font-mono tracking-[0.5em] text-slate-600 hover:text-blue-400 transition-all uppercase flex items-center gap-2 group"
+//       >
+//         <span className="group-hover:-translate-x-1 transition-transform">
+//           ←
+//         </span>{" "}
+//         TERMINATE_SESSION
+//       </button>
+
+//       {/* MAIN CONTAINER: 35/65 Split */}
+//       <div className="relative z-10 w-full max-w-[1440px] aspect-[16/9] max-h-[85vh] flex bg-[#080808] border border-white/5 rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.6)]">
+//         {/* LEFT PANEL (35%) */}
+//         <div className="w-[35%] border-r border-white/5 p-12 flex flex-col justify-between relative bg-gradient-to-b from-white/[0.03] to-transparent">
+//           <div className="space-y-12">
+//             <div className="space-y-3">
+//               <div className="h-[1px] w-10 bg-blue-600 mb-6" />
+//               <h2 className="text-5xl font-black italic uppercase leading-[0.85] tracking-tighter">
+//                 Deployment <br />
+//                 <span
+//                   className="text-blue-600"
+//                   style={{
+//                     WebkitTextStroke: "1px #2563eb",
+//                     color: "transparent",
+//                   }}
+//                 >
+//                   Protocol
+//                 </span>
+//               </h2>
+//               <p className="text-[10px] font-mono text-slate-500 tracking-[0.3em] uppercase pt-2">
+//                 Phase_01 // Slot_Selection
+//               </p>
+//             </div>
+
+//             {/* CUSTOM SELECT TAG */}
+//             <div className="relative z-50">
+//               <label className="text-[9px] font-mono text-blue-500/60 uppercase tracking-widest ml-1 mb-3 block">
+//                 Protocol_Type
+//               </label>
+//               <button
+//                 onClick={() => setIsSelectOpen(!isSelectOpen)}
+//                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 flex items-center justify-between hover:bg-white/[0.08] transition-all group"
+//               >
+//                 <span className="font-bold italic uppercase text-sm tracking-tight">
+//                   {activeService.title}
+//                 </span>
+//                 <ChevronDown
+//                   className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${
+//                     isSelectOpen ? "rotate-180" : ""
+//                   }`}
+//                 />
+//               </button>
+
+//               <AnimatePresence>
+//                 {isSelectOpen && (
+//                   <>
+//                     <div
+//                       className="fixed inset-0 z-[-1]"
+//                       onClick={() => setIsSelectOpen(false)}
+//                     />
+//                     <motion.div
+//                       initial={{ opacity: 0, y: -10 }}
+//                       animate={{ opacity: 1, y: 0 }}
+//                       exit={{ opacity: 0, y: -10 }}
+//                       className="absolute top-[115%] left-0 w-full bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
+//                     >
+//                       {SERVICES.map((s) => (
+//                         <button
+//                           key={s.id}
+//                           onClick={() => {
+//                             setActiveService(s);
+//                             setIsSelectOpen(false);
+//                           }}
+//                           className={`w-full text-left px-6 py-4 text-xs font-bold uppercase italic border-b border-white/5 last:border-none transition-all flex justify-between items-center
+//                             ${
+//                               activeService.id === s.id
+//                                 ? "bg-blue-600 text-white"
+//                                 : "hover:bg-white/5 text-slate-400"
+//                             }`}
+//                         >
+//                           {s.title}
+//                           <span className="font-mono text-[9px] opacity-50">
+//                             {s.price}
+//                           </span>
+//                         </button>
+//                       ))}
+//                     </motion.div>
+//                   </>
+//                 )}
+//               </AnimatePresence>
+//             </div>
+
+//             {/* CONSULTANT PROFILE */}
+//             <div className="bg-white/[0.02] border border-white/5 rounded-[24px] p-6 space-y-6">
+//               <div className="flex items-center gap-5">
+//                 <div className="relative">
+//                   <div className="absolute inset-0 bg-blue-600/20 blur-lg rounded-full" />
+//                   <img
+//                     src={`https://i.pravatar.cc/150?u=${activeService.consultant}`}
+//                     className="relative w-14 h-14 rounded-2xl grayscale contrast-125 border border-white/10 object-cover"
+//                     alt="Consultant"
+//                   />
+//                 </div>
+//                 <div>
+//                   <h4 className="font-bold uppercase italic text-base leading-none mb-1">
+//                     {activeService.consultant}
+//                   </h4>
+//                   <p className="text-[9px] font-mono text-blue-500 uppercase tracking-widest">
+//                     {activeService.role}
+//                   </p>
+//                 </div>
+//               </div>
+//               <p className="text-slate-500 text-xs leading-relaxed italic">
+//                 "{activeService.desc}"
+//               </p>
+//             </div>
+//           </div>
+
+//           {/* STATUS FOOTER */}
+//           <div className="flex gap-8 opacity-40 text-[9px] font-mono uppercase tracking-widest">
+//             <div className="flex flex-col gap-1">
+//               <span>Latencey</span>
+//               <span className="text-white font-bold">0.004 MS</span>
+//             </div>
+//             <div className="flex flex-col gap-1">
+//               <span>Uptime</span>
+//               <span className="text-white font-bold">99.9%</span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* RIGHT PANEL (65%) */}
+//         <div className="w-[65%] relative bg-black/20">
+//           <BookingCalendar
+//             serviceTitle={activeService.title}
+//             isEmbedded={true}
+//           />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+//==================================================
+//==================================================
+//==================================================
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowLeft } from "lucide-react";
 import BookingCalendar from "../../components/calendar/BookingCalendar";
 
 const SERVICES = [
@@ -575,26 +778,29 @@ export default function BookingPage() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   return (
-    <section className="relative h-screen bg-[#050505] text-white overflow-hidden flex items-center justify-center p-6 font-sans">
-      {/* TERMINATE SESSION - Pushed to very top left */}
+    <section className="relative min-h-screen bg-[#050505] text-white overflow-x-hidden flex items-center justify-center p-4 md:p-6 font-sans">
+      {/* 🟢 NAVIGATION: TERMINATE SESSION */}
       <button
         onClick={() => navigate("/")}
-        className="absolute top-8 left-10 z-50 text-[10px] font-mono tracking-[0.5em] text-slate-600 hover:text-blue-400 transition-all uppercase flex items-center gap-2 group"
+        className="absolute top-6 left-6 md:top-8 md:left-10 z-[100] text-[10px] font-mono tracking-[0.5em] text-slate-500 hover:text-blue-400 transition-all uppercase flex items-center gap-2 group"
       >
-        <span className="group-hover:-translate-x-1 transition-transform">
-          ←
-        </span>{" "}
-        TERMINATE_SESSION
+        <ArrowLeft
+          size={14}
+          className="group-hover:-translate-x-1 transition-transform"
+        />
+        <span className="hidden sm:inline">TERMINATE_SESSION</span>
+        <span className="sm:hidden inline">BACK</span>
       </button>
 
-      {/* MAIN CONTAINER: 35/65 Split */}
-      <div className="relative z-10 w-full max-w-[1440px] aspect-[16/9] max-h-[85vh] flex bg-[#080808] border border-white/5 rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.6)]">
-        {/* LEFT PANEL (35%) */}
-        <div className="w-[35%] border-r border-white/5 p-12 flex flex-col justify-between relative bg-gradient-to-b from-white/[0.03] to-transparent">
-          <div className="space-y-12">
+      {/* 🟢 MAIN CONTAINER: Stacked on Mobile, Split on Desktop */}
+      <div className="relative z-10 w-full max-w-[1440px] md:aspect-[16/9] md:max-h-[85vh] flex flex-col md:flex-row bg-[#080808] border border-white/5 rounded-[24px] md:rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.6)] mt-12 md:mt-0">
+        {/* LEFT PANEL: 100% Mobile, 35% Desktop */}
+        <div className="w-full md:w-[35%] border-b md:border-b-0 md:border-r border-white/5 p-6 md:p-12 flex flex-col justify-between relative bg-gradient-to-b from-white/[0.03] to-transparent">
+          <div className="space-y-8 md:space-y-12">
+            {/* Title Section */}
             <div className="space-y-3">
-              <div className="h-[1px] w-10 bg-blue-600 mb-6" />
-              <h2 className="text-5xl font-black italic uppercase leading-[0.85] tracking-tighter">
+              <div className="h-[1px] w-10 bg-blue-600 mb-4 md:mb-6" />
+              <h2 className="text-3xl md:text-5xl font-black italic uppercase leading-[0.85] tracking-tighter">
                 Deployment <br />
                 <span
                   className="text-blue-600"
@@ -606,25 +812,25 @@ export default function BookingPage() {
                   Protocol
                 </span>
               </h2>
-              <p className="text-[10px] font-mono text-slate-500 tracking-[0.3em] uppercase pt-2">
+              <p className="text-[9px] md:text-[10px] font-mono text-slate-500 tracking-[0.3em] uppercase pt-2">
                 Phase_01 // Slot_Selection
               </p>
             </div>
 
-            {/* CUSTOM SELECT TAG */}
-            <div className="relative z-50">
-              <label className="text-[9px] font-mono text-blue-500/60 uppercase tracking-widest ml-1 mb-3 block">
+            {/* CUSTOM SELECT */}
+            <div className="relative z-[60]">
+              <label className="text-[9px] font-mono text-blue-500/60 uppercase tracking-widest ml-1 mb-2 block">
                 Protocol_Type
               </label>
               <button
                 onClick={() => setIsSelectOpen(!isSelectOpen)}
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 flex items-center justify-between hover:bg-white/[0.08] transition-all group"
+                className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 py-4 flex items-center justify-between hover:bg-white/[0.08] transition-all group"
               >
-                <span className="font-bold italic uppercase text-sm tracking-tight">
+                <span className="font-bold italic uppercase text-xs md:text-sm tracking-tight truncate mr-2">
                   {activeService.title}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${
+                  className={`w-4 h-4 text-slate-500 shrink-0 transition-transform duration-300 ${
                     isSelectOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -641,7 +847,7 @@ export default function BookingPage() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute top-[115%] left-0 w-full bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[60]"
+                      className="absolute top-[115%] left-0 w-full bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[70]"
                     >
                       {SERVICES.map((s) => (
                         <button
@@ -650,7 +856,7 @@ export default function BookingPage() {
                             setActiveService(s);
                             setIsSelectOpen(false);
                           }}
-                          className={`w-full text-left px-6 py-4 text-xs font-bold uppercase italic border-b border-white/5 last:border-none transition-all flex justify-between items-center
+                          className={`w-full text-left px-5 py-4 text-[10px] md:text-xs font-bold uppercase italic border-b border-white/5 last:border-none transition-all flex justify-between items-center
                             ${
                               activeService.id === s.id
                                 ? "bg-blue-600 text-white"
@@ -658,7 +864,7 @@ export default function BookingPage() {
                             }`}
                         >
                           {s.title}
-                          <span className="font-mono text-[9px] opacity-50">
+                          <span className="font-mono text-[8px] opacity-50">
                             {s.price}
                           </span>
                         </button>
@@ -670,35 +876,35 @@ export default function BookingPage() {
             </div>
 
             {/* CONSULTANT PROFILE */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-[24px] p-6 space-y-6">
-              <div className="flex items-center gap-5">
-                <div className="relative">
+            <div className="bg-white/[0.02] border border-white/5 rounded-[20px] md:rounded-[24px] p-5 md:p-6 space-y-4 md:space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="relative shrink-0">
                   <div className="absolute inset-0 bg-blue-600/20 blur-lg rounded-full" />
                   <img
                     src={`https://i.pravatar.cc/150?u=${activeService.consultant}`}
-                    className="relative w-14 h-14 rounded-2xl grayscale contrast-125 border border-white/10 object-cover"
+                    className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl grayscale contrast-125 border border-white/10 object-cover"
                     alt="Consultant"
                   />
                 </div>
-                <div>
-                  <h4 className="font-bold uppercase italic text-base leading-none mb-1">
+                <div className="overflow-hidden">
+                  <h4 className="font-bold uppercase italic text-sm md:text-base leading-none mb-1 truncate">
                     {activeService.consultant}
                   </h4>
-                  <p className="text-[9px] font-mono text-blue-500 uppercase tracking-widest">
+                  <p className="text-[8px] md:text-[9px] font-mono text-blue-500 uppercase tracking-widest truncate">
                     {activeService.role}
                   </p>
                 </div>
               </div>
-              <p className="text-slate-500 text-xs leading-relaxed italic">
+              <p className="text-slate-500 text-[11px] leading-relaxed italic line-clamp-2 md:line-clamp-none">
                 "{activeService.desc}"
               </p>
             </div>
           </div>
 
-          {/* STATUS FOOTER */}
-          <div className="flex gap-8 opacity-40 text-[9px] font-mono uppercase tracking-widest">
+          {/* HUD FOOTER - Hidden on very small screens to save space */}
+          <div className="hidden md:flex gap-8 opacity-40 text-[9px] font-mono uppercase tracking-widest mt-8">
             <div className="flex flex-col gap-1">
-              <span>Latencey</span>
+              <span>Latency</span>
               <span className="text-white font-bold">0.004 MS</span>
             </div>
             <div className="flex flex-col gap-1">
@@ -708,8 +914,8 @@ export default function BookingPage() {
           </div>
         </div>
 
-        {/* RIGHT PANEL (65%) */}
-        <div className="w-[65%] relative bg-black/20">
+        {/* RIGHT PANEL: The Calendar */}
+        <div className="w-full md:w-[65%] relative bg-black/20 overflow-y-auto">
           <BookingCalendar
             serviceTitle={activeService.title}
             isEmbedded={true}

@@ -502,10 +502,41 @@ const HoloForm = () => {
   const [focused, setFocused] = useState(null);
   const [status, setStatus] = useState("idle");
 
-  const handleSubmit = (e) => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
-    setTimeout(() => setStatus("success"), 2200);
+
+    try {
+      const res = await fetch("/api/contact/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Contact error:", err);
+      setStatus("idle");
+      alert("Failed to send message. Please try again.");
+    }
   };
 
   if (status === "success") {
@@ -522,8 +553,7 @@ const HoloForm = () => {
           Uplink Success
         </h3>
         <p className="text-slate-400 leading-relaxed max-w-xs">
-          Your transmission has been encrypted and received. An operator will
-          contact you shortly.
+          Your transmission has been encrypted and received.
         </p>
         <button
           onClick={() => setStatus("idle")}
@@ -540,30 +570,38 @@ const HoloForm = () => {
       onSubmit={handleSubmit}
       className="bg-[#0c0c0c]/90 backdrop-blur-2xl border border-white/10 p-10 rounded-[32px] shadow-3xl relative overflow-hidden group"
     >
-      {/* HUD Scanline Effect */}
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-scanline pointer-events-none" />
-
       <div className="space-y-10">
         <HoloInput
           label="Identity / Name"
           placeholder="ENTER NAME"
           type="text"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
           isFocused={focused === "name"}
           onFocus={() => setFocused("name")}
           onBlur={() => setFocused(null)}
         />
+
         <HoloInput
           label="Coordinate / Email"
           placeholder="EMAIL@DOMAIN.COM"
           type="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
           isFocused={focused === "email"}
           onFocus={() => setFocused("email")}
           onBlur={() => setFocused(null)}
         />
+
         <HoloInput
           label="Mission / Message"
           placeholder="DESCRIBE THE VISION..."
           type="textarea"
+          name="message"
+          value={form.message}
+          onChange={handleChange}
           isFocused={focused === "message"}
           onFocus={() => setFocused("message")}
           onBlur={() => setFocused(null)}
@@ -572,25 +610,9 @@ const HoloForm = () => {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="w-full relative overflow-hidden bg-white text-black font-bold py-5 rounded-xl transition-all hover:bg-blue-600 hover:text-white group/btn"
+          className="w-full bg-white text-black font-bold py-5 rounded-xl hover:bg-blue-600 hover:text-white transition-all"
         >
-          <div className="relative z-10 flex items-center justify-center gap-3">
-            {status === "loading" ? (
-              <>
-                <Loader2 className="animate-spin w-5 h-5" />
-                <span className="font-mono tracking-widest uppercase">
-                  Syncing...
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="font-mono tracking-[0.2em] uppercase text-xs">
-                  Establish Uplink
-                </span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-              </>
-            )}
-          </div>
+          {status === "loading" ? "Syncing..." : "Establish Uplink"}
         </button>
 
         <p className="text-center text-[10px] font-mono text-slate-600 uppercase tracking-widest">

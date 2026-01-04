@@ -7,6 +7,7 @@ import connectToDb from "./config/mongodb.js"
 import bookingRoutes from "./routes/bookingsRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import paypalRoutes from "./routes/paypalRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js"
 import { expirePendingBookings } from "./jobs/expireBookings.js";
 // import "./services/emailReminderService.js";
 // import "./services/smsReminderService.js";
@@ -50,6 +51,7 @@ setInterval(expirePendingBookings, 60 * 1000);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/paypal", paypalRoutes);
+app.use("/api/contact", contactRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));
 
