@@ -972,9 +972,9 @@ export default function Hero() {
             </div>
 
             <h1 className="text-7xl md:text-8xl xl:text-[110px] font-black leading-[0.85] tracking-[-0.04em] text-white uppercase">
-              DIGITAL <br />
+              {t("hero.digital")} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 italic">
-                SOLUTIONS
+                {t("hero.solutions")}
               </span>
             </h1>
           </div>
@@ -994,7 +994,7 @@ export default function Hero() {
             className="group relative h-16 w-72 bg-white overflow-hidden rounded-xl transition-all duration-500 shadow-2xl shadow-blue-500/5"
           >
             <span className="relative z-10 text-black font-bold uppercase tracking-[0.2em] text-[10px]">
-              Execute Protocol →
+              {t("hero.bookBtn")} →
             </span>
             <div className="absolute inset-0 bg-blue-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
           </motion.button>

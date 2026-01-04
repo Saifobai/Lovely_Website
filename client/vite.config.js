@@ -17,4 +17,18 @@ export default defineConfig({
       '@pixi/react': '@pixi/react',
     },
   },
+
+  theme: {
+    extend: {
+      keyframes: {
+        scan: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(400%)' },
+        }
+      },
+      animation: {
+        scan: 'scan 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      }
+    }
+  }
 })
