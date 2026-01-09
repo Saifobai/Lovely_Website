@@ -7,6 +7,18 @@ export default defineConfig({
   plugins: [react(),
   tailwindcss(),
   ],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+
+
+
   optimizeDeps: {
     // This forces Vite to process these libraries correctly
     include: ['@pixi/react', 'pixi.js'],
