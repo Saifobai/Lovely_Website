@@ -71,6 +71,7 @@ import bookingRoutes from "./routes/bookingsRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import paypalRoutes from "./routes/paypalRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
+import testRoutes from "./routes/testRoutes.js";
 import { expirePendingBookings } from "./jobs/expireBookings.js";
 
 // ======================
@@ -102,7 +103,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
     cors({
-        origin: true, // ✅ allow your domain automatically
+        origin: true, // allow frontend domain
         credentials: true,
     })
 );
@@ -120,25 +121,23 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/paypal", paypalRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/test", testRoutes);
 
 // ======================
 // SERVE REACT (VITE BUILD)
 // ======================
-app.use(
-    express.static(path.join(__dirname, "../client/dist"))
-);
+const clientPath = path.join(__dirname, "../client/dist");
+app.use(express.static(clientPath));
 
-// app.get("/*", (req, res) => {
-//     res.sendFile(
-//         path.join(__dirname, "../client/dist/index.html")
-//     );
-// });
-
+// React fallback (Express 5 / Node 22 SAFE)
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(clientPath, "index.html"));
+});
 
 // ======================
-// START SERVER (HOSTINGER SAFE)
+// START SERVER
 // ======================
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-    console.log(`Server running on port ${PORT}`)
-);
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
