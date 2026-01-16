@@ -15,16 +15,16 @@ i18n.use(initReactI18next).init({
                 hero: {
                     badge: "✨ New Feature Launch",
                     title: "Accelerate Your Business Growth",
-                    description: "Our powerful SaaS platform helps modern teams increase productivity by",
+                    description: "Clarity-driven boutique consulting in Düsseldorf, Germany (or just Germany) for businesses, founders, and global talent navigating complex decisions across business, mobility, technology, and place.",
                     highlight: "40%",
                     descriptionEnd: "and reduce operational costs.",
                     cta: "Get Consultant →",
                     revenue: "Revenue Growth",
                     time: "Time Saved",
                     users: "Active Users",
-                    digital: "DIGITAL",
-                    solutions: "SOLUTIONS",
-                    bookBtn: "Book a Consultation"
+                    digital: "Consulting",
+                    solutions: "Reimagined",
+                    bookBtn: "Start a Conversation"
                 },
                 about: {
                     we: "We transform",
@@ -119,16 +119,16 @@ i18n.use(initReactI18next).init({
                 hero: {
                     badge: "✨ Neue Funktion gestartet",
                     title: "Beschleunigen Sie Ihr Unternehmenswachstum",
-                    description: "Unsere leistungsstarke SaaS-Plattform hilft modernen Teams, die Produktivität um",
+                    description: "Klarstellungsorientierte Boutique-Beratung in Düsseldorf (oder einfach in Deutschland) für Unternehmen, Gründer und internationale Talente, die komplexe Entscheidungen in den Bereichen Wirtschaft, Mobilität, Technologie und Standort treffen.",
                     highlight: "40%",
                     descriptionEnd: "zu steigern und Betriebskosten zu senken.",
                     cta: "Beratung buchen →",
                     revenue: "Umsatzwachstum",
                     time: "Zeit gespart",
                     users: "Aktive Nutzer",
-                    digital: "DIGITALE",
-                    solutions: "LÖSUNGEN",
-                    bookBtn: "Eine Beratung buchen"
+                    digital: "Beratung neu",
+                    solutions: "gedacht",
+                    bookBtn: "Beginnen Sie ein Gespräch"
                 },
                 about: {
                     we: "Wir verwandeln",
