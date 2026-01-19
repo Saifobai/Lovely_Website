@@ -27,11 +27,17 @@ i18n.use(initReactI18next).init({
                     bookBtn: "Start a Conversation"
                 },
                 about: {
-                    we: "We transform",
-                    abstract: "abstract complexity",
-                    into: "into tangible digital growth through precision engineering.",
-                    operate: "Operating at the intersection of luxury design and functional technology, we scale trust rather than headcounts.",
-                    result: "Our result is guidance that is strategically grounded and human-centric across all jurisdictions."
+                    badge: "/// System_Identity",
+                    title: "Lovely",
+                    subtitle: "Boutique Consulting with Perspective",
+                    description: "Lovely is your strategic partner. We translate complexity into clear decisions and coordinated action, always grounded in your goals.",
+                    points: [
+                        "Boutique mindset, adaptive and client-focused",
+                        "Tailored solutions through close collaboration",
+                        "Clear scope, communication, and outcomes",
+                        "Coordination of trusted, licensed partners"
+                    ],
+                    footer: "Guided by Creativity, Collaboration, and Clarity."
                 },
                 services: {
                     header: {
@@ -53,7 +59,7 @@ i18n.use(initReactI18next).init({
                             description: "End-to-end immigration guidance ensuring regulatory compliance across global jurisdictions."
                         },
                         it: {
-                            title: "IT Consulting Services",
+                            title: "AI & IT Consulting Services",
                             description: "High-performance IT architecture, system optimization, and secure digital transformation."
                         },
                         realestate: {
@@ -131,11 +137,17 @@ i18n.use(initReactI18next).init({
                     bookBtn: "Beginnen Sie ein Gespräch"
                 },
                 about: {
-                    we: "Wir verwandeln",
-                    abstract: "abstrakte Komplexität",
-                    into: "in greifbares digitales Wachstum durch präzise Technik.",
-                    operate: "Wir agieren an der Schnittstelle von luxuriösem Design und funktionaler Technologie und skalieren Vertrauen statt Personal.",
-                    result: "Unser Ergebnis ist eine strategisch fundierte und menschzentrierte Beratung in allen Rechtsordnungen."
+                    badge: "/// System_Identität",
+                    title: "Lovely",
+                    subtitle: "Boutique-Beratung mit Perspektive",
+                    description: "Lovely ist Ihr strategischer Partner. Wir übersetzen Komplexität in klare Entscheidungen und koordiniertes Handeln, immer orientiert an Ihren Zielen.",
+                    points: [
+                        "Boutique-Mentalität, adaptiv und kundenorientiert",
+                        "Maßgeschneiderte Lösungen durch enge Zusammenarbeit",
+                        "Klarer Umfang, Kommunikation und Ergebnisse",
+                        "Koordination von vertrauenswürdigen, lizenzierten Partnern"
+                    ],
+                    footer: "Geleitet von Kreativität, Kollaboration und Klarheit."
                 },
                 services: {
                     header: {

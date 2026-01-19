@@ -68,7 +68,7 @@ const Navbar = () => {
           {/* ACTIONS */}
           <div className="flex items-center gap-6">
             <div className="hidden sm:block h-4 w-[1px] bg-white/10" />
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
 
             {/* MOBILE TOGGLE */}
             <button
