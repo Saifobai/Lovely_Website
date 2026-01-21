@@ -219,3 +219,24 @@ canvas {
 .translate-z-100 {
   transform: translateZ(100px);
 }
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(10deg); opacity: 0.5; }
+  40% { transform: skew(-10deg); opacity: 0.8; }
+  60% { transform: skew(5deg); }
+  100% { transform: skew(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.group-hover\/icon\:animate-glitch {
+  animation: glitch-skew 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+}

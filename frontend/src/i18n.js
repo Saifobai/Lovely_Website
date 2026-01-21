@@ -63,12 +63,16 @@ i18n.use(initReactI18next).init({
                             description: "High-performance IT architecture, system optimization, and secure digital transformation."
                         },
                         realestate: {
-                            title: "Real Estate – Buy & Sell",
+                            title: "Real Estate Deals",
                             description: "Premium advisory for buying, selling, and structuring real estate investments."
                         },
                         events: {
-                            title: "Events",
+                            title: "Qatar Strategic Access Program",
                             description: "High-impact corporate and private event execution with precision logistics."
+                        },
+                        mobility: {
+                            title: "Global Mobility Services",
+                            description: "Comprehensive solutions for international relocation, travel logistics, and mobility strategy."
                         }
                     },
                     modal: {

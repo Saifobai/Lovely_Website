@@ -13,7 +13,7 @@ const portalVisuals = {
     gradient: "linear-gradient(135deg, #1c1c84, #000068)",
     accent: "#3b82f6",
   },
-  immigration: {
+  mobility: {
     gradient: "linear-gradient(135deg, #0f766e, #042f2e)",
     accent: "#14b8a6",
   },
@@ -47,9 +47,9 @@ export default function ServicesSection() {
       },
       {
         id: "02",
-        title: t("services.list.immigration.title"),
-        description: t("services.list.immigration.description"),
-        visual: portalVisuals.immigration,
+        title: t("services.list.mobility.title"),
+        description: t("services.list.mobility.description"),
+        visual: portalVisuals.mobility,
       },
       {
         id: "03",

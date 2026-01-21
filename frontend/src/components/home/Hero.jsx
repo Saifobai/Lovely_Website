@@ -292,7 +292,7 @@ export default function Hero() {
   return (
     <Section
       id="hero"
-      className="bg-[#050505] perspective-1000 flex items-center min-h-screen"
+      className="bg-[#050505] pt-32 perspective-1000 flex items-center min-h-screen"
     >
       <BackgroundSystem />
 

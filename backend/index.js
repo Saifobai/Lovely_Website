@@ -69,8 +69,9 @@ import { fileURLToPath } from "url";
 import connectToDb from "./config/mongodb.js";
 import bookingRoutes from "./routes/bookingsRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
-import paypalRoutes from "./routes/paypalRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js"
 import contactRoutes from "./routes/contactRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js"
 import testRoutes from "./routes/testRoutes.js";
 import { expirePendingBookings } from "./jobs/expireBookings.js";
 
@@ -118,9 +119,10 @@ setInterval(expirePendingBookings, 60 * 1000);
 // API ROUTES
 // ======================
 app.use("/api/bookings", bookingRoutes);
-app.use("/api/stripe", stripeRoutes);
-app.use("/api/paypal", paypalRoutes);
+app.use("/api/payments", paymentRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/stripe", stripeRoutes);
+app.use("/api/services", serviceRoutes);
 app.use("/api/test", testRoutes);
 
 // ======================

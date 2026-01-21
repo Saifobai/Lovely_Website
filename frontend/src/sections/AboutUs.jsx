@@ -1,188 +1,3 @@
-// import { motion } from "framer-motion";
-// import Section from "../components/layout/Section";
-// import { useTranslation } from "react-i18next";
-// import { Linkedin, Instagram } from "lucide-react";
-
-// // Import Swiper React components and styles
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Autoplay, Pagination } from "swiper/modules";
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import LanaImage from "../assets/Images/Lana_01.jpg";
-// import LovelyImage from "../assets/Images/Lovely_02.jpeg";
-
-// export function AboutUs() {
-//   const { t } = useTranslation();
-
-//   const team = [
-//     {
-//       name: "Leon S.",
-//       role: "Founder & Chief Architect",
-//       image:
-//         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800",
-//     },
-//     {
-//       name: "Lovely L.",
-//       role: "Head of Digital Strategy",
-//       image: LovelyImage,
-//     },
-//     {
-//       name: "Marcus V.",
-//       role: "Lead Systems Engineer",
-//       image:
-//         "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800",
-//     },
-//     {
-//       name: "Lana R.",
-//       role: "Creative Director",
-//       image: LanaImage,
-//     },
-//   ];
-
-//   return (
-//     <Section id="about">
-//       {/* Narrative Section */}
-//       <div className="grid lg:grid-cols-12 gap-12 mb-24">
-//         <div className="lg:col-span-4 border-l border-blue-500/30 pl-8">
-//           <p className="font-mono text-[10px] text-blue-500 uppercase tracking-[0.4em] mb-4">
-//             /// System_Identity
-//           </p>
-//           <h3 className="text-white text-2xl font-bold tracking-tighter">
-//             LS DIGITAL
-//           </h3>
-//         </div>
-//         <div className="lg:col-span-8">
-//           <h2 className="text-4xl md:text-6xl font-light leading-tight text-white mb-12">
-//             {t("about.we")}{" "}
-//             <span className="hollow-text font-bold italic">
-//               {t("about.abstract")}
-//             </span>{" "}
-//             {t("about.into")}
-//           </h2>
-//         </div>
-//       </div>
-
-//       {/* --- SWIPER SLIDER --- */}
-//       <div className="relative py-10 group">
-//         <Swiper
-//           modules={[Autoplay, Pagination]}
-//           spaceBetween={30}
-//           slidesPerView={1.2}
-//           centeredSlides={true}
-//           loop={true}
-//           speed={1000}
-//           autoplay={{
-//             delay: 3000,
-//             disableOnInteraction: false,
-//             pauseOnMouseEnter: true,
-//           }}
-//           pagination={{
-//             clickable: true,
-//             dynamicBullets: true,
-//           }}
-//           breakpoints={{
-//             768: { slidesPerView: 2 },
-//             1024: { slidesPerView: 3 },
-//           }}
-//           className="team-swiper !pb-16"
-//         >
-//           {team.map((member, index) => (
-//             <SwiperSlide key={index}>
-//               {({ isActive }) => (
-//                 <TeamCard member={member} isActive={isActive} />
-//               )}
-//             </SwiperSlide>
-//           ))}
-//         </Swiper>
-
-//         {/* CSS for custom dots (Add this to your index.css or a style tag) */}
-//         <style
-//           dangerouslySetInnerHTML={{
-//             __html: `
-//           .swiper-pagination-bullet { background: #1e293b !important; opacity: 1 !important; }
-//           .swiper-pagination-bullet-active { background: #3b82f6 !important; box-shadow: 0 0 10px #3b82f6; }
-//         `,
-//           }}
-//         />
-//       </div>
-//     </Section>
-//   );
-// }
-
-// const TeamCard = ({ member, isActive }) => {
-//   return (
-//     <div
-//       className={`relative bg-[#050505] border transition-all duration-700 rounded-xl overflow-hidden shadow-2xl
-//       ${
-//         isActive
-//           ? "border-blue-500/50 scale-100"
-//           : "border-white/10 scale-95 opacity-50"
-//       }`}
-//     >
-//       <div className="relative aspect-[10/9] overflow-hidden">
-//         <img
-//           src={member.image}
-//           className={`w-full h-full object-cover transition-all duration-700
-//             ${
-//               isActive
-//                 ? "grayscale-0 brightness-100"
-//                 : "grayscale brightness-50"
-//             }`}
-//         />
-
-//         {/* Scan Line - only visible when active */}
-//         {isActive && (
-//           <div className="absolute inset-0 w-full h-[1px] bg-blue-400 shadow-[0_0_15px_#3b82f6] z-20 animate-scan pointer-events-none" />
-//         )}
-
-//         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
-//       </div>
-
-//       <div className="p-6 border-t border-white/5">
-//         <div className="flex justify-between items-end">
-//           <div>
-//             <p className="text-[9px] font-mono text-blue-500 uppercase tracking-widest opacity-50">
-//               Core_Unit
-//             </p>
-//             <h4
-//               className={`text-xl font-bold uppercase transition-colors duration-700 ${
-//                 isActive ? "text-white" : "text-slate-600"
-//               }`}
-//             >
-//               {member.name}
-//             </h4>
-//             <p className="text-[10px] text-slate-500 font-mono italic">{`// ${member.role}`}</p>
-//           </div>
-
-//           <div className="flex gap-4">
-//             <a
-//               href="#"
-//               className={`transition-all duration-500 ${
-//                 isActive
-//                   ? "text-blue-500 drop-shadow-[0_0_8px_#3b82f6]"
-//                   : "text-slate-700"
-//               }`}
-//             >
-//               <Linkedin size={18} />
-//             </a>
-//             <a
-//               href="#"
-//               className={`transition-all duration-500 ${
-//                 isActive
-//                   ? "text-rose-500 drop-shadow-[0_0_8px_#f43f5e]"
-//                   : "text-slate-700"
-//               }`}
-//             >
-//               <Instagram size={18} />
-//             </a>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-//==============================================
 import { motion } from "framer-motion";
 import Section from "../components/layout/Section";
 import { useTranslation } from "react-i18next";
@@ -313,55 +128,149 @@ export function AboutUs() {
 const TeamCard = ({ member, isActive }) => {
   return (
     <div
-      className={`relative bg-[#050505] border transition-all duration-700 rounded-[30px] overflow-hidden shadow-2xl 
+      className={`relative bg-[#050505] border transition-all duration-700 rounded-[24px] overflow-hidden shadow-2xl 
       ${
         isActive
-          ? "border-blue-500/50 scale-100"
-          : "border-white/10 scale-95 opacity-40 blur-[1px]"
+          ? "border-blue-500/40 scale-100"
+          : "border-white/5 scale-95 opacity-40 blur-[0.5px]"
       }`}
     >
-      <div className="relative aspect-[4/5] overflow-hidden">
+      {/* 1. TOP UI BAR */}
+      <div className="absolute top-4 left-4 right-4 z-30 flex justify-between items-center pointer-events-none">
+        <div
+          className={`px-2 py-1 rounded bg-black/60 backdrop-blur-md border border-white/10 flex items-center gap-2 transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-0"}`}
+        >
+          <div className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
+          <span className="text-[8px] font-mono text-white/70 uppercase tracking-[0.2em]">
+            Unit_Active
+          </span>
+        </div>
+        <span className="text-[10px] font-mono text-white/20 uppercase italic">
+          {member.name.split(" ")[0]}_Ref.742
+        </span>
+      </div>
+
+      {/* 2. IMAGE CONTAINER */}
+      <div className="relative aspect-square overflow-hidden border-b border-white/5">
         <img
           src={member.image}
           className={`w-full h-full object-cover transition-all duration-1000 
-            ${isActive ? "grayscale-0 scale-105" : "grayscale brightness-50"}`}
+            ${isActive ? "grayscale-0 scale-110 brightness-110" : "grayscale brightness-40"}`}
         />
 
         {isActive && (
-          <div className="absolute inset-0 w-full h-[2px] bg-blue-400/50 shadow-[0_0_20px_#3b82f6] z-20 animate-scan pointer-events-none" />
+          <>
+            <div className="absolute top-2 left-2 w-4 h-4 border-t border-l border-blue-500/50 z-20" />
+            <div className="absolute top-2 right-2 w-4 h-4 border-t border-r border-blue-500/50 z-20" />
+            <div className="absolute bottom-2 left-2 w-4 h-4 border-b border-l border-blue-500/50 z-20" />
+            <div className="absolute bottom-2 right-2 w-4 h-4 border-b border-r border-blue-500/50 z-20" />
+            <div className="absolute inset-0 w-full h-[1px] bg-blue-400/30 shadow-[0_0_15px_#3b82f6] z-20 animate-scan pointer-events-none" />
+          </>
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
       </div>
 
-      <div className="p-8 border-t border-white/5">
-        <div className="flex justify-between items-center">
-          <div>
-            <p className="text-[9px] font-mono text-blue-500 uppercase tracking-widest mb-1">
-              Core_Unit
-            </p>
+      {/* 3. CONTENT AREA */}
+      <div className="p-6">
+        <div className="flex justify-between items-end">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <div
+                className={`h-[1px] bg-blue-500 transition-all duration-700 ${isActive ? "w-4" : "w-0"}`}
+              />
+              <p className="text-[8px] font-mono text-blue-500 uppercase tracking-widest">
+                Class_Partner
+              </p>
+            </div>
             <h4
-              className={`text-2xl font-bold uppercase tracking-tighter transition-colors duration-700 ${
+              className={`text-xl font-bold uppercase tracking-tight transition-colors duration-700 ${
                 isActive ? "text-white" : "text-slate-600"
               }`}
             >
               {member.name}
             </h4>
-            <p className="text-xs text-slate-500 font-mono italic mt-1">{`// ${member.role}`}</p>
+            <p className="text-[10px] text-slate-200 font-mono tracking-tighter opacity-80">
+              {`>> ${member.role}`}
+            </p>
           </div>
 
+          {/* AUTOMATED INSTAGRAM HUD */}
           <a
             href="#"
-            className={`p-3 rounded-full border transition-all duration-500 ${
+            className={`group/icon relative flex items-center justify-center w-12 h-12 transition-all duration-700 ${
               isActive
-                ? "text-white border-white/20 hover:bg-white/10"
-                : "text-slate-700 border-transparent"
+                ? "opacity-100 cursor-pointer"
+                : "opacity-0 pointer-events-none"
             }`}
           >
-            <Instagram size={20} />
+            {/* Brackets - Now trigger on isActive */}
+            <div
+              className={`absolute border-l border-t border-blue-500 transition-all duration-500 top-0 left-0 ${isActive ? "w-3 h-3 opacity-100" : "w-0 h-0 opacity-0"}`}
+            />
+            <div
+              className={`absolute border-r border-b border-blue-500 transition-all duration-500 bottom-0 right-0 ml-auto mt-auto ${isActive ? "w-3 h-3 opacity-100" : "w-0 h-0 opacity-0"}`}
+            />
+
+            {/* Hex Shield - Now trigger on isActive */}
+            <div
+              className={`absolute inset-0 transition-opacity duration-1000 ${isActive ? "opacity-100" : "opacity-0"}`}
+            >
+              <svg
+                viewBox="0 0 100 100"
+                className="w-full h-full animate-spin-slow text-blue-500/30"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeDasharray="15 10"
+                  d="M50 5 L90 25 L90 75 L50 95 L100 75 L10 75 L10 25 Z"
+                />
+              </svg>
+            </div>
+
+            {/* Glitch Crosshair - Now trigger on isActive */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div
+                className={`bg-blue-400 transition-all duration-1000 ${isActive ? "w-full opacity-30" : "w-0 opacity-0"} h-[1px]`}
+              />
+              <div
+                className={`bg-blue-400 transition-all duration-1000 ${isActive ? "h-full opacity-30" : "h-0 opacity-0"} w-[1px] absolute`}
+              />
+            </div>
+
+            {/* Icon - Now triggers animations on isActive */}
+            <div className="relative z-10">
+              <Instagram
+                size={20}
+                className={`transition-all duration-700 ${
+                  isActive
+                    ? "text-blue-400 scale-110 rotate-[360deg] drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                    : "text-transparent scale-50"
+                }`}
+              />
+              {/* Ghost Pulse */}
+              <Instagram
+                size={20}
+                className={`absolute top-0 left-0 text-rose-500 pointer-events-none ${isActive ? "animate-ping opacity-40" : "opacity-0"}`}
+              />
+            </div>
+
+            {/* Label - Now trigger on isActive */}
+            <span
+              className={`absolute -bottom-2 right-0 font-mono text-[6px] text-blue-500 transition-all duration-700 ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+            >
+              EXT_LINK_SGNL
+            </span>
           </a>
         </div>
       </div>
+
+      {/* Bottom Data Glow */}
+      <div
+        className={`absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent transition-all duration-1000 ${isActive ? "w-full opacity-100" : "w-0 opacity-0"}`}
+      />
     </div>
   );
 };
