@@ -74,7 +74,7 @@ const Section = ({ children, id, className = "" }) => {
         duration: 0.9,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
-      className={`relative w-full min-h-screen flex items-center justify-center bg-[#050505] overflow-hidden ${className}`}
+      className={`relative w-full min-h-screen flex items-center justify-center  overflow-hidden ${className}`}
     >
       {/* Cinematic Grain Overlay */}
       <div className="noise-overlay pointer-events-none opacity-[0.03]" />

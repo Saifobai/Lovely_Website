@@ -335,10 +335,278 @@
 // }
 
 //==========================================================
+// import React, { useEffect, useState } from "react";
+// import { addDays, format, startOfWeek, addWeeks, isSameDay } from "date-fns";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { ChevronLeft, ChevronRight, Globe } from "lucide-react";
+
+// import { TIMES } from "../../constants/time";
+// import { createBooking, fetchBookedTimes } from "../../api/booking.api";
+
+// import PendingPaymentModal from "./PendingPaymentModal";
+// import NavBtn from "../ui/NavBtn";
+
+// export default function BookingCalendar({ activeService, isEmbedded = false }) {
+//   /* ==================== GUARD ==================== */
+//   if (!activeService) {
+//     return (
+//       <div className="p-10 text-slate-500 font-mono">
+//         INITIALIZING_PROTOCOL...
+//       </div>
+//     );
+//   }
+
+//   /* ==================== STATE ==================== */
+//   const [selectedDate, setSelectedDate] = useState(new Date());
+//   const [selectedTime, setSelectedTime] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [weekOffset, setWeekOffset] = useState(0);
+//   const [loading, setLoading] = useState(false);
+//   const [slots, setSlots] = useState([]);
+//   const [pendingBooking, setPendingBooking] = useState(null);
+
+//   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+//   /* ==================== DATE LOGIC ==================== */
+//   const start = startOfWeek(addWeeks(new Date(), weekOffset), {
+//     weekStartsOn: 1,
+//   });
+
+//   const today = new Date();
+//   today.setHours(0, 0, 0, 0);
+
+//   const days = Array.from({ length: 7 }).map((_, i) => addDays(start, i));
+
+//   /* ==================== FETCH SLOTS ==================== */
+//   const loadBookedSlots = async () => {
+//     try {
+//       const data = await fetchBookedTimes(format(selectedDate, "yyyy-MM-dd"));
+//       setSlots(data.slots || []);
+//     } catch (err) {
+//       console.error("Error loading slots:", err);
+//     }
+//   };
+
+//   useEffect(() => {
+//     loadBookedSlots();
+//   }, [selectedDate]);
+
+//   /* ==================== SUBMIT ==================== */
+//   const submitBooking = async () => {
+//     if (!selectedTime || !email) return;
+
+//     setLoading(true);
+//     try {
+//       const data = await createBooking({
+//         date: format(selectedDate, "yyyy-MM-dd"),
+//         time: selectedTime,
+//         email,
+//         timezone,
+//         serviceId: activeService.id,
+//       });
+
+//       setPendingBooking({
+//         id: data.bookingId,
+//         expiresAt: data.expiresAt,
+//       });
+//     } catch (err) {
+//       console.error("Booking failed:", err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const isToday = isSameDay(selectedDate, new Date());
+//   const currentTime = new Date().toTimeString().slice(0, 5);
+
+//   /* ==================== RENDER ==================== */
+//   return (
+//     <div
+//       className={`relative w-full h-full flex flex-col ${
+//         isEmbedded ? "p-0" : "max-w-5xl mx-auto py-12 px-4"
+//       }`}
+//     >
+//       <div
+//         className={`flex-1 flex flex-col ${
+//           isEmbedded
+//             ? "bg-transparent"
+//             : "bg-[#050505] border border-white/10 rounded-[32px] shadow-2xl"
+//         }`}
+//       >
+//         {/* ================= HEADER ================= */}
+//         <div className="p-8 border-b border-white/5 flex justify-between items-end">
+//           <div>
+//             <h2 className="text-3xl font-black uppercase italic text-white">
+//               Schedule <span className="text-blue-500">Protocol</span>
+//             </h2>
+//             <p className="text-[9px] font-mono text-slate-500 mt-1 flex gap-2">
+//               <Globe size={12} /> {timezone}
+//             </p>
+//           </div>
+
+//           <div className="text-right">
+//             <motion.div
+//               key={activeService.id}
+//               initial={{ opacity: 0, x: 20 }}
+//               animate={{ opacity: 1, x: 0 }}
+//               transition={{ duration: 0.4 }}
+//             >
+//               <h3 className="text-xl font-black italic uppercase text-white mb-2">
+//                 {activeService.title}
+//               </h3>
+
+//               <div className="flex items-end gap-2 justify-end">
+//                 <span className="text-4xl font-extralight">
+//                   {(activeService.priceCents / 100).toLocaleString("en-EU")}
+//                 </span>
+//                 <span className="text-[10px] font-mono text-slate-400">
+//                   {activeService.currency}
+//                 </span>
+//               </div>
+
+//               <div className="text-[11px] font-mono text-slate-500 mt-1">
+//                 {activeService.durationMinutes} MIN
+//               </div>
+//             </motion.div>
+//           </div>
+//         </div>
+
+//         {/* ================= GRID ================= */}
+//         <div className="flex-1 grid lg:grid-cols-12">
+//           {/* DATE PICKER */}
+//           <div className="lg:col-span-7 p-8 border-r border-white/5">
+//             <div className="flex justify-between mb-8">
+//               <span className="text-[10px] font-mono text-blue-500">
+//                 01. Select_Date
+//               </span>
+//               <div className="flex gap-4">
+//                 <NavBtn
+//                   icon={<ChevronLeft size={16} />}
+//                   onClick={() => setWeekOffset((p) => p - 1)}
+//                 />
+//                 <span className="font-mono text-xs text-white">
+//                   {format(start, "MMM yyyy")}
+//                 </span>
+//                 <NavBtn
+//                   icon={<ChevronRight size={16} />}
+//                   onClick={() => setWeekOffset((p) => p + 1)}
+//                 />
+//               </div>
+//             </div>
+
+//             <div className="grid grid-cols-7 gap-2">
+//               {days.map((day, i) => {
+//                 const active = isSameDay(day, selectedDate);
+//                 const isPast = day < today;
+
+//                 return (
+//                   <button
+//                     key={i}
+//                     disabled={isPast}
+//                     onClick={() => setSelectedDate(day)}
+//                     className={`aspect-[4/5] rounded-2xl border flex flex-col items-center justify-center ${
+//                       isPast
+//                         ? "opacity-10"
+//                         : active
+//                           ? "bg-white text-black"
+//                           : "border-white/5 text-slate-400"
+//                     }`}
+//                   >
+//                     <span className="text-[8px] font-mono uppercase">
+//                       {format(day, "EEE")}
+//                     </span>
+//                     <span className="text-xl font-black italic">
+//                       {format(day, "dd")}
+//                     </span>
+//                   </button>
+//                 );
+//               })}
+//             </div>
+//           </div>
+
+//           {/* TIME SLOTS */}
+//           <div className="lg:col-span-5 p-8 bg-black/20">
+//             <span className="text-[10px] font-mono text-blue-500">
+//               02. Available_Slots
+//             </span>
+
+//             <div className="grid grid-cols-2 gap-3 mt-8">
+//               {TIMES.map((t) => {
+//                 const slot = slots.find((s) => s.time === t);
+//                 const status = slot?.status || "AVAILABLE";
+//                 const past = isToday && t <= currentTime;
+//                 const disabled = status !== "AVAILABLE" || past;
+
+//                 return (
+//                   <button
+//                     key={t}
+//                     disabled={disabled}
+//                     onClick={() => setSelectedTime(t)}
+//                     className={`py-4 rounded-xl font-mono text-xs border ${
+//                       disabled
+//                         ? "opacity-20"
+//                         : selectedTime === t
+//                           ? "bg-blue-600 text-white"
+//                           : "bg-white/5 border-white/5"
+//                     }`}
+//                   >
+//                     {disabled ? status : t}
+//                   </button>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ================= FOOTER ================= */}
+//         <div className="p-8 border-t border-white/5 bg-black/40">
+//           <div className="flex gap-4 items-end">
+//             <input
+//               type="email"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               placeholder="USER_ID@EMAIL.COM"
+//               className="flex-1 bg-white/5 border border-white/10 px-6 py-4 rounded-xl text-white font-mono text-xs"
+//             />
+
+//             <button
+//               onClick={submitBooking}
+//               disabled={loading || !selectedTime || !email}
+//               className="min-w-[280px] h-[52px] bg-white text-black rounded-xl font-black uppercase italic text-xs disabled:opacity-20"
+//             >
+//               {loading ? "INITIALIZING..." : "EXECUTE_DEPLOYMENT"}
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+
+//       <AnimatePresence>
+//         {pendingBooking && (
+//           <PendingPaymentModal
+//             booking={pendingBooking}
+//             onClose={() => {
+//               setPendingBooking(null);
+//               loadBookedSlots();
+//             }}
+//           />
+//         )}
+//       </AnimatePresence>
+//     </div>
+//   );
+// }
+
+//==========================================================
 import React, { useEffect, useState } from "react";
-import { addDays, format, startOfWeek, addWeeks, isSameDay } from "date-fns";
+import {
+  addDays,
+  format,
+  startOfWeek,
+  addWeeks,
+  isSameDay,
+  isToday as isDateToday,
+} from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Globe } from "lucide-react";
+import { ChevronLeft, ChevronRight, Globe, ShieldCheck } from "lucide-react";
 
 import { TIMES } from "../../constants/time";
 import { createBooking, fetchBookedTimes } from "../../api/booking.api";
@@ -347,16 +615,13 @@ import PendingPaymentModal from "./PendingPaymentModal";
 import NavBtn from "../ui/NavBtn";
 
 export default function BookingCalendar({ activeService, isEmbedded = false }) {
-  /* ==================== GUARD ==================== */
-  if (!activeService) {
+  if (!activeService)
     return (
-      <div className="p-10 text-slate-500 font-mono">
-        INITIALIZING_PROTOCOL...
+      <div className="p-10 text-blue-500 font-mono animate-pulse">
+        BOOTING_CALENDAR...
       </div>
     );
-  }
 
-  /* ==================== STATE ==================== */
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
   const [email, setEmail] = useState("");
@@ -366,24 +631,19 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
   const [pendingBooking, setPendingBooking] = useState(null);
 
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  /* ==================== DATE LOGIC ==================== */
   const start = startOfWeek(addWeeks(new Date(), weekOffset), {
     weekStartsOn: 1,
   });
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-
   const days = Array.from({ length: 7 }).map((_, i) => addDays(start, i));
 
-  /* ==================== FETCH SLOTS ==================== */
   const loadBookedSlots = async () => {
     try {
       const data = await fetchBookedTimes(format(selectedDate, "yyyy-MM-dd"));
       setSlots(data.slots || []);
     } catch (err) {
-      console.error("Error loading slots:", err);
+      console.error("Error:", err);
     }
   };
 
@@ -391,10 +651,8 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
     loadBookedSlots();
   }, [selectedDate]);
 
-  /* ==================== SUBMIT ==================== */
   const submitBooking = async () => {
     if (!selectedTime || !email) return;
-
     setLoading(true);
     try {
       const data = await createBooking({
@@ -404,13 +662,9 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
         timezone,
         serviceId: activeService.id,
       });
-
-      setPendingBooking({
-        id: data.bookingId,
-        expiresAt: data.expiresAt,
-      });
+      setPendingBooking({ id: data.bookingId, expiresAt: data.expiresAt });
     } catch (err) {
-      console.error("Booking failed:", err);
+      console.error("Failed:", err);
     } finally {
       setLoading(false);
     }
@@ -419,28 +673,34 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
   const isToday = isSameDay(selectedDate, new Date());
   const currentTime = new Date().toTimeString().slice(0, 5);
 
-  /* ==================== RENDER ==================== */
   return (
     <div
-      className={`relative w-full h-full flex flex-col ${
-        isEmbedded ? "p-0" : "max-w-5xl mx-auto py-12 px-4"
-      }`}
+      className={`relative w-full h-full flex flex-col ${isEmbedded ? "p-0" : "max-w-5xl mx-auto py-12 px-4"}`}
     >
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(37, 99, 235, 0.4); border-radius: 10px; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .animate-shimmer { animation: shimmer 2.5s infinite; }
+      `,
+        }}
+      />
+
       <div
-        className={`flex-1 flex flex-col ${
-          isEmbedded
-            ? "bg-transparent"
-            : "bg-[#050505] border border-white/10 rounded-[32px] shadow-2xl"
-        }`}
+        className={`flex-1 flex flex-col ${isEmbedded ? "bg-transparent" : "bg-[#050505] border border-white/10 rounded-[32px] shadow-2xl"}`}
       >
-        {/* ================= HEADER ================= */}
-        <div className="p-8 border-b border-white/5 flex justify-between items-end">
+        {/* HEADER */}
+        <div className="p-8 border-b border-white/5 flex justify-between items-end bg-gradient-to-r from-blue-600/5 to-transparent">
           <div>
-            <h2 className="text-3xl font-black uppercase italic text-white">
+            <h2 className="text-3xl font-black uppercase italic text-white tracking-tighter">
               Schedule <span className="text-blue-500">Protocol</span>
             </h2>
-            <p className="text-[9px] font-mono text-slate-500 mt-1 flex gap-2">
-              <Globe size={12} /> {timezone}
+            <p className="text-[10px] font-mono text-slate-500 mt-2 flex gap-2 tracking-[0.2em]">
+              <Globe size={12} className="text-purple-500" />{" "}
+              {timezone.toUpperCase()}
             </p>
           </div>
 
@@ -449,42 +709,36 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
               key={activeService.id}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
             >
-              <h3 className="text-xl font-black italic uppercase text-white mb-2">
+              <h3 className="text-lg font-black italic uppercase text-white/90">
                 {activeService.title}
               </h3>
-
               <div className="flex items-end gap-2 justify-end">
-                <span className="text-4xl font-extralight">
-                  {(activeService.priceCents / 100).toLocaleString("en-EU")}
+                <span className="text-4xl font-extralight text-white tracking-tighter">
+                  €{(activeService.priceCents / 100).toFixed(2)}
                 </span>
-                <span className="text-[10px] font-mono text-slate-400">
-                  {activeService.currency}
+                <span className="text-[10px] font-mono text-red-500 font-bold">
+                  EUR
                 </span>
-              </div>
-
-              <div className="text-[11px] font-mono text-slate-500 mt-1">
-                {activeService.durationMinutes} MIN
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* ================= GRID ================= */}
-        <div className="flex-1 grid lg:grid-cols-12">
-          {/* DATE PICKER */}
+        {/* GRID */}
+        <div className="flex-1 grid lg:grid-cols-12 overflow-hidden">
           <div className="lg:col-span-7 p-8 border-r border-white/5">
-            <div className="flex justify-between mb-8">
-              <span className="text-[10px] font-mono text-blue-500">
-                01. Select_Date
+            <div className="flex justify-between items-center mb-8">
+              <span className="text-[10px] font-mono text-blue-500 tracking-[0.3em] uppercase">
+                01. Select_Timeline
               </span>
-              <div className="flex gap-4">
+              <div className="flex items-center gap-4 bg-white/5 p-1 rounded-xl border border-white/10">
                 <NavBtn
                   icon={<ChevronLeft size={16} />}
                   onClick={() => setWeekOffset((p) => p - 1)}
+                  disabled={weekOffset === 0}
                 />
-                <span className="font-mono text-xs text-white">
+                <span className="font-mono text-xs text-white uppercase tracking-tighter w-24 text-center">
                   {format(start, "MMM yyyy")}
                 </span>
                 <NavBtn
@@ -494,28 +748,36 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-7 gap-2">
+            <div className="grid grid-cols-7 gap-3">
               {days.map((day, i) => {
                 const active = isSameDay(day, selectedDate);
                 const isPast = day < today;
-
                 return (
                   <button
                     key={i}
                     disabled={isPast}
                     onClick={() => setSelectedDate(day)}
-                    className={`aspect-[4/5] rounded-2xl border flex flex-col items-center justify-center ${
-                      isPast
-                        ? "opacity-10"
-                        : active
-                          ? "bg-white text-black"
-                          : "border-white/5 text-slate-400"
-                    }`}
+                    className={`aspect-[4/5] rounded-2xl border transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden group
+                      ${
+                        isPast
+                          ? "opacity-10 border-transparent grayscale"
+                          : active
+                            ? "border-none shadow-[0_0_30px_rgba(37,99,235,0.3)] scale-105"
+                            : "border-white/5 text-slate-400 hover:border-purple-500/50 hover:bg-white/[0.02]"
+                      }
+                    `}
                   >
-                    <span className="text-[8px] font-mono uppercase">
+                    {active && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-red-600" />
+                    )}
+                    <span
+                      className={`relative z-10 text-[8px] font-mono uppercase mb-1 ${active ? "text-white/70" : "text-slate-500"}`}
+                    >
                       {format(day, "EEE")}
                     </span>
-                    <span className="text-xl font-black italic">
+                    <span
+                      className={`relative z-10 text-2xl font-black italic tracking-tighter ${active ? "text-white" : "text-white/90"}`}
+                    >
                       {format(day, "dd")}
                     </span>
                   </button>
@@ -524,33 +786,36 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
             </div>
           </div>
 
-          {/* TIME SLOTS */}
-          <div className="lg:col-span-5 p-8 bg-black/20">
-            <span className="text-[10px] font-mono text-blue-500">
-              02. Available_Slots
+          <div className="lg:col-span-5 p-8 bg-black/40">
+            <span className="text-[10px] font-mono text-purple-500 tracking-[0.3em] uppercase block mb-8">
+              02. Available_Windows
             </span>
-
-            <div className="grid grid-cols-2 gap-3 mt-8">
+            <div className="grid grid-cols-2 gap-3 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
               {TIMES.map((t) => {
-                const slot = slots.find((s) => s.time === t);
-                const status = slot?.status || "AVAILABLE";
-                const past = isToday && t <= currentTime;
-                const disabled = status !== "AVAILABLE" || past;
-
+                const isDisabled =
+                  slots.includes(t) || (isToday && t <= currentTime);
+                const isSelected = selectedTime === t;
                 return (
                   <button
                     key={t}
-                    disabled={disabled}
+                    disabled={isDisabled}
                     onClick={() => setSelectedTime(t)}
-                    className={`py-4 rounded-xl font-mono text-xs border ${
-                      disabled
-                        ? "opacity-20"
-                        : selectedTime === t
-                          ? "bg-blue-600 text-white"
-                          : "bg-white/5 border-white/5"
-                    }`}
+                    className={`py-4 rounded-xl font-mono text-[11px] border transition-all relative overflow-hidden
+                      ${
+                        isDisabled
+                          ? "opacity-10 border-white/5"
+                          : isSelected
+                            ? "border-none text-white shadow-[0_0_20px_rgba(147,51,234,0.3)] scale-[1.02]"
+                            : "bg-white/[0.03] border-white/10 text-slate-300 hover:border-red-500/50"
+                      }
+                    `}
                   >
-                    {disabled ? status : t}
+                    {isSelected && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600" />
+                    )}
+                    <span className="relative z-10 font-black tracking-widest">
+                      {isDisabled ? "OCCUPIED" : t}
+                    </span>
                   </button>
                 );
               })}
@@ -558,23 +823,42 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
           </div>
         </div>
 
-        {/* ================= FOOTER ================= */}
-        <div className="p-8 border-t border-white/5 bg-black/40">
-          <div className="flex gap-4 items-end">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="USER_ID@EMAIL.COM"
-              className="flex-1 bg-white/5 border border-white/10 px-6 py-4 rounded-xl text-white font-mono text-xs"
-            />
+        {/* FOOTER */}
+        <div className="p-8 border-t border-white/5 bg-black/80">
+          <div className="flex flex-col md:flex-row gap-6 items-stretch md:items-end">
+            <div className="flex-1 space-y-3">
+              <label className="text-[9px] font-mono text-blue-400/60 uppercase tracking-[0.4em] ml-2">
+                Operator_ID
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="OPERATOR@SYSTEM.COM"
+                className="w-full bg-white/[0.03] border border-white/10 px-6 py-5 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-purple-500/50 transition-all placeholder:opacity-20"
+              />
+            </div>
 
             <button
               onClick={submitBooking}
               disabled={loading || !selectedTime || !email}
-              className="min-w-[280px] h-[52px] bg-white text-black rounded-xl font-black uppercase italic text-xs disabled:opacity-20"
+              className={`group relative min-w-[320px] h-[64px] rounded-2xl font-black uppercase italic text-sm tracking-widest transition-all overflow-hidden
+                ${loading || !selectedTime || !email ? "bg-white/5 text-white/10" : "text-white shadow-[0_0_40px_rgba(220,38,38,0.3)] scale-[1.02] active:scale-[0.98]"}
+              `}
             >
-              {loading ? "INITIALIZING..." : "EXECUTE_DEPLOYMENT"}
+              {!loading && selectedTime && email && (
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-red-600" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer opacity-30" />
+              <span className="relative z-10 flex items-center justify-center gap-3">
+                {loading ? (
+                  "INITIALIZING_PROTOCOL..."
+                ) : (
+                  <>
+                    EXECUTE_DEPLOYMENT <ShieldCheck size={18} />
+                  </>
+                )}
+              </span>
             </button>
           </div>
         </div>

@@ -95,7 +95,7 @@ export default function ServicesSection() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#020202] py-20 md:py-32 overflow-hidden select-none"
+      className="relative w-full min-h-screen  py-20 md:py-32 overflow-hidden select-none"
     >
       <div
         className="absolute inset-0 opacity-20 pointer-events-none"
@@ -115,10 +115,10 @@ export default function ServicesSection() {
             >
               {t("services.header.badge")}
             </motion.span>
-            <h2 className="text-5xl md:text-9xl font-black uppercase italic tracking-tighter leading-[0.8]">
+            <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.8]">
               {t("services.header.core")} <br />
               <span
-                className="text-transparent"
+                className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 text-transparent bg-clip-text"
                 style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}
               >
                 {t("services.header.protocols")}
@@ -278,7 +278,7 @@ const DetailedModal = ({ service, isOpen, onClose, navigate, t }) => (
               </div>
               <button
                 onClick={() => navigate("/book")}
-                className="w-full md:w-auto px-10 py-4 bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] rounded-xl hover:bg-blue-600 hover:text-white transition-all"
+                className="w-full md:w-auto px-10 py-4 bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] rounded-xl hover:bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 hover:text-white transition-all"
               >
                 {t("services.modal.cta")}
               </button>
