@@ -132,9 +132,10 @@ const clientPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientPath));
 
 // React fallback (Express 5 / Node 22 SAFE)
-app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(clientPath, "index.html"));
-});
+app.use((req, res) => {
+    res.sendFile(path.join(clientPath, "index.html"))
+})
+
 
 // ======================
 // START SERVER
