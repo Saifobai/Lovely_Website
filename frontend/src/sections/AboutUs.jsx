@@ -315,11 +315,11 @@ export function AboutUs() {
       <div className="grid lg:grid-cols-12 gap-16 mb-32 items-start">
         <div className="lg:col-span-5 border-l border-rose-500/40 pl-8">
           <p className="font-mono text-[10px] text-rose-100 uppercase tracking-[0.4em] mb-4">
-            {t("about.badge")}
+            {/* {t("about.badge")} */}
           </p>
 
           <h2 className="text-white text-5xl md:text-7xl font-black italic uppercase mb-4">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent">
+            <span className="text-white text-transparent">
               {t("about.title")}
             </span>
           </h2>

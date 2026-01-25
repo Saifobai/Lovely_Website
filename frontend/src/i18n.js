@@ -10,12 +10,13 @@ i18n.use(initReactI18next).init({
                     us: "Us",
                     services: "Services",
                     contact: "Contact",
+                    together: "Together",
                     getStarted: "Get Started"
                 },
                 hero: {
                     badge: "✨ New Feature Launch",
                     title: "Accelerate Your Business Growth",
-                    description: "Clarity-driven boutique consulting in Düsseldorf, Germany (or just Germany) for businesses, founders, and global talent navigating complex decisions across business, mobility, technology, and place.",
+                    description: "Clarity-driven boutique consulting in Germany for businesses, founders, and global talent navigating complex decisions across business, mobility, technology, and place.",
                     highlight: "40%",
                     descriptionEnd: "and reduce operational costs.",
                     cta: "Get Consultant →",
@@ -90,19 +91,20 @@ i18n.use(initReactI18next).init({
                 contact: {
                     badge: "Secure Uplink Active",
                     title: {
-                        line1: "Initiate",
-                        line2: "The Signal."
+                        line1: "Connect",
+                        line2: "With Us"
                     },
-                    description: "Ready to deploy your vision? Our collective is standing by to intercept your requirements and engineer a path forward.",
+                    description: "Every engagement begins with a thoughtful conversation.\nIf you’re exploring strategic support or would like to understand how we work, please reach out using the form below.\nWe look forward to connecting with you.",
+
                     info: {
                         email: { label: "Secure Mail", sub: "Direct Protocol // Response < 4h" },
                         phone: { label: "Direct Line", sub: "Voice Uplink // 09:00 - 18:00" }
                     },
                     form: {
-                        name: { label: "Identity / Name", placeholder: "ENTER NAME" },
-                        email: { label: "Coordinate / Email", placeholder: "EMAIL@DOMAIN.COM" },
-                        message: { label: "Mission / Message", placeholder: "DESCRIBE THE VISION..." },
-                        submit: "Establish Uplink",
+                        name: { label: "Name", placeholder: "ENTER NAME" },
+                        email: { label: "Email", placeholder: "EMAIL@DOMAIN.COM" },
+                        message: { label: "Message", placeholder: "DESCRIBE THE VISION..." },
+                        submit: "Connect with our team",
                         loading: "Syncing...",
                         securityNote: "End-to-End Encryption Guaranteed",
                         successTitle: "Uplink Success",
@@ -124,6 +126,7 @@ i18n.use(initReactI18next).init({
                     us: "Wir",
                     services: "Dienstleistungen",
                     contact: "Kontakt",
+                    together: "Zusammen",
                     getStarted: "Loslegen"
                 },
                 hero: {

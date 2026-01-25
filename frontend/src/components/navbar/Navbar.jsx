@@ -175,11 +175,16 @@ const Navbar = () => {
     { href: "#home", label: t("navbar.you") || "Home", index: "01" },
     { href: "#about", label: t("navbar.us") || "About", index: "02" },
     {
-      href: "#services",
-      label: t("navbar.services") || "Services",
+      href: "#together",
+      label: t("navbar.together") || "Together",
       index: "03",
     },
-    { href: "#contact", label: t("navbar.contact") || "Contact", index: "04" },
+    {
+      href: "#services",
+      label: t("navbar.services") || "Services",
+      index: "04",
+    },
+    { href: "#contact", label: t("navbar.contact") || "Contact", index: "05" },
   ];
 
   return (
@@ -206,8 +211,8 @@ const Navbar = () => {
             <span className="text-white font-black text-xs italic">LS</span>
           </div>
           <div className="flex flex-col leading-none">
-            <span className="ml-3 text-xl font-black tracking-tighter uppercase text-white">
-              Lovely<span className="text-blue-500">.</span>
+            <span className="ml-2 text-xl font-black tracking-tighter uppercase text-white">
+              Lovely<span className="text-blue-500"></span>
             </span>
             <span className="text-[7px] font-mono text-slate-500 tracking-[0.3em] uppercase opacity-0 group-hover:opacity-100 transition-opacity">
               Boutique_Consulting

@@ -39,7 +39,7 @@ export default function Footer() {
           {/* LEFT: SYSTEM IDENTITY */}
           <div className="lg:col-span-5 space-y-12">
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-3 px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/5 backdrop-blur-md">
+              {/* <div className="inline-flex items-center gap-3 px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/5 backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
@@ -47,25 +47,26 @@ export default function Footer() {
                 <span className="text-[10px] font-mono text-blue-400 uppercase tracking-[0.3em] font-black">
                   Uplink_Established
                 </span>
-              </div>
+              </div> */}
 
               {/* 3. GRADIENT LOGO (Blue -> Purple -> Red) */}
               <h3 className="text-white text-7xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85]">
-                LS
+                Lovely
                 <br />
                 <span className="italic bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 bg-clip-text text-transparent">
-                  DIGITAL
+                  Consulting Reimagined
                 </span>
               </h3>
 
               <p className="text-slate-400 text-lg max-w-sm leading-relaxed border-l-2 border-purple-500/40 pl-6 italic font-light">
-                Engineering the digital frontier. Building high-performance
-                ecosystems for world-class visionaries.
+                Legal Notice Lovely does not provide legal or tax advice. All
+                regulated services are delivered exclusively through licensed
+                external partners
               </p>
             </div>
 
             {/* 4. HUD METRICS with matching icons */}
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <FooterMetric
                 icon={<Cpu size={14} />}
                 label="SYS_LOAD"
@@ -78,7 +79,7 @@ export default function Footer() {
                 value="SECURE"
                 color="text-red-500"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT: NAVIGATION */}

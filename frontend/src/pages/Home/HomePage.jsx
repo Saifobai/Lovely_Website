@@ -8,6 +8,9 @@ import Navbar from "../../components/navbar/Navbar";
 import { AboutUs } from "../../sections/AboutUs";
 import ContactUs from "../../sections/ContactUs";
 import ServicesSection from "../../sections/ServicesCode/ServicesSection";
+import WhyLovely from "../../components/layout/WhyLovely";
+import LovelyValues from "../../components/layout/LovelyValues";
+import Together from "../../components/layout/Together";
 
 /* --- GLOBAL BACKGROUND ENGINE --- */
 const GlobalBackground = () => {
@@ -64,7 +67,10 @@ export default function HomePage() {
         <Navbar />
         <Hero />
         <Manifesto />
+        <WhyLovely />
+        <LovelyValues />
         <AboutUs />
+        <Together />
         <ServicesSection />
         <ContactUs />
       </div>
