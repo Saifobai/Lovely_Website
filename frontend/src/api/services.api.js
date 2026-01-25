@@ -1,9 +1,17 @@
 export async function fetchServices() {
-    const res = await fetch("http://localhost:5000/api/services");
+    try {
+        const res = await fetch("/api/services", {
+            credentials: "include",
+        });
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch services");
+        if (!res.ok) {
+            throw new Error("Failed to fetch services");
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("❌ fetchServices:", err);
+        throw err;
     }
-
-    return res.json();
 }
+
