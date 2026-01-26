@@ -100,9 +100,9 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
         <div className="p-8 border-b border-white/5 flex justify-between items-end">
           <div>
             <h2 className="text-3xl font-black uppercase italic text-white">
-              Schedule{" "}
+              Which date is
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
-                Protocol
+                best for you?
               </span>
             </h2>
             <p className="text-[9px] font-mono text-slate-500 mt-1 flex gap-2">
@@ -130,8 +130,9 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
                 </span>
               </div>
 
-              <div className="text-[11px] font-mono text-slate-500 mt-1">
-                {activeService.durationMinutes} MIN
+              <div className="text-[12px] font-mono text-slate-300 mt-1">
+                {activeService.durationMinutes} Min strategy call, What time
+                works?
               </div>
             </motion.div>
           </div>

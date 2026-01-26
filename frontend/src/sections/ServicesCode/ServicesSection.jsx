@@ -108,13 +108,6 @@ export default function ServicesSection() {
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="space-y-2">
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="text-blue-500 font-mono text-xs tracking-widest uppercase"
-            >
-              {t("services.header.badge")}
-            </motion.span>
             <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.8]">
               {t("services.header.core")} <br />
               <span

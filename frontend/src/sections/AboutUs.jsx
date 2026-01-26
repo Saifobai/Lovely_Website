@@ -14,76 +14,94 @@ import LovelyImage from "../assets/Images/Lovely_02.jpeg";
 export function AboutUs() {
   const { t } = useTranslation();
 
-  const team = [
+  const baseTeam = [
     {
-      name: "Leon S.",
-      role: "Founder & Chief Architect",
+      name: "Lovely Ibañez",
+      role: "Founder & Principal Advisor",
+      image: LovelyImage,
+      position: "Your Left",
+    },
+    {
+      name: "Sam Obaidi",
+      role: "Principal Advisor – Digital Strategy",
       image:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800",
+      position: "The Middle",
     },
-    { name: "Lovely L.", role: "Head of Digital Strategy", image: LovelyImage },
     {
-      name: "Marcus V.",
-      role: "Lead Systems Engineer",
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800",
+      name: "Svetlana Saenkova",
+      role: "Principal Advisor – Innovation & Sustainability",
+      image: LanaImage,
+      position: "Your Right",
     },
-    { name: "Lana R.", role: "Creative Director", image: LanaImage },
   ];
 
+  // Doubling the array to ensure Swiper has enough items to loop infinitely
+  const team = [...baseTeam, ...baseTeam];
+
   return (
-    <Section id="about">
+    <Section id="about" className="mt-12">
       {/* NARRATIVE */}
       <div className="grid lg:grid-cols-12 gap-16 mb-32 items-start">
         <div className="lg:col-span-5 border-l border-rose-500/40 pl-8">
-          <p className="font-mono text-[10px] text-rose-100 uppercase tracking-[0.4em] mb-4">
-            {/* {t("about.badge")} */}
-          </p>
-
           <h2 className="text-white text-5xl md:text-7xl font-black italic uppercase mb-4">
-            <span className="text-white text-transparent">
-              {t("about.title")}
+            We are <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-red-500">
+              Lovely
             </span>
           </h2>
 
-          <h3 className="text-white text-xl md:text-2xl font-light">
-            {t("about.subtitle")}
+          <h3 className="text-white text-xl md:text-2xl font-light italic">
+            A boutique advisory for high-stakes, cross-border decisions.
           </h3>
         </div>
 
         <div className="lg:col-span-7 flex flex-col gap-8">
-          <p className="text-xl md:text-2xl text-slate-300 font-light">
-            {t("about.description")}
+          <p className="text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
+            We simplify complexity and deliver outcomes that matter. Boutique by
+            choice. Focused by principle. Precise by design.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            {t("about.points", { returnObjects: true }).map((point, i) => (
+          <div className="grid md:grid-cols-1 gap-4">
+            {[
+              "We coordinate strategy, experts, and execution as your single point of clarity.",
+              "We are strategists, advisors, and decision partners.",
+            ].map((point, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10"
+                className="flex items-center gap-4 bg-white/5 p-5 rounded-2xl border border-white/10"
               >
-                <CheckCircle2 size={16} className="text-rose-400 shrink-0" />
-                <span className="text-sm text-slate-400">{point}</span>
+                <CheckCircle2 size={18} className="text-rose-400 shrink-0" />
+                <span className="text-base text-slate-300 italic">{point}</span>
               </div>
             ))}
           </div>
 
           <p className="text-purple-400 font-mono text-xs uppercase tracking-widest">
-            {t("about.footer")}
+            // OUR ADVISORY PRINCIPALS
           </p>
         </div>
       </div>
 
       {/* SWIPER */}
       <div className="relative py-10">
+        <div className="text-center mb-12">
+          <h3 className="text-white font-mono text-sm tracking-[0.5em] uppercase opacity-50">
+            Decision Partners
+          </h3>
+        </div>
+
         <Swiper
           modules={[Autoplay, Pagination]}
           spaceBetween={40}
           slidesPerView={1.2}
-          centeredSlides
-          loop
-          speed={1000}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          centeredSlides={true}
+          loop={true}
+          speed={1200} // Slightly slower, more premium transition
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
           pagination={{ clickable: true, dynamicBullets: true }}
           breakpoints={{
             768: { slidesPerView: 2 },
@@ -92,13 +110,19 @@ export function AboutUs() {
           className="!pb-20"
         >
           {team.map((member, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={`${member.name}-${index}`}>
               {({ isActive }) => (
                 <TeamCard member={member} isActive={isActive} />
               )}
             </SwiperSlide>
           ))}
         </Swiper>
+
+        <div className="max-w-2xl mx-auto text-center mt-8">
+          <p className="text-slate-500 font-medium italic text-lg">
+            A boutique team bridging capital, technology, and global execution.
+          </p>
+        </div>
 
         <style
           dangerouslySetInnerHTML={{
@@ -124,25 +148,23 @@ const TeamCard = ({ member, isActive }) => {
       className={`relative bg-[#050505] border rounded-[24px] overflow-hidden transition-all duration-700
       ${
         isActive
-          ? "border-purple-500/40"
+          ? "border-purple-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           : "border-white/5 opacity-40 blur-[0.5px]"
       }`}
     >
-      {/* TOP BAR */}
       <div className="absolute top-4 left-4 right-4 flex justify-between z-30">
         <div
           className={`px-2 py-1 bg-black/60 border border-rose-500/30 rounded font-mono text-[8px] uppercase tracking-widest text-rose-400 ${
             isActive ? "opacity-100" : "opacity-0"
           }`}
         >
-          UNIT_ACTIVE
+          {member.position}
         </div>
-        <span className="text-[10px] font-mono text-white/20">
-          {member.name.split(" ")[0]}_742
+        <span className="text-[10px] font-mono text-white/20 uppercase">
+          SECURE_ID_{member.name.split(" ")[0]}
         </span>
       </div>
 
-      {/* IMAGE */}
       <div className="relative aspect-square overflow-hidden border-b border-white/5">
         <img
           src={member.image}
@@ -159,26 +181,15 @@ const TeamCard = ({ member, isActive }) => {
         )}
       </div>
 
-      {/* CONTENT */}
-      <div className="p-6">
-        <h4 className="text-xl font-bold uppercase text-white">
+      <div className="p-8">
+        <h4 className="text-2xl font-bold uppercase text-white tracking-tighter">
           {member.name}
         </h4>
-        <p className="text-[10px] font-mono text-purple-400">
+        <p className="text-[11px] font-mono text-purple-400 mt-1">
           &gt;&gt; {member.role}
         </p>
-
-        {isActive && (
-          <div className="mt-6 flex justify-end">
-            <Instagram
-              size={22}
-              className="text-rose-400 drop-shadow-[0_0_10px_rgba(236,72,153,0.6)] animate-spin-slow"
-            />
-          </div>
-        )}
       </div>
 
-      {/* BOTTOM GLOW */}
       <div
         className={`absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent transition-all duration-1000 ${
           isActive ? "w-full opacity-100" : "w-0 opacity-0"

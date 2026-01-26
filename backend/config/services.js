@@ -70,33 +70,36 @@ export const SERVICES = [
             {
                 time: "10:00",
                 label: "JURISDICTIONAL REVIEW",
-                text: "Situational analysis of immigration pathways.",
+                text: "Situational analysis of immigration pathways for Australia, Canada, Germany, New Zealand, and USA.",
             },
             {
                 time: "05:00",
                 label: "PROTOCOL",
-                text: "Clear delineation of visa options and personalized guidance.",
+                text: "Clear delineation of visa options and personalized guidance for residency planning.",
             },
         ],
     },
     {
         id: "exclusive-call",
-        title: "Exclusive Introductory Call",
-        priceCents: 500000,
+        title: "Exclusive Introductory Call (By Invitation)",
+        // Range: €1500 - €5000 based on Umsatz
+        priceCents: 150000,
+        priceMaxCents: 500000,
         currency: "EUR",
         durationMinutes: 30,
         isExclusive: true,
-        desc: "By Invitation: Evaluation of long-term partnership viability.",
+        requiresUmsatz: true,
+        desc: "By Invitation: Evaluation of long-term partnership viability. Clients must provide annual Umsatz.",
         details: [
             {
                 time: "05:00",
                 label: "CONVERGENCE",
-                text: "Introductions and background briefing.",
+                text: "Professional introductions and motivational background briefing.",
             },
             {
                 time: "25:00",
                 label: "SYNERGY ASSESSMENT",
-                text: "Evaluation of vision and strategic alignment.",
+                text: "Evaluation of vision, complementary skill sets, and long-term partnership viability.",
             },
         ],
     },

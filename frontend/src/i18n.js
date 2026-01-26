@@ -51,29 +51,29 @@ i18n.use(initReactI18next).init({
                         ready: "Ready_To_Sync",
                     },
                     list: {
+                        it: {
+                            title: "AI & Technology Strategy",
+                            description: "Leverage AI and technology to optimize high-stakes decisions, streamline operations, and scale strategic impact"
+                        },
                         business: {
-                            title: "Business Consulting Services",
-                            description: "Strategic advisory focused on scalable growth, operational excellence, and long-term market positioning."
+                            title: "Business Advisory",
+                            description: "Design cross-border strategy, structure companies, and navigate operational complexity with clarity and precision"
                         },
                         immigration: {
                             title: "Immigration Consulting Services",
                             description: "End-to-end immigration guidance ensuring regulatory compliance across global jurisdictions."
                         },
-                        it: {
-                            title: "AI & IT Consulting Services",
-                            description: "High-performance IT architecture, system optimization, and secure digital transformation."
-                        },
                         realestate: {
-                            title: "Real Estate Deals",
-                            description: "Premium advisory for buying, selling, and structuring real estate investments."
+                            title: "Real Estate Advisory",
+                            description: "Identify, structure, and execute high-value property investments with cross-border insight and risk management."
                         },
                         events: {
                             title: "Qatar Strategic Access Program",
-                            description: "High-impact corporate and private event execution with precision logistics."
+                            description: "Unlock market entry, partnerships, and regulatory navigation in Qatar through bespoke advisory support."
                         },
                         mobility: {
-                            title: "Global Mobility Services",
-                            description: "Comprehensive solutions for international relocation, travel logistics, and mobility strategy."
+                            title: "Global Mobility & Relocation",
+                            description: "Strategically move executives, teams, and operations across borders with compliance and operational clarity."
                         }
                     },
                     modal: {

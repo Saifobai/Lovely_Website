@@ -48,7 +48,7 @@ export default function Together() {
       <div className="max-w-[1500px] mx-auto mb-40">
         <div className="grid lg:grid-cols-2 gap-20 items-end mb-24">
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-            <h3 className="text-5xl md:text-7xl font-black italic uppercase leading-[0.9] tracking-tighter text-white">
+            <h3 className="text-5xl md:text-6xl font-black italic uppercase leading-[0.9] tracking-tighter text-white">
               “Together” Isn’t a Slogan.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-red-500">
@@ -102,7 +102,7 @@ export default function Together() {
       {/* SECTION 2: HOW WE WORK (SYNCED) */}
       <div className="max-w-[1200px] mx-auto relative">
         <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-6xl font-black italic uppercase text-white tracking-tighter">
+          <h2 className="text-4xl md:text-5xl font-black italic uppercase text-white tracking-tighter">
             How We{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-400">
               Work
