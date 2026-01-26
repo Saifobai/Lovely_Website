@@ -29,16 +29,16 @@ i18n.use(initReactI18next).init({
                 },
                 about: {
                     badge: "/// System_Identity",
-                    title: "Lovely",
-                    subtitle: "Boutique Consulting with Perspective",
-                    description: "Lovely is your strategic partner. We translate complexity into clear decisions and coordinated action, always grounded in your goals.",
+                    title: "We are Lovely",
+                    subtitle: "A boutique for clear thinking.",
+                    description: "We help turn complexity into decisions.",
                     points: [
-                        "Boutique mindset, adaptive and client-focused",
-                        "Tailored solutions through close collaboration",
-                        "Clear scope, communication, and outcomes",
-                        "Coordination of trusted, licensed partners"
+                        "We work boutique by choice focused, thoughtful, and precise.",
+                        "We listen before we design.",
+                        "We think before we speak.",
+                        "We collaborate before we conclude."
                     ],
-                    footer: "Guided by Creativity, Collaboration, and Clarity."
+                    footer: "We are strategists, listeners, and decision partners."
                 },
                 services: {
                     header: {
@@ -145,7 +145,7 @@ i18n.use(initReactI18next).init({
                 },
                 about: {
                     badge: "/// System_Identität",
-                    title: "Lovely",
+                    title: "Wir sind Lovely",
                     subtitle: "Boutique-Beratung mit Perspektive",
                     description: "Lovely ist Ihr strategischer Partner. Wir übersetzen Komplexität in klare Entscheidungen und koordiniertes Handeln, immer orientiert an Ihren Zielen.",
                     points: [

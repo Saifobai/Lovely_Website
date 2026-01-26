@@ -11,6 +11,7 @@ import ServicesSection from "../../sections/ServicesCode/ServicesSection";
 import WhyLovely from "../../components/layout/WhyLovely";
 import LovelyValues from "../../components/layout/LovelyValues";
 import Together from "../../components/layout/Together";
+import YouSection from "../../sections/YouSection";
 
 /* --- GLOBAL BACKGROUND ENGINE --- */
 const GlobalBackground = () => {
@@ -66,6 +67,7 @@ export default function HomePage() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
+        <YouSection />
         <Manifesto />
         <WhyLovely />
         <LovelyValues />

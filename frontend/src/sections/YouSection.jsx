@@ -1,0 +1,152 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { ShieldCheck, Focus, MessageSquareQuote, Target } from "lucide-react";
+import Section from "../components/layout/Section";
+
+const bulletPoints = [
+  {
+    text: "You don’t need more advice.",
+    icon: <MessageSquareQuote size={18} />,
+    label: "DATA_REDUNDANCY",
+  },
+  {
+    text: "You need clearer thinking.",
+    icon: <Focus size={18} />,
+    label: "NEURAL_CLARITY",
+  },
+  {
+    text: "You face complex decisions.",
+    icon: <ShieldCheck size={18} />,
+    label: "STRATEGIC_RISK",
+  },
+];
+
+export default function YouSection() {
+  return (
+    <Section id="you" className="relative py-24 bg-transparent overflow-hidden">
+      {/* 1. REFINED HUD BACKGROUND (Subtle Glows) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-blue-400/20 to-transparent" />
+        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-red-400/20 to-transparent" />
+
+        {/* Softened Color Blobs */}
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-blue-500/5 blur-[100px] rounded-full" />
+        <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-red-500/5 blur-[100px] rounded-full" />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto relative z-10 px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* LEFT SIDE: TARGET IDENTIFICATION */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-10"
+          >
+            <div className="flex items-center gap-3"></div>
+
+            <h2 className="text-7xl md:text-[110px] font-black italic text-white uppercase leading-[0.8] tracking-tighter">
+              YOU<span className="text-red-500/80"></span>
+            </h2>
+
+            <div className="space-y-8">
+              {bulletPoints.map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-start gap-6 group"
+                >
+                  <div className="relative mt-1">
+                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-blue-500/40 transition-all duration-500">
+                      <div className="text-slate-400 group-hover:text-blue-400 transition-colors">
+                        {item.icon}
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-3xl md:text-4xl font-bold italic text-slate-500 group-hover:text-slate-200 transition-all duration-500 tracking-tighter leading-none">
+                    {item.text}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* RIGHT SIDE: THE TRICOLOR PROTOCOL CARD */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative p-10 md:p-16 rounded-[40px] bg-neutral-900/40 border border-white/5 backdrop-blur-2xl shadow-2xl overflow-hidden group"
+          >
+            {/* Very Subtle Laser Line */}
+            <motion.div
+              animate={{ y: ["-100%", "300%"] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent pointer-events-none"
+            />
+
+            <div className="space-y-8 relative z-10">
+              <p className="text-xl md:text-2xl text-slate-400 font-medium leading-relaxed italic">
+                You balance{" "}
+                <span className="text-slate-400 font-bold">ambition</span> with{" "}
+                <span className="text-slate-400 font-bold">responsibility</span>
+                . <br />
+                You want <span className="text-white">clarity</span>, not noise.
+              </p>
+
+              <div className="h-[1px] w-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-red-500/20" />
+
+              <div className="space-y-5">
+                {[
+                  { id: "01", text: "We start with listening." },
+                  { id: "02", text: "We work around your context." },
+                  { id: "03", text: "We focus on what truly matters." },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-4 group/item">
+                    <span className="font-mono text-[9px] text-red-500/60 font-black">
+                      {item.id}
+                    </span>
+                    <span className="text-xs font-mono text-slate-500 uppercase tracking-widest group-hover/item:text-slate-200 transition-colors">
+                      {item.text}
+                    </span>
+                    <div className="h-[1px] flex-1 bg-white/5 group-hover/item:bg-white/10 transition-all" />
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-6 space-y-4">
+                <h4 className="text-3xl md:text-5xl font-black italic uppercase leading-[0.9] text-white tracking-tighter">
+                  Challenges deserve <br />
+                  <span className="text-blue-500/80 text-2xl md:text-4xl block mt-2">
+                    more than templates.
+                  </span>
+                </h4>
+                <p className="text-4xl md:text-6xl font-black italic uppercase text-transparent bg-clip-text bg-gradient-to-r from-blue-400/80 via-purple-400/80 to-red-400/80 tracking-tighter leading-[0.9]">
+                  They deserve <br /> understanding.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* FOOTER MINI VISUALIZER */}
+      <div className="mt-20 flex justify-center opacity-10">
+        <div className="flex items-end gap-1 h-8">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              animate={{ height: [2, Math.random() * 20 + 5, 2] }}
+              transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.05 }}
+              className={`w-[1px] ${i % 2 === 0 ? "bg-blue-400" : "bg-red-400"}`}
+            />
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
