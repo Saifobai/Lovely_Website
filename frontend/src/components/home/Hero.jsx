@@ -73,7 +73,7 @@ export default function Hero() {
               </span>
             </div>
 
-            <h1 className="text-6xl md:text-8xl xl:text-[90px] font-black leading-[0.8] tracking-[-0.05em] text-white uppercase italic">
+            <h1 className="text-5xl md:text-8xl xl:text-[90px] font-black leading-[0.8] tracking-[-0.05em] text-white uppercase italic">
               {t("hero.digital")} <br />
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
                 {t("hero.solutions")}

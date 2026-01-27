@@ -668,7 +668,7 @@ export const createBooking = async (req, res) => {
             return res.status(400).json({ message: "Invalid service" });
         }
 
-        const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+        const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
         const booking = await Booking.create({
             date,
