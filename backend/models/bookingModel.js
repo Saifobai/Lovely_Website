@@ -75,21 +75,21 @@
 
 import mongoose from "mongoose";
 
-const BookingSchema = new mongoose.Schema(
+const bookingSchema = new mongoose.Schema(
     {
-        date: String,
-        time: String,
-        email: String,
-        timezone: String,
+        serviceId: { type: String, required: true },
 
-        serviceId: String,
-        amount: Number,
-        currency: String,
+        name: String,
+        email: String,
+
+        date: { type: String, required: true },
+        time: { type: String, required: true },
+        timezone: { type: String, required: true },
 
         status: {
             type: String,
-            enum: ["PENDING_PAYMENT", "CONFIRMED", "CANCELLED", "EXPIRED"],
-            default: "PENDING_PAYMENT",
+            enum: ["HOLD", "CONFIRMED", "CANCELLED", "EXPIRED"],
+            default: "HOLD",
         },
 
         paymentProvider: {
@@ -99,14 +99,16 @@ const BookingSchema = new mongoose.Schema(
 
         paymentIntentId: String,
 
-        googleEventId: String,
-        calendarLink: String,
-
-        expiresAt: Date,
+        expiresAt: {
+            type: Date,
+            required: true,
+            index: true,
+        },
     },
     { timestamps: true }
 );
 
-const Booking = mongoose.model("Booking", BookingSchema);
+// Mongo auto-delete expired holds (hard safety)
+bookingSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
-export default Booking;
+export default mongoose.model("Booking", bookingSchema);

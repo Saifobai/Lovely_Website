@@ -636,133 +636,331 @@
 
 //========================================================================
 //==================================== code with payment version =====================//
-import { google } from "googleapis";
+// import { google } from "googleapis";
+// import mongoose from "mongoose";
+// import { SERVICES } from "../config/services.js";
+// import {
+//     sendAdminEmail,
+//     sendUserPendingPaymentEmail,
+// } from "../services/emailService.js";
+// import { createPaymentSession } from "../payments/paymentAdapter.js";
+// import { handlePaymentSuccess } from "../payments/paymentSuccess.js";
+// import Booking from "../models/bookingModel.js";
+
+// const auth = new google.auth.JWT({
+//     email: process.env.GOOGLE_CLIENT_EMAIL,
+//     key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+//     scopes: ["https://www.googleapis.com/auth/calendar"],
+// });
+
+// const calendar = google.calendar({ version: "v3", auth });
+
+
+
+
+// new booking controller 
+
+// export const createBooking = async (req, res) => {
+//     try {
+//         const { date, time, email, timezone, serviceId } = req.body;
+
+//         if (!date || !time || !email || !timezone || !serviceId) {
+//             return res.status(400).json({ message: "Missing required fields" });
+//         }
+
+//         const service = SERVICES.find(s => s.id === serviceId);
+//         if (!service) {
+//             return res.status(400).json({ message: "Invalid service" });
+//         }
+
+//         const expiresAt = new Date(Date.now() + 1 * 60 * 1000);
+
+//         const booking = await Booking.create({
+//             date,
+//             time,
+//             email,
+//             timezone,
+//             serviceId,
+//             amount: service.priceCents,
+//             currency: service.currency,
+//             expiresAt,
+//         });
+
+//         const paymentLink = `${process.env.FRONTEND_URL}/pay/${booking._id}`;
+
+//         await sendUserPendingPaymentEmail({
+//             email,
+//             date,
+//             time,
+//             timezone,
+//             bookingId: booking._id.toString(),
+//             paymentLink,
+//             expiresAt,
+//         });
+
+//         await sendAdminEmail({ email, date, time });
+
+//         res.json({
+//             success: true,
+//             bookingId: booking._id,
+//             expiresAt,
+//             status: booking.status,
+//         });
+
+//     } catch (err) {
+//         console.error("Booking error:", err);
+//         res.status(500).json({ success: false });
+//     }
+// };
+
+
+
+
+//===================================================================
+//=========================New Booking with Payment first============
+//===================================================================
+
+
+// export const createBookingHold = async (req, res) => {
+//     try {
+//         const { serviceId, name, email, date, time, timezone } = req.body;
+
+//         // ⛔ block double booking
+//         const conflict = await Booking.findOne({
+//             date,
+//             time,
+//             status: { $in: ["HOLD", "CONFIRMED"] },
+//             expiresAt: { $gt: new Date() },
+//         });
+
+//         if (conflict) {
+//             return res.status(409).json({ error: "Slot already reserved" });
+//         }
+
+//         // ⏱️ 15 minutes hold
+//         const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
+//         const booking = await Booking.create({
+//             serviceId,
+//             name,
+//             email,
+//             date,
+//             time,
+//             timezone,
+//             expiresAt,
+//             status: "HOLD",
+//         });
+
+//         res.json({
+//             bookingId: booking._id,
+//             expiresAt,
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ error: "Failed to create booking" });
+//     }
+// };
+
+
+
+// export const initPayment = async (req, res) => {
+//     const { bookingId, provider } = req.body;
+
+//     if (!mongoose.Types.ObjectId.isValid(bookingId)) {
+//         return res.status(400).json({ message: "Invalid booking id" });
+//     }
+
+//     const booking = await Booking.findById(bookingId);
+//     if (!booking || booking.status !== "PENDING_PAYMENT") {
+//         return res.status(404).json({ message: "Booking not found" });
+//     }
+
+//     if (booking.expiresAt < new Date()) {
+//         return res.status(410).json({ message: "Booking expired" });
+//     }
+
+//     const payment = await createPaymentSession({ booking, provider });
+
+//     booking.paymentProvider = provider.toUpperCase();
+//     booking.paymentIntentId = payment.paymentIntentId;
+//     await booking.save();
+
+//     res.json(payment);
+// };
+
+// export const stripeWebhook = async (req, res) => {
+//     const event = req.body;
+
+//     if (event.type === "checkout.session.completed") {
+//         const bookingId = event.data.object.metadata.bookingId;
+//         await handlePaymentSuccess(bookingId);
+//     }
+
+//     res.json({ received: true });
+// };
+
+// export const paypalSuccess = async (req, res) => {
+//     const { bookingId } = req.query;
+//     await handlePaymentSuccess(bookingId);
+//     res.redirect(`${process.env.FRONTEND_URL}/payment-success`);
+// };
+
+// export const cancelBooking = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+
+//         if (!mongoose.Types.ObjectId.isValid(id)) {
+//             return res.status(400).json({ message: "Invalid booking id" });
+//         }
+
+//         const booking = await Booking.findById(id);
+//         if (!booking) {
+//             return res.status(404).json({ message: "Booking not found" });
+//         }
+
+//         if (booking.googleEventId) {
+//             await calendar.events.delete({
+//                 calendarId: "primary",
+//                 eventId: booking.googleEventId,
+//             });
+//         }
+
+//         await Booking.findByIdAndDelete(id);
+//         res.json({ success: true });
+
+//     } catch (err) {
+//         console.error("Cancel error:", err);
+//         res.status(500).json({ success: false });
+//     }
+// };
+
+// export const getBookedTimes = async (req, res) => {
+//     const { date } = req.params;
+//     const now = new Date();
+
+//     const bookings = await Booking.find({
+//         date,
+//         status: { $in: ["PENDING_PAYMENT", "CONFIRMED"] },
+//     });
+
+//     const slots = bookings.map(b => ({
+//         time: b.time,
+//         status:
+//             b.status === "PENDING_PAYMENT" && b.expiresAt < now
+//                 ? "AVAILABLE"
+//                 : b.status,
+//     }));
+
+//     res.json({ slots });
+// };
+
+
+//============================================================================
+//=========================New Booking with Payment first============
+//============================================================================
 import mongoose from "mongoose";
-import { SERVICES } from "../config/services.js";
-import {
-    sendAdminEmail,
-    sendUserPendingPaymentEmail,
-} from "../services/emailService.js";
-import { createPaymentSession } from "../payments/paymentAdapter.js";
-import { handlePaymentSuccess } from "../payments/paymentSuccess.js";
 import Booking from "../models/bookingModel.js";
+import { calendar } from "../config/calendar.js";
 
-const auth = new google.auth.JWT({
-    email: process.env.GOOGLE_CLIENT_EMAIL,
-    key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-    scopes: ["https://www.googleapis.com/auth/calendar"],
-});
-
-const calendar = google.calendar({ version: "v3", auth });
-
-export const createBooking = async (req, res) => {
+/**
+ * ================================
+ * CREATE TEMPORARY BOOKING HOLD
+ * ================================
+ * - 15 minute expiration
+ * - NO email
+ * - NO calendar
+ * - Blocks slot immediately
+ */
+export const createBookingHold = async (req, res) => {
     try {
-        const { date, time, email, timezone, serviceId } = req.body;
+        const { serviceId, date, time, email, timezone } = req.body;
 
-        if (!date || !time || !email || !timezone || !serviceId) {
-            return res.status(400).json({ message: "Missing required fields" });
+        if (!serviceId || !date || !time || !email) {
+            return res.status(400).json({ error: "Missing required fields" });
         }
 
-        const service = SERVICES.find(s => s.id === serviceId);
-        if (!service) {
-            return res.status(400).json({ message: "Invalid service" });
+        // ⛔ Prevent double booking
+        const conflict = await Booking.findOne({
+            date,
+            time,
+            status: { $in: ["HOLD", "CONFIRMED"] },
+            expiresAt: { $gt: new Date() },
+        });
+
+        if (conflict) {
+            return res.status(409).json({ error: "Slot already reserved" });
         }
 
-        const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+        // ⏱️ 15-minute hold
+        const expiresAt = new Date(Date.now() + 2 * 60 * 1000);
 
         const booking = await Booking.create({
-            date,
-            time,
-            email,
-            timezone,
             serviceId,
-            amount: service.priceCents,
-            currency: service.currency,
-            expiresAt,
-        });
-
-        const paymentLink = `${process.env.FRONTEND_URL}/pay/${booking._id}`;
-
-        await sendUserPendingPaymentEmail({
-            email,
             date,
             time,
+            email,
             timezone,
-            bookingId: booking._id.toString(),
-            paymentLink,
             expiresAt,
+            status: "HOLD",
         });
-
-        await sendAdminEmail({ email, date, time });
 
         res.json({
-            success: true,
             bookingId: booking._id,
             expiresAt,
-            status: booking.status,
+        });
+    } catch (err) {
+        console.error("Create hold error:", err);
+        res.status(500).json({ error: "Failed to create booking hold" });
+    }
+};
+
+/**
+ * ================================
+ * GET BOOKED TIMES (PER DATE)
+ * ================================
+ * - Includes HOLD + CONFIRMED
+ * - Excludes expired holds
+ */
+export const getBookedTimes = async (req, res) => {
+    try {
+        const { date } = req.params;
+
+        const bookings = await Booking.find({
+            date,
+            status: { $in: ["HOLD", "CONFIRMED"] },
+            expiresAt: { $gt: new Date() },
         });
 
+        res.json({
+            slots: bookings.map((b) => b.time),
+        });
     } catch (err) {
-        console.error("Booking error:", err);
-        res.status(500).json({ success: false });
+        console.error("Get booked times error:", err);
+        res.status(500).json({ error: "Failed to fetch booked times" });
     }
 };
 
-export const initPayment = async (req, res) => {
-    const { bookingId, provider } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(bookingId)) {
-        return res.status(400).json({ message: "Invalid booking id" });
-    }
-
-    const booking = await Booking.findById(bookingId);
-    if (!booking || booking.status !== "PENDING_PAYMENT") {
-        return res.status(404).json({ message: "Booking not found" });
-    }
-
-    if (booking.expiresAt < new Date()) {
-        return res.status(410).json({ message: "Booking expired" });
-    }
-
-    const payment = await createPaymentSession({ booking, provider });
-
-    booking.paymentProvider = provider.toUpperCase();
-    booking.paymentIntentId = payment.paymentIntentId;
-    await booking.save();
-
-    res.json(payment);
-};
-
-export const stripeWebhook = async (req, res) => {
-    const event = req.body;
-
-    if (event.type === "checkout.session.completed") {
-        const bookingId = event.data.object.metadata.bookingId;
-        await handlePaymentSuccess(bookingId);
-    }
-
-    res.json({ received: true });
-};
-
-export const paypalSuccess = async (req, res) => {
-    const { bookingId } = req.query;
-    await handlePaymentSuccess(bookingId);
-    res.redirect(`${process.env.FRONTEND_URL}/payment-success`);
-};
-
+/**
+ * ================================
+ * CANCEL CONFIRMED BOOKING
+ * ================================
+ * - Used ONLY from email cancel link
+ * - Deletes Google Calendar event if exists
+ */
 export const cancelBooking = async (req, res) => {
     try {
         const { id } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid booking id" });
+            return res.status(400).json({ error: "Invalid booking id" });
         }
 
         const booking = await Booking.findById(id);
         if (!booking) {
-            return res.status(404).json({ message: "Booking not found" });
+            return res.status(404).json({ error: "Booking not found" });
         }
 
+        // Remove calendar event if confirmed
         if (booking.googleEventId) {
             await calendar.events.delete({
                 calendarId: "primary",
@@ -770,31 +968,11 @@ export const cancelBooking = async (req, res) => {
             });
         }
 
-        await Booking.findByIdAndDelete(id);
+        await booking.deleteOne();
+
         res.json({ success: true });
-
     } catch (err) {
-        console.error("Cancel error:", err);
-        res.status(500).json({ success: false });
+        console.error("Cancel booking error:", err);
+        res.status(500).json({ error: "Failed to cancel booking" });
     }
-};
-
-export const getBookedTimes = async (req, res) => {
-    const { date } = req.params;
-    const now = new Date();
-
-    const bookings = await Booking.find({
-        date,
-        status: { $in: ["PENDING_PAYMENT", "CONFIRMED"] },
-    });
-
-    const slots = bookings.map(b => ({
-        time: b.time,
-        status:
-            b.status === "PENDING_PAYMENT" && b.expiresAt < now
-                ? "AVAILABLE"
-                : b.status,
-    }));
-
-    res.json({ slots });
 };

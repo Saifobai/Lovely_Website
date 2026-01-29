@@ -1,17 +1,11 @@
 import Booking from "../models/bookingModel.js";
 
-export const expirePendingBookings = async () => {
-    const now = new Date();
-
-    const expired = await Booking.updateMany(
+export async function expirePendingBookings() {
+    await Booking.updateMany(
         {
-            status: "PENDING_PAYMENT",
-            expiresAt: { $lt: now },
+            status: "HOLD",
+            expiresAt: { $lt: new Date() },
         },
         { status: "EXPIRED" }
     );
-
-    if (expired.modifiedCount > 0) {
-        console.log(`⏳ Expired ${expired.modifiedCount} bookings`);
-    }
-};
+}
