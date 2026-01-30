@@ -1,14 +1,12 @@
-// import React, { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+// import { WEEKLY_AVAILABILITY } from "../../constants/index";
 // import { addDays, format, startOfWeek, addWeeks, isSameDay } from "date-fns";
 // import { motion, AnimatePresence } from "framer-motion";
 // import { ChevronLeft, ChevronRight, Globe } from "lucide-react";
 
-// import { TIMES } from "../../constants/time";
 // import { createBooking, fetchBookedTimes } from "../../api/booking.api";
-
 // import PendingPaymentModal from "./PendingPaymentModal";
 // import NavBtn from "../ui/NavBtn";
-
 // export default function BookingCalendar({ activeService, isEmbedded = false }) {
 //   /* ==================== GUARD ==================== */
 //   if (!activeService) {
@@ -40,6 +38,10 @@
 
 //   const days = Array.from({ length: 7 }).map((_, i) => addDays(start, i));
 
+//   const weekday = selectedDate.getDay();
+//   const allowedTimes = WEEKLY_AVAILABILITY[weekday]?.times || [];
+//   const dayLabel = WEEKLY_AVAILABILITY[weekday]?.label;
+
 //   /* ==================== FETCH SLOTS ==================== */
 //   const loadBookedSlots = async () => {
 //     try {
@@ -52,6 +54,11 @@
 
 //   useEffect(() => {
 //     loadBookedSlots();
+//   }, [selectedDate]);
+
+//   /* 🔒 Reset time if day changes */
+//   useEffect(() => {
+//     setSelectedTime("");
 //   }, [selectedDate]);
 
 //   /* ==================== SUBMIT ==================== */
@@ -93,16 +100,17 @@
 //         className={`flex-1 flex flex-col ${
 //           isEmbedded
 //             ? "bg-transparent"
-//             : "bg-[#050505] border border-white/10 rounded-[32px] shadow-2xl"
+//             : "bg-[#050505] border border-white/10 rounded-[32px]"
 //         }`}
 //       >
 //         {/* ================= HEADER ================= */}
 //         <div className="p-8 border-b border-white/5 flex justify-between items-end">
 //           <div>
-//             <h2 className="text-3xl font-black uppercase italic text-white">
-//               Which date is
+//             <h2 className="text-3xl font-black uppercase italic">
+//               Select your
 //               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
-//                 best for you?
+//                 {" "}
+//                 deployment window
 //               </span>
 //             </h2>
 //             <p className="text-[9px] font-mono text-slate-500 mt-1 flex gap-2">
@@ -111,30 +119,12 @@
 //           </div>
 
 //           <div className="text-right">
-//             <motion.div
-//               key={activeService.id}
-//               initial={{ opacity: 0, x: 20 }}
-//               animate={{ opacity: 1, x: 0 }}
-//               transition={{ duration: 0.4 }}
-//             >
-//               <h3 className="text-xl font-black italic uppercase text-white mb-2">
-//                 {activeService.title}
-//               </h3>
-
-//               <div className="flex items-end gap-2 justify-end">
-//                 <span className="text-4xl font-extralight">
-//                   {(activeService.priceCents / 100).toLocaleString("en-EU")}
-//                 </span>
-//                 <span className="text-[10px] font-mono text-slate-400">
-//                   {activeService.currency}
-//                 </span>
-//               </div>
-
-//               <div className="text-[12px] font-mono text-slate-300 mt-1">
-//                 {activeService.durationMinutes} Min strategy call, What time
-//                 works?
-//               </div>
-//             </motion.div>
+//             <h3 className="text-xl font-black italic uppercase">
+//               {activeService.title}
+//             </h3>
+//             <div className="text-[12px] font-mono text-slate-400 mt-1">
+//               {activeService.durationMinutes} Min Strategy Call
+//             </div>
 //           </div>
 //         </div>
 
@@ -144,14 +134,14 @@
 //           <div className="lg:col-span-7 p-8 border-r border-white/5">
 //             <div className="flex justify-between mb-8">
 //               <span className="text-[10px] font-mono text-blue-500">
-//                 01. Select_Date
+//                 01. Select_Day
 //               </span>
 //               <div className="flex gap-4">
 //                 <NavBtn
 //                   icon={<ChevronLeft size={16} />}
 //                   onClick={() => setWeekOffset((p) => p - 1)}
 //                 />
-//                 <span className="font-mono text-xs text-white">
+//                 <span className="font-mono text-xs">
 //                   {format(start, "MMM yyyy")}
 //                 </span>
 //                 <NavBtn
@@ -165,15 +155,16 @@
 //               {days.map((day, i) => {
 //                 const active = isSameDay(day, selectedDate);
 //                 const isPast = day < today;
+//                 const isAllowed = WEEKLY_AVAILABILITY[day.getDay()];
 
 //                 return (
 //                   <button
 //                     key={i}
-//                     disabled={isPast}
+//                     disabled={isPast || !isAllowed}
 //                     onClick={() => setSelectedDate(day)}
 //                     className={`aspect-[4/5] rounded-2xl border flex flex-col items-center justify-center ${
-//                       isPast
-//                         ? "opacity-10"
+//                       isPast || !isAllowed
+//                         ? "opacity-10 cursor-not-allowed"
 //                         : active
 //                           ? "bg-white text-black"
 //                           : "border-white/5 text-slate-400"
@@ -194,11 +185,17 @@
 //           {/* TIME SLOTS */}
 //           <div className="lg:col-span-5 p-8 bg-black/20">
 //             <span className="text-[10px] font-mono text-blue-500">
-//               02. Available_Slots
+//               02. Available_Times
 //             </span>
 
-//             <div className="grid grid-cols-2 gap-3 mt-8">
-//               {TIMES.map((t) => {
+//             {dayLabel && (
+//               <p className="text-[10px] text-purple-400 font-mono mt-2">
+//                 {dayLabel}
+//               </p>
+//             )}
+
+//             <div className="grid grid-cols-2 gap-3 mt-6">
+//               {allowedTimes.map((t) => {
 //                 const slot = slots.find((s) => s.time === t);
 //                 const status = slot?.status || "AVAILABLE";
 //                 const past = isToday && t <= currentTime;
@@ -233,7 +230,7 @@
 //               value={email}
 //               onChange={(e) => setEmail(e.target.value)}
 //               placeholder="USER_ID@EMAIL.COM"
-//               className="flex-1 bg-white/5 border border-white/10 px-6 py-4 rounded-xl text-white font-mono text-xs"
+//               className="flex-1 bg-white/5 border border-white/10 px-6 py-4 rounded-xl font-mono text-xs"
 //             />
 
 //             <button
@@ -262,16 +259,19 @@
 //   );
 // }
 
-//==================== SERVICE DETAILS ==================== */
+//====================================================================
+//====================================================================
+//====================================================================
 import { useEffect, useState } from "react";
-import { WEEKLY_AVAILABILITY } from "../../constants/index";
+import { WEEKLY_AVAILABILITY } from "../../constants";
 import { addDays, format, startOfWeek, addWeeks, isSameDay } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Globe } from "lucide-react";
 
 import { createBooking, fetchBookedTimes } from "../../api/booking.api";
 import PendingPaymentModal from "./PendingPaymentModal";
 import NavBtn from "../ui/NavBtn";
+
 export default function BookingCalendar({ activeService, isEmbedded = false }) {
   /* ==================== GUARD ==================== */
   if (!activeService) {
@@ -289,6 +289,11 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
   const [weekOffset, setWeekOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const [slots, setSlots] = useState([]);
+
+  /**
+   * pendingBooking = TEMPORARY HOLD (not confirmed)
+   * Expires automatically after 3 minutes (backend enforced)
+   */
   const [pendingBooking, setPendingBooking] = useState(null);
 
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -319,19 +324,23 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
 
   useEffect(() => {
     loadBookedSlots();
-  }, [selectedDate]);
-
-  /* 🔒 Reset time if day changes */
-  useEffect(() => {
     setSelectedTime("");
   }, [selectedDate]);
 
-  /* ==================== SUBMIT ==================== */
+  /* ==================== PAY-FIRST HOLD ==================== */
   const submitBooking = async () => {
-    if (!selectedTime || !email) return;
+    if (!selectedTime || !email || loading) return;
 
     setLoading(true);
+
     try {
+      /**
+       * BACKEND FLOW:
+       * - Creates PENDING booking
+       * - Sets expiresAt = now + 3 minutes
+       * - NO email sent yet
+       * - NO calendar save yet
+       */
       const data = await createBooking({
         date: format(selectedDate, "yyyy-MM-dd"),
         time: selectedTime,
@@ -345,7 +354,8 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
         expiresAt: data.expiresAt,
       });
     } catch (err) {
-      console.error("Booking failed:", err);
+      console.error("Hold failed:", err);
+      alert("Unable to reserve slot. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -372,9 +382,8 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
         <div className="p-8 border-b border-white/5 flex justify-between items-end">
           <div>
             <h2 className="text-3xl font-black uppercase italic">
-              Select your
+              Select your{" "}
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
-                {" "}
                 deployment window
               </span>
             </h2>
@@ -503,12 +512,13 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
               disabled={loading || !selectedTime || !email}
               className="min-w-[280px] h-[52px] bg-white text-black rounded-xl font-black uppercase italic text-xs disabled:opacity-20"
             >
-              {loading ? "INITIALIZING..." : "EXECUTE_DEPLOYMENT"}
+              {loading ? "CREATING HOLD..." : "PROCEED TO PAYMENT (3-MIN HOLD)"}
             </button>
           </div>
         </div>
       </div>
 
+      {/* ================= PAYMENT MODAL ================= */}
       <AnimatePresence>
         {pendingBooking && (
           <PendingPaymentModal
