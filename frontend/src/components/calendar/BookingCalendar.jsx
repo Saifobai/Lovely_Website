@@ -382,9 +382,9 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
         <div className="p-8 border-b border-white/5 flex justify-between items-end">
           <div>
             <h2 className="text-3xl font-black uppercase italic">
-              Select your{" "}
+              What is the{" "}
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
-                deployment window
+                Best date for you?
               </span>
             </h2>
             <p className="text-[9px] font-mono text-slate-500 mt-1 flex gap-2">
@@ -503,7 +503,7 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="USER_ID@EMAIL.COM"
+              placeholder="Enter your email"
               className="flex-1 bg-white/5 border border-white/10 px-6 py-4 rounded-xl font-mono text-xs"
             />
 
@@ -512,7 +512,7 @@ export default function BookingCalendar({ activeService, isEmbedded = false }) {
               disabled={loading || !selectedTime || !email}
               className="min-w-[280px] h-[52px] bg-white text-black rounded-xl font-black uppercase italic text-xs disabled:opacity-20"
             >
-              {loading ? "CREATING HOLD..." : "PROCEED TO PAYMENT (3-MIN HOLD)"}
+              {loading ? "CREATING HOLD..." : "Secure Your Slot"}
             </button>
           </div>
         </div>

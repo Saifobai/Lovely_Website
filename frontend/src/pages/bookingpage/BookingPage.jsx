@@ -77,10 +77,10 @@ export default function BookingPage() {
 
           <div className="space-y-10">
             <div>
-              <h2 className="text-5xl md:text-6xl font-black italic uppercase leading-[0.85] tracking-tighter">
-                Deployment <br />
+              <h2 className="text-5xl md:text-4xl font-black italic uppercase leading-[0.85] tracking-tighter">
+                Reserve your private <br />
                 <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
-                  Protocol
+                  advisory session
                 </span>
               </h2>
             </div>
