@@ -1,8 +1,208 @@
+// import React, { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { ChevronDown, ArrowLeft, ShieldCheck } from "lucide-react";
+
+// import BookingCalendar from "../../components/calendar/BookingCalendar";
+// import { fetchServices } from "../../api/services.api";
+
+// export default function BookingPage() {
+//   const navigate = useNavigate();
+//   const [services, setServices] = useState([]);
+//   const [activeService, setActiveService] = useState(null);
+//   const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+//   // 🔒 LOCK BODY SCROLL
+//   useEffect(() => {
+//     const originalOverflow = document.body.style.overflow;
+//     document.body.style.overflow = "hidden";
+//     return () => {
+//       document.body.style.overflow = originalOverflow;
+//     };
+//   }, []);
+
+//   // 📡 FETCH SERVICES
+//   useEffect(() => {
+//     fetchServices().then((data) => {
+//       setServices(data);
+//       setActiveService(data[0]);
+//     });
+//   }, []);
+
+//   if (!activeService) {
+//     return (
+//       <div className="h-screen flex items-center justify-center bg-[#050505] text-blue-500 font-mono tracking-widest animate-pulse">
+//         INITIALIZING_SERVICES...
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <section className="relative h-screen bg-[#050505] text-white overflow-hidden flex items-center justify-center p-4 md:p-5 font-sans">
+//       {/* --- BACKGROUND ENGINE --- */}
+
+//       {/* NAV */}
+//       <button
+//         onClick={() => navigate("/")}
+//         className="absolute top-6 left-6 md:top-1 md:left-10 z-[100] text-slate-500 hover:text-white transition-all uppercase flex items-center gap-2 group"
+//       >
+//         <ArrowLeft
+//           size={14}
+//           className="group-hover:-translate-x-1 transition"
+//         />
+//         <span className="text-xl font-black italic tracking-tighter">Home</span>
+//       </button>
+
+//       {/* MAIN CONTAINER */}
+//       <div className="relative mb-18 z-10 w-full max-w-[1440px] md:aspect-[16/9] md:max-h-[85vh] flex flex-col md:flex-row bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[30px] md:rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,1)] mt-12 md:mt-0">
+//         {/* LEFT PANEL */}
+//         <div className="w-full md:w-[38%] border-b md:border-b-0 md:border-r border-white/10 p-8 md:p-12 flex flex-col justify-between relative">
+//           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-red-600" />
+
+//           <div className="space-y-10">
+//             <div>
+//               <h2 className="text-5xl md:text-4xl font-black italic uppercase leading-[0.85] tracking-tighter">
+//                 Reserve your private <br />
+//                 <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
+//                   advisory session
+//                 </span>
+//               </h2>
+//             </div>
+
+//             {/* SERVICE SELECT */}
+//             <div className="relative">
+//               <button
+//                 onClick={() => setIsSelectOpen((v) => !v)}
+//                 className={`w-full bg-white/[0.03] border rounded-2xl px-6 py-5 flex justify-between items-center group transition-all shadow-inner ${
+//                   isSelectOpen
+//                     ? "border-purple-500"
+//                     : "border-white/10 hover:border-white/30"
+//                 }`}
+//               >
+//                 <div className="flex flex-col items-start">
+//                   <span className="font-bold italic uppercase text-sm tracking-wide flex items-center gap-2">
+//                     {activeService.isExclusive && (
+//                       <ShieldCheck size={14} className="text-red-500" />
+//                     )}
+//                     {activeService.title}
+//                   </span>
+//                   <span className="text-[11px] font-mono text-slate-400 mt-1 uppercase">
+//                     Duration: {activeService.durationMinutes} MIN
+//                   </span>
+//                 </div>
+//                 <ChevronDown
+//                   size={18}
+//                   className={`text-purple-500 transition-transform duration-500 ${isSelectOpen ? "rotate-180" : ""}`}
+//                 />
+//               </button>
+
+//               <AnimatePresence>
+//                 {isSelectOpen && (
+//                   <>
+//                     <div
+//                       className="fixed inset-0 z-40"
+//                       onClick={() => setIsSelectOpen(false)}
+//                     />
+//                     <motion.div
+//                       initial={{ opacity: 0, scale: 0.95, y: 10 }}
+//                       animate={{ opacity: 1, scale: 1, y: 0 }}
+//                       exit={{ opacity: 0, scale: 0.95, y: 10 }}
+//                       className="absolute top-[110%] w-full bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden z-50 shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+//                     >
+//                       {services.map((s) => (
+//                         <button
+//                           key={s.id}
+//                           onClick={() => {
+//                             setActiveService(s);
+//                             setIsSelectOpen(false);
+//                           }}
+//                           className={`w-full px-6 py-5 text-left flex justify-between items-center border-b border-white/5 last:border-none transition-all
+//                             ${activeService.id === s.id ? "bg-white/[0.05]" : "hover:bg-white/5"}`}
+//                         >
+//                           <div className="flex flex-col">
+//                             <span
+//                               className={`text-[10px] font-black italic uppercase tracking-wider ${activeService.id === s.id ? "text-blue-400" : "text-slate-200"}`}
+//                             >
+//                               {s.title}
+//                             </span>
+//                             {s.isExclusive && (
+//                               <span className="text-[8px] text-red-500 font-mono uppercase mt-1">
+//                                 By Invitation Only
+//                               </span>
+//                             )}
+//                           </div>
+//                           <span className="font-mono text-[13px] text-slate-400">
+//                             {s.isExclusive
+//                               ? `€${s.priceCents / 100}-€${s.priceMaxCents / 100}`
+//                               : `€${(s.priceCents / 100).toFixed(0)}`}
+//                           </span>
+//                         </button>
+//                       ))}
+//                     </motion.div>
+//                   </>
+//                 )}
+//               </AnimatePresence>
+//             </div>
+
+//             {/* BRIEFING CARD */}
+//             <div className="relative group p-6 bg-gradient-to-br from-white/[0.04] to-transparent border border-white/5 rounded-2xl">
+//               <div className="flex justify-between items-center mb-4">
+//                 <h4 className="font-black italic uppercase text-blue-500 text-xs tracking-widest">
+//                   Briefing
+//                 </h4>
+//                 {activeService.requiresUmsatz && (
+//                   <span className="text-[10px] font-mono bg-red-500/10 text-red-500 px-2 py-1 rounded border border-red-500/20">
+//                     UMSATZ_REQUIRED
+//                   </span>
+//                 )}
+//               </div>
+//               <p className="text-sm text-slate-300 leading-relaxed italic opacity-80 mb-6">
+//                 "{activeService.desc}"
+//               </p>
+
+//               {/* Detailed Breakdown */}
+//               <div className="space-y-4 pt-4 border-t border-white/5">
+//                 {activeService.details.map((detail, idx) => (
+//                   <div key={idx} className="flex gap-4">
+//                     <span className="font-mono text-[11px] text-purple-500 shrink-0">
+//                       [{detail.time}]
+//                     </span>
+//                     <div className="space-y-1">
+//                       <p className="text-[10px] font-bold text-white uppercase tracking-wider">
+//                         {detail.label}
+//                       </p>
+//                       <p className="text-[11px] text-slate-400 leading-snug">
+//                         {detail.text}
+//                       </p>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="hidden md:flex justify-between items-center opacity-20 text-[8px] font-mono uppercase tracking-[0.5em] mt-8 pt-6 border-t border-white/5">
+//             <span>Security_Encrypted</span>
+//             <div className="flex gap-2 text-red-500">
+//               <div className="w-1 h-1 bg-current rounded-full animate-ping" />
+//               <span>Session_Live</span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* RIGHT PANEL */}
+//         <div className="w-full md:w-[62%] bg-black/20 overflow-y-auto">
+//           <BookingCalendar activeService={activeService} isEmbedded />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ArrowLeft, ShieldCheck } from "lucide-react";
-
+import { ChevronDown, ArrowLeft, ShieldCheck, Activity } from "lucide-react";
 import BookingCalendar from "../../components/calendar/BookingCalendar";
 import { fetchServices } from "../../api/services.api";
 
@@ -12,16 +212,6 @@ export default function BookingPage() {
   const [activeService, setActiveService] = useState(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
-  // 🔒 LOCK BODY SCROLL
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
-
-  // 📡 FETCH SERVICES
   useEffect(() => {
     fetchServices().then((data) => {
       setServices(data);
@@ -29,101 +219,67 @@ export default function BookingPage() {
     });
   }, []);
 
-  if (!activeService) {
-    return (
-      <div className="h-screen flex items-center justify-center bg-[#050505] text-blue-500 font-mono tracking-widest animate-pulse">
-        INITIALIZING_SERVICES...
-      </div>
-    );
-  }
+  if (!activeService) return null;
 
   return (
-    <section className="relative h-screen bg-[#050505] text-white overflow-hidden flex items-center justify-center p-4 md:p-5 font-sans">
-      {/* --- BACKGROUND ENGINE --- */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-600/15 blur-[140px] rounded-full animate-pulse" />
-        <div
-          className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-purple-600/15 blur-[140px] rounded-full animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
+    <section className="relative min-h-screen bg-transparent text-white pt-24 pb-12 px-4 md:px-10 flex flex-col items-center overflow-x-hidden">
+      {/* HEADER NAV */}
+      <div className="w-full max-w-[1440px] mb-8">
+        <button
+          onClick={() => navigate("/")}
+          className="group flex items-center gap-2 text-slate-500 hover:text-blue-500 transition-all"
+        >
+          <ArrowLeft
+            size={16}
+            className="group-hover:-translate-x-1 transition"
+          />
+          <span className="text-xl font-black italic tracking-tighter uppercase">
+            Terminate_Session
+          </span>
+        </button>
       </div>
 
-      {/* NAV */}
-      <button
-        onClick={() => navigate("/")}
-        className="absolute top-6 left-6 md:top-1 md:left-10 z-[100] text-slate-500 hover:text-white transition-all uppercase flex items-center gap-2 group"
-      >
-        <ArrowLeft
-          size={14}
-          className="group-hover:-translate-x-1 transition"
-        />
-        <span className="text-xl font-black italic tracking-tighter">
-          TERMINATE_SESSION
-        </span>
-      </button>
-
-      {/* MAIN CONTAINER */}
-      <div className="relative mb-18 z-10 w-full max-w-[1440px] md:aspect-[16/9] md:max-h-[85vh] flex flex-col md:flex-row bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[30px] md:rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,1)] mt-12 md:mt-0">
-        {/* LEFT PANEL */}
-        <div className="w-full md:w-[38%] border-b md:border-b-0 md:border-r border-white/10 p-8 md:p-12 flex flex-col justify-between relative">
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-red-600" />
-
+      {/* THE BIG BOARD CONTAINER */}
+      <div className="relative z-10 w-full max-w-[1440px] flex flex-col lg:flex-row bg-white/[0.02] backdrop-blur-3xl border border-white/10 rounded-[40px] overflow-hidden shadow-2xl">
+        {/* LEFT PANEL: BRIEFING (30%) */}
+        <div className="w-full lg:w-[30%] border-b lg:border-b-0 lg:border-r border-white/10 p-8 md:p-12 flex flex-col justify-between">
           <div className="space-y-10">
             <div>
-              <h2 className="text-5xl md:text-4xl font-black italic uppercase leading-[0.85] tracking-tighter">
-                Reserve your private <br />
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 bg-clip-text text-transparent italic">
-                  advisory session
-                </span>
+              <h2 className="text-5xl font-black italic uppercase leading-[0.85] tracking-tighter mb-6">
+                Reserve your <br />
+                <span className="text-blue-600">advisory</span>
               </h2>
-            </div>
 
-            {/* SERVICE SELECT */}
-            <div className="relative">
-              <button
-                onClick={() => setIsSelectOpen((v) => !v)}
-                className={`w-full bg-white/[0.03] border rounded-2xl px-6 py-5 flex justify-between items-center group transition-all shadow-inner ${
-                  isSelectOpen
-                    ? "border-purple-500"
-                    : "border-white/10 hover:border-white/30"
-                }`}
-              >
-                <div className="flex flex-col items-start">
-                  <span className="font-bold italic uppercase text-sm tracking-wide flex items-center gap-2">
-                    {activeService.isExclusive && (
-                      <ShieldCheck size={14} className="text-red-500" />
-                    )}
-                    {activeService.title}
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-400 mt-1 uppercase">
-                    Duration: {activeService.durationMinutes} MIN
-                  </span>
-                </div>
-                <ChevronDown
-                  size={18}
-                  className={`text-purple-500 transition-transform duration-500 ${isSelectOpen ? "rotate-180" : ""}`}
-                />
-              </button>
+              {/* SERVICE SELECTOR */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsSelectOpen(!isSelectOpen)}
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 flex justify-between items-center hover:border-blue-500 transition-all"
+                >
+                  <div className="text-left">
+                    <span className="font-bold italic uppercase text-xs tracking-widest flex items-center gap-2">
+                      {activeService.isExclusive && (
+                        <ShieldCheck size={14} className="text-blue-500" />
+                      )}
+                      {activeService.title}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-500 mt-1 uppercase">
+                      Duration: {activeService.durationMinutes} MIN
+                    </span>
+                  </div>
+                  <ChevronDown
+                    size={18}
+                    className={`text-blue-500 transition-transform ${isSelectOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
 
-              <AnimatePresence>
-                {isSelectOpen && (
-                  <>
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={() => setIsSelectOpen(false)}
-                    />
+                <AnimatePresence>
+                  {isSelectOpen && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                      className="absolute top-[110%] w-full bg-[#0d0d0d] border border-white/10 rounded-2xl overflow-hidden z-50 shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-[110%] w-full bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-hidden z-50"
                     >
                       {services.map((s) => (
                         <button
@@ -132,55 +288,34 @@ export default function BookingPage() {
                             setActiveService(s);
                             setIsSelectOpen(false);
                           }}
-                          className={`w-full px-6 py-5 text-left flex justify-between items-center border-b border-white/5 last:border-none transition-all
-                            ${activeService.id === s.id ? "bg-white/[0.05]" : "hover:bg-white/5"}`}
+                          className="w-full p-5 text-left border-b border-white/5 last:border-none hover:bg-blue-600/10 transition-all flex justify-between items-center"
                         >
-                          <div className="flex flex-col">
-                            <span
-                              className={`text-[10px] font-black italic uppercase tracking-wider ${activeService.id === s.id ? "text-blue-400" : "text-slate-200"}`}
-                            >
-                              {s.title}
-                            </span>
-                            {s.isExclusive && (
-                              <span className="text-[8px] text-red-500 font-mono uppercase mt-1">
-                                By Invitation Only
-                              </span>
-                            )}
-                          </div>
-                          <span className="font-mono text-[13px] text-slate-400">
-                            {s.isExclusive
-                              ? `€${s.priceCents / 100}-€${s.priceMaxCents / 100}`
-                              : `€${(s.priceCents / 100).toFixed(0)}`}
+                          <span className="text-[10px] font-black italic uppercase">
+                            {s.title}
+                          </span>
+                          <span className="font-mono text-[11px] text-slate-400">
+                            €{s.priceCents / 100}
                           </span>
                         </button>
                       ))}
                     </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             {/* BRIEFING CARD */}
-            <div className="relative group p-6 bg-gradient-to-br from-white/[0.04] to-transparent border border-white/5 rounded-2xl">
-              <div className="flex justify-between items-center mb-4">
-                <h4 className="font-black italic uppercase text-blue-500 text-xs tracking-widest">
-                  Briefing
-                </h4>
-                {activeService.requiresUmsatz && (
-                  <span className="text-[10px] font-mono bg-red-500/10 text-red-500 px-2 py-1 rounded border border-red-500/20">
-                    UMSATZ_REQUIRED
-                  </span>
-                )}
-              </div>
-              <p className="text-sm text-slate-300 leading-relaxed italic opacity-80 mb-6">
+            <div className="p-6 bg-blue-600/5 border border-blue-500/10 rounded-2xl space-y-6">
+              <h4 className="font-black italic uppercase text-blue-500 text-xs tracking-[0.3em]">
+                Briefing_Dossier
+              </h4>
+              <p className="text-sm text-slate-300 italic leading-relaxed">
                 "{activeService.desc}"
               </p>
-
-              {/* Detailed Breakdown */}
               <div className="space-y-4 pt-4 border-t border-white/5">
                 {activeService.details.map((detail, idx) => (
                   <div key={idx} className="flex gap-4">
-                    <span className="font-mono text-[11px] text-purple-500 shrink-0">
+                    <span className="font-mono text-[10px] text-blue-500 shrink-0">
                       [{detail.time}]
                     </span>
                     <div className="space-y-1">
@@ -197,17 +332,17 @@ export default function BookingPage() {
             </div>
           </div>
 
-          <div className="hidden md:flex justify-between items-center opacity-20 text-[8px] font-mono uppercase tracking-[0.5em] mt-8 pt-6 border-t border-white/5">
-            <span>Security_Encrypted</span>
-            <div className="flex gap-2 text-red-500">
-              <div className="w-1 h-1 bg-current rounded-full animate-ping" />
-              <span>Session_Live</span>
+          <div className="hidden lg:flex justify-between items-center opacity-30 text-[8px] font-mono uppercase tracking-[0.5em] mt-8">
+            <div className="flex gap-2 items-center">
+              <Activity size={10} className="text-blue-500 animate-pulse" />
+              <span>Link_Stable</span>
             </div>
+            <span>v.2.0.26</span>
           </div>
         </div>
 
-        {/* RIGHT PANEL */}
-        <div className="w-full md:w-[62%] bg-black/20 overflow-y-auto">
+        {/* RIGHT PANEL: THE BOARD (70%) */}
+        <div className="w-full lg:w-[70%] bg-black/20 overflow-y-auto">
           <BookingCalendar activeService={activeService} isEmbedded />
         </div>
       </div>
