@@ -387,14 +387,20 @@ export default function ServicesSection() {
       <div className="max-w-[1500px] mx-auto px-6 relative z-10">
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#1F2937] pb-12">
           <div className="space-y-2">
-            <h2 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.8] text-[#F5F7FA]">
+            <h2 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.85] text-[#F5F7FA]">
               {t("services.header.core")} <br />
-              <span className="text-[#3B82F6]">
-                {t("services.header.protocols")}
+              <span className="text-[#3B82F6] text-2xl md:text-3xl font-light not-uppercase normal-case tracking-tight block mt-4">
+                {t("services.header.protocols")
+                  .split("\n")
+                  .map((line, i) => (
+                    <span key={i} className="block">
+                      {line}
+                    </span>
+                  ))}
               </span>
             </h2>
           </div>
-          <div className="bg-[#111827]/50 border border-[#1F2937] p-6 rounded-2xl backdrop-blur-md hidden lg:block font-mono text-[10px] text-[#4B5563] uppercase tracking-widest leading-relaxed">
+          {/* <div className="bg-[#111827]/50 border border-[#1F2937] p-6 rounded-2xl backdrop-blur-md hidden lg:block font-mono text-[10px] text-[#4B5563] uppercase tracking-widest leading-relaxed">
             <p>
               {t("services.header.activeNodes")}: 0{services.length} <br />
               {t("services.header.encryption")}: AES_256_STRICT <br />
@@ -403,7 +409,7 @@ export default function ServicesSection() {
                 {t("services.header.ready")}
               </span>
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="grid grid-cols-1 gap-3">
@@ -431,11 +437,8 @@ export default function ServicesSection() {
                   {service.title}
                 </h3>
                 <div className="flex gap-4 mt-1 overflow-hidden h-0 group-hover:h-5 transition-all duration-500 hidden md:flex">
-                  <span className="text-[9px] font-mono text-[#3B82F6] uppercase tracking-widest">
-                    Ready_For_Deployment
-                  </span>
-                  <span className="text-[9px] font-mono text-[#4B5563] uppercase tracking-widest">
-                    // Internal_Protocol_{service.id}
+                  <span className="text-[10px] font-mono text-[#3B82F6] uppercase tracking-widest">
+                    Explore this service
                   </span>
                 </div>
               </div>

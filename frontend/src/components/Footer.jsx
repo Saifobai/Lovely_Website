@@ -116,9 +116,136 @@
 
 //===================================================================
 //===================================================================
+// import React from "react";
+// import { motion } from "framer-motion";
+// import { ArrowUpRight, Shield } from "lucide-react";
+
+// export default function Footer() {
+//   const scrollToTop = () => {
+//     window.scrollTo({ top: 0, behavior: "smooth" });
+//   };
+
+//   return (
+//     <footer className="relative pt-24 pb-12 overflow-hidden bg-[#05080F] select-none">
+//       {/* 1. INSTITUTIONAL TOP BORDER */}
+//       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#3B82F6]/30 to-transparent" />
+
+//       {/* 2. SUBTLE AMBIANCE */}
+//       <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-[#3B82F6]/5 rounded-full blur-[140px] pointer-events-none" />
+
+//       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+//         <div className="grid lg:grid-cols-12 gap-16 mb-20">
+//           {/* LEFT: BRAND IDENTITY */}
+//           <div className="lg:col-span-7 space-y-10">
+//             <div className="space-y-8">
+//               <h3 className="text-[#F5F7FA] text-6xl md:text-7xl font-black tracking-tighter uppercase leading-[0.8] italic">
+//                 LOVELY
+//                 <br />
+//                 <span className="text-xl md:text-2xl font-light not-italic text-[#4B5563] tracking-tight normal-case block mt-6 max-w-md">
+//                   Strategic clarity for those navigating complex global
+//                   ambitions.
+//                 </span>
+//               </h3>
+
+//               <div className="flex flex-col gap-4 text-[#4B5563] text-[11px] max-w-sm leading-relaxed border-l border-[#1F2937] pl-8 italic uppercase tracking-wider">
+//                 <p>
+//                   Lovely operates as a strategic advisory firm. We do not
+//                   provide legal, tax, or regulated financial advice.
+//                 </p>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* RIGHT: NAVIGATION & SCROLL */}
+//           <div className="lg:col-span-5 flex flex-col md:flex-row justify-between gap-12 pt-4">
+//             <FooterColumn
+//               title="Navigation"
+//               links={["Home", "About", "Services", "Contact"]}
+//             />
+
+//             <div className="flex flex-col justify-end items-end">
+//               <motion.button
+//                 whileHover={{ y: -5 }}
+//                 whileTap={{ scale: 0.98 }}
+//                 onClick={scrollToTop}
+//                 className="w-20 h-20 rounded-3xl border border-[#1F2937] flex items-center justify-center group relative overflow-hidden transition-all duration-500 bg-[#0B1320]/50 backdrop-blur-xl hover:border-[#3B82F6]/50"
+//               >
+//                 <div className="absolute inset-0 bg-[#3B82F6]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+//                 <ArrowUpRight className="w-8 h-8 text-[#4B5563] relative z-10 group-hover:text-[#F5F7FA] transition-all group-hover:-rotate-45" />
+//               </motion.button>
+//               <span className="mt-4 font-mono text-[9px] text-[#4B5563] uppercase tracking-[0.3em] font-bold">
+//                 Return_To_Top
+//               </span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* 3. CINEMATIC WATERMARK */}
+//         <div className="relative py-12">
+//           <h2 className="text-[13vw] font-black leading-none tracking-tighter text-[#1F2937]/10 text-center uppercase italic whitespace-nowrap select-none">
+//             Lovely 2026
+//           </h2>
+//         </div>
+
+//         {/* BOTTOM BAR */}
+//         <div className="pt-10 border-t border-[#1F2937] flex flex-col md:flex-row items-center justify-between gap-8">
+//           <div className="flex items-center gap-4 text-[12px] font-mono text-[#4b535f] tracking-[0.2em] uppercase">
+//             <span>© 2026 LOVELY ALL RIGHTS RESERVED.</span>
+//           </div>
+
+//           <div className="flex items-center gap-6">
+//             {/* FIXED SPAN: Applied the "Institutional Node" styling */}
+//             <span className="text-[12px] font-mono text-[#505864] uppercase tracking-[0.2em] px-4 py-2 border border-[#1F2937] rounded-xl bg-[#0B1320]/50 whitespace-nowrap">
+//               Made by <span className="text-[#3B82F6] font-bold">Lovely</span> &{" "}
+//               <span className="text-[#F5F7FA]">Sam</span>
+//             </span>
+//           </div>
+//         </div>
+//       </div>
+//     </footer>
+//   );
+// }
+
+// function FooterColumn({ title, links }) {
+//   return (
+//     <div className="space-y-8">
+//       <h4 className="text-[#F5F7FA]/20 font-mono text-[10px] tracking-[0.4em] uppercase font-black">
+//         {title}
+//       </h4>
+//       <ul className="space-y-4">
+//         {links.map((link) => (
+//           <li key={link}>
+//             <a
+//               href={`#${link.toLowerCase()}`}
+//               className="text-[#4B5563] hover:text-[#3B82F6] transition-all text-[11px] font-bold uppercase tracking-[0.2em] flex items-center group italic"
+//             >
+//               <span className="w-0 group-hover:w-5 overflow-hidden transition-all duration-300 text-[#3B82F6] font-mono text-[10px]">
+//                 //
+//               </span>
+//               {link}
+//             </a>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+// function SocialLink({ label }) {
+//   return (
+//     <a
+//       href="#"
+//       className="text-[#4B5563] hover:text-[#F5F7FA] font-mono text-[10px] transition-colors uppercase font-bold tracking-widest"
+//     >
+//       [{label}]
+//     </a>
+//   );
+// }
+
+//===================================================================
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Shield } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Activity, Scale } from "lucide-react";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -126,79 +253,101 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative pt-24 pb-12 overflow-hidden bg-[#05080F] select-none">
-      {/* 1. INSTITUTIONAL TOP BORDER */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#3B82F6]/30 to-transparent" />
-
-      {/* 2. SUBTLE AMBIANCE */}
-      <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-[#3B82F6]/5 rounded-full blur-[140px] pointer-events-none" />
+    <footer className="relative pt-32 pb-12 overflow-hidden bg-[#050505] select-none border-t border-white/5 font-sans">
+      {/* 1. TOP GLOW ACCENT */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-blue-600/50 to-transparent" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-16 mb-20">
+        <div className="grid lg:grid-cols-12 gap-16 mb-24">
           {/* LEFT: BRAND IDENTITY */}
-          <div className="lg:col-span-7 space-y-10">
-            <div className="space-y-8">
-              <h3 className="text-[#F5F7FA] text-6xl md:text-7xl font-black tracking-tighter uppercase leading-[0.8] italic">
+          <div className="lg:col-span-7 space-y-12">
+            <div className="space-y-6">
+              <h3 className="text-white text-7xl md:text-8xl font-black tracking-tighter uppercase leading-[0.8] italic">
                 LOVELY
-                <br />
-                <span className="text-xl md:text-2xl font-light not-italic text-[#4B5563] tracking-tight normal-case block mt-6 max-w-md">
-                  Strategic clarity for those navigating complex global
-                  ambitions.
-                </span>
               </h3>
+              <p className="text-xl md:text-2xl font-light text-slate-500 tracking-tight max-w-md italic">
+                Strategic clarity for those navigating complex global ambitions.
+              </p>
+            </div>
 
-              <div className="flex flex-col gap-4 text-[#4B5563] text-[11px] max-w-sm leading-relaxed border-l border-[#1F2937] pl-8 italic uppercase tracking-wider">
-                <p>
-                  Lovely operates as a strategic advisory firm. We do not
-                  provide legal, tax, or regulated financial advice.
-                </p>
+            {/* STATUS & LEGAL DISCLAIMER */}
+            <div className="space-y-6 max-w-sm">
+              <div className="flex items-center gap-3 text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase">
+                <Activity size={12} className="animate-pulse" />{" "}
+                System_Operational_2026
               </div>
+              <p className="text-[#4B5563] text-[10px] leading-relaxed border-l border-white/10 pl-6 italic uppercase tracking-widest">
+                Lovely operates as a strategic advisory firm. We do not provide
+                regulated legal, tax, or financial advice.
+              </p>
             </div>
           </div>
 
           {/* RIGHT: NAVIGATION & SCROLL */}
-          <div className="lg:col-span-5 flex flex-col md:flex-row justify-between gap-12 pt-4">
+          <div className="lg:col-span-5 flex flex-col md:flex-row justify-between gap-12">
             <FooterColumn
-              title="Navigation"
-              links={["Home", "About", "Services", "Contact"]}
+              title="Intelligence"
+              links={[
+                { name: "Home", href: "/" },
+                { name: "About", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Contact", href: "/contact" },
+              ]}
+            />
+
+            {/* 🔒 LEGAL COLUMN (IMPRESSUM & PRIVACY HERE) */}
+            <FooterColumn
+              title="Compliance"
+              links={[
+                { name: "Legal Information", href: "/legal" },
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Client Engagement Terms", href: "/client-engagement" },
+              ]}
             />
 
             <div className="flex flex-col justify-end items-end">
               <motion.button
-                whileHover={{ y: -5 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -5, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={scrollToTop}
-                className="w-20 h-20 rounded-3xl border border-[#1F2937] flex items-center justify-center group relative overflow-hidden transition-all duration-500 bg-[#0B1320]/50 backdrop-blur-xl hover:border-[#3B82F6]/50"
+                className="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center group relative overflow-hidden transition-all duration-500 bg-white/[0.02] backdrop-blur-xl hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)]"
               >
-                <div className="absolute inset-0 bg-[#3B82F6]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <ArrowUpRight className="w-8 h-8 text-[#4B5563] relative z-10 group-hover:text-[#F5F7FA] transition-all group-hover:-rotate-45" />
+                <ArrowUpRight className="w-8 h-8 text-slate-500 relative z-10 group-hover:text-blue-500 transition-all group-hover:-rotate-45" />
               </motion.button>
-              <span className="mt-4 font-mono text-[9px] text-[#4B5563] uppercase tracking-[0.3em] font-bold">
-                Return_To_Top
+              <span className="mt-4 font-mono text-[9px] text-slate-600 uppercase tracking-[0.4em] font-bold">
+                Uplink_Top
               </span>
             </div>
           </div>
         </div>
 
         {/* 3. CINEMATIC WATERMARK */}
-        <div className="relative py-12">
-          <h2 className="text-[13vw] font-black leading-none tracking-tighter text-[#1F2937]/10 text-center uppercase italic whitespace-nowrap select-none">
-            Lovely 2026
+        <div className="relative py-16">
+          <h2 className="text-[15vw] font-black leading-none tracking-tighter text-white/[0.02] text-center uppercase italic whitespace-nowrap select-none">
+            LOVELY_CORE
           </h2>
         </div>
 
         {/* BOTTOM BAR */}
-        <div className="pt-10 border-t border-[#1F2937] flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-4 text-[12px] font-mono text-[#4b535f] tracking-[0.2em] uppercase">
-            <span>© 2026 LOVELY ALL RIGHTS RESERVED.</span>
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex items-center gap-4 text-[10px] font-mono text-slate-600 tracking-[0.3em] uppercase">
+            <span>© 2026 LOVELY_RESERVED</span>
+            <span className="hidden md:block text-white/10">|</span>
+            {/* 🔒 QUICK LINK TO IMPRESSUM */}
+            <a
+              href="/impressum"
+              className="hover:text-blue-500 transition-colors flex items-center gap-2"
+            >
+              <Scale size={12} /> Legal_Dossier
+            </a>
           </div>
 
           <div className="flex items-center gap-6">
-            {/* FIXED SPAN: Applied the "Institutional Node" styling */}
-            <span className="text-[12px] font-mono text-[#505864] uppercase tracking-[0.2em] px-4 py-2 border border-[#1F2937] rounded-xl bg-[#0B1320]/50 whitespace-nowrap">
-              Made by <span className="text-[#3B82F6] font-bold">Lovely</span> &{" "}
-              <span className="text-[#F5F7FA]">Sam</span>
-            </span>
+            <div className="text-[11px] font-mono text-slate-500 uppercase tracking-[0.2em] px-5 py-2 border border-white/5 rounded-full bg-white/[0.02] whitespace-nowrap">
+              Engineered by <span className="text-blue-500 font-bold">SAM</span>{" "}
+              <span className="text-white/20 px-2">&</span>{" "}
+              <span className="text-white">LOVELY</span>
+            </div>
           </div>
         </div>
       </div>
@@ -209,35 +358,24 @@ export default function Footer() {
 function FooterColumn({ title, links }) {
   return (
     <div className="space-y-8">
-      <h4 className="text-[#F5F7FA]/20 font-mono text-[10px] tracking-[0.4em] uppercase font-black">
+      <h4 className="text-blue-500 font-mono text-[9px] tracking-[0.5em] uppercase font-black opacity-80">
         {title}
       </h4>
       <ul className="space-y-4">
         {links.map((link) => (
-          <li key={link}>
+          <li key={link.name}>
             <a
-              href={`#${link.toLowerCase()}`}
-              className="text-[#4B5563] hover:text-[#3B82F6] transition-all text-[11px] font-bold uppercase tracking-[0.2em] flex items-center group italic"
+              href={link.href}
+              className="text-slate-500 hover:text-white transition-all text-[11px] font-bold uppercase tracking-[0.2em] flex items-center group italic"
             >
-              <span className="w-0 group-hover:w-5 overflow-hidden transition-all duration-300 text-[#3B82F6] font-mono text-[10px]">
-                //
+              <span className="w-0 group-hover:w-6 overflow-hidden transition-all duration-300 text-blue-500 font-mono text-[10px]">
+                {">"}
               </span>
-              {link}
+              {link.name}
             </a>
           </li>
         ))}
       </ul>
     </div>
-  );
-}
-
-function SocialLink({ label }) {
-  return (
-    <a
-      href="#"
-      className="text-[#4B5563] hover:text-[#F5F7FA] font-mono text-[10px] transition-colors uppercase font-bold tracking-widest"
-    >
-      [{label}]
-    </a>
   );
 }

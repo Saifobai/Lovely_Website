@@ -101,6 +101,9 @@ import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
 import CancelPage from "./pages/bookingpage/CancelPage";
 import PayPalSuccess from "./pages/payment/PaypalSuccess";
+import LegalInformation from "./pages/LegalInfo/LegalInformation";
+import PrivacyPolicy from "./pages/Privacy/PrivacyPloicy";
+import ClientEngagement from "./pages/ClientEngagement/ClientEngagment";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -112,10 +115,10 @@ export default function App() {
   const location = useLocation();
 
   // Define paths where the Footer should be hidden
-  const hideFooterPaths = ["/book"];
+  const hideFooterPaths = ["/book", "/legal", "/privacy", "/client-engagement"];
   const shouldHideFooter = hideFooterPaths.includes(location.pathname);
 
-  const hideNavbarPaths = ["/book"];
+  const hideNavbarPaths = ["/book", "/legal", "/privacy", "/client-engagement"];
   const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
 
   return (
@@ -152,6 +155,51 @@ export default function App() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <BookingPage />
+              </motion.div>
+            }
+          />
+
+          <Route
+            path="/legal"
+            element={
+              <motion.div
+                variants={pageVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <LegalInformation />
+              </motion.div>
+            }
+          />
+
+          <Route
+            path="/privacy"
+            element={
+              <motion.div
+                variants={pageVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <PrivacyPolicy />
+              </motion.div>
+            }
+          />
+
+          <Route
+            path="/client-engagement"
+            element={
+              <motion.div
+                variants={pageVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <ClientEngagement />
               </motion.div>
             }
           />

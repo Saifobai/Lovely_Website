@@ -462,8 +462,10 @@ export default function Together() {
           <div className="flex flex-col lg:flex-row gap-20 items-end mb-24">
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
               <h3 className="text-5xl md:text-5xl font-black italic uppercase leading-[0.85] tracking-tighter text-[#F5F7FA]">
-                “Together” Isn’t a Slogan. <br />
-                <span className="text-[#3B82F6]">How Results Are Built.</span>
+                Together
+                <span className="block mt-3 text-[#3B82F6] text-2xl md:text-3xl font-light normal-case tracking-tight">
+                  How results are built.
+                </span>
               </h3>
             </motion.div>
 

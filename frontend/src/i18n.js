@@ -43,8 +43,9 @@ i18n.use(initReactI18next).init({
                 services: {
                     header: {
                         badge: "[ System_Capabilities_Manifest ]",
-                        core: "Core",
-                        protocols: "Protocols",
+                        core: "Services",
+                        "protocols": "Work designed around your objectives.\nEvery engagement adapts to your context and delivers measurable outcomes"
+                        ,
                         activeNodes: "Active_Nodes",
                         encryption: "Encryption",
                         status: "Status",

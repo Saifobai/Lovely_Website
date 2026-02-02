@@ -440,7 +440,7 @@ const Navbar = () => {
               Lovely
             </span>
             <span className="ml-2 text-[11px] font-mono text-[#9CA3AF] tracking-[0.3em] uppercase opacity-60 group-hover:opacity-100 transition-opacity">
-              Boutique_Consulting
+              Boutique Consulting
             </span>
           </div>
         </a>
