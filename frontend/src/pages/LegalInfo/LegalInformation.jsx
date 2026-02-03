@@ -470,7 +470,7 @@ export default function LegalInformation() {
                     >
                       <Mail size={14} className="text-blue-500" />
                       <span className="font-mono text-sm  tracking-wider">
-                        info@lovely.com.de
+                        hello@lovely.com.de
                       </span>
                     </a>
                   </div>

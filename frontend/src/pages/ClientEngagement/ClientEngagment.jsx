@@ -165,7 +165,7 @@ export default function ClientEngagement() {
               <p className="not-italic font-mono text-xs mt-6">
                 Withdrawal requests must be sent to:{" "}
                 <span className="text-blue-500 underline">
-                  info@lovely.com.de
+                  hello@lovely.com.de
                 </span>
               </p>
             </div>

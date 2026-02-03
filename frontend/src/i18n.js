@@ -104,6 +104,7 @@ i18n.use(initReactI18next).init({
                     form: {
                         name: { label: "Name", placeholder: "ENTER NAME" },
                         email: { label: "Email", placeholder: "EMAIL@DOMAIN.COM" },
+                        company: { label: "Company", placeholder: "ENTER COMPANY NAME" },
                         message: { label: "Message", placeholder: "DESCRIBE THE VISION..." },
                         submit: "Connect with our team",
                         loading: "Syncing...",
@@ -215,6 +216,7 @@ i18n.use(initReactI18next).init({
                     form: {
                         name: { label: "Identität / Name", placeholder: "NAME EINGEBEN" },
                         email: { label: "Koordinate / E-Mail", placeholder: "EMAIL@DOMAIN.COM" },
+                        company: { label: "Firma", placeholder: "FIRMENNAME EINGEBEN" },
                         message: { label: "Mission / Nachricht", placeholder: "BESCHREIBEN SIE DIE VISION..." },
                         submit: "Verbindung Herstellen",
                         loading: "Synchronisierung...",
