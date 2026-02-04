@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 
 import LanaImage from "../assets/Images/Lana_01.jpg";
 import LovelyImage from "../assets/Images/Lovely_02.jpeg";
-import SamImage from "../assets/Images/sam_01.png";
+import SamImage from "../assets/Images/sam_02.png";
 
 export function AboutUs() {
   const { t } = useTranslation();

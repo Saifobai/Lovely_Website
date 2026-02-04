@@ -428,7 +428,7 @@ const Navbar = () => {
           onClick={scrollToTop}
           className="flex items-center gap-2 group cursor-pointer shrink-0 transition-transform active:scale-95"
         >
-          <div className="w-12 h-12 bg-[#111827] rounded-lg flex items-center justify-center transition-transform duration-500 group-hover:rotate-[90deg] shadow-[0_0_15px_rgba(59,130,246,0.1)] border border-[#1F2937] overflow-hidden">
+          <div className="w-12 h-12 bg-[#111827] rounded-lg flex items-center justify-center transition-transform duration-500  shadow-[0_0_15px_rgba(59,130,246,0.1)] border border-[#1F2937] overflow-hidden">
             <img
               src={LogoImage}
               alt="Logo"

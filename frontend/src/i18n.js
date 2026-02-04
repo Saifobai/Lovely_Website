@@ -86,7 +86,7 @@ i18n.use(initReactI18next).init({
                         global: "Global Compliance",
                         systemStatus: "System status",
                         optimal: "Optimal",
-                        cta: "Initialize Consultation"
+                        cta: "Engage with Lovely"
                     }
                 },
                 contact: {

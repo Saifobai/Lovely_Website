@@ -266,19 +266,19 @@ export default function Footer() {
                 LOVELY
               </h3>
               <p className="text-xl md:text-2xl font-light text-slate-500 tracking-tight max-w-md italic">
-                Strategic clarity for those navigating complex global ambitions.
+                Strategic clarity for those navigating complex global goals.
               </p>
             </div>
 
             {/* STATUS & LEGAL DISCLAIMER */}
             <div className="space-y-6 max-w-sm">
-              <div className="flex items-center gap-3 text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase">
-                <Activity size={12} className="animate-pulse" />{" "}
-                System_Operational_2026
+              <div className="flex items-center gap-3 text-blue-500 font-mono text-[12px] tracking-[0.4em] uppercase">
+                <Activity size={12} className="animate-pulse" /> Legal Notice
               </div>
-              <p className="text-[#4B5563] text-[10px] leading-relaxed border-l border-white/10 pl-6 italic uppercase tracking-widest">
-                Lovely operates as a strategic advisory firm. We do not provide
-                regulated legal, tax, or financial advice.
+              <p className="text-slate-400 text-[11px] leading-relaxed border-l border-white/10 pl-6 italic  tracking-widest">
+                Lovely does not provide legal or tax advice. All regulated
+                services are delivered exclusively through licensed external
+                partners.
               </p>
             </div>
           </div>
@@ -286,7 +286,7 @@ export default function Footer() {
           {/* RIGHT: NAVIGATION & SCROLL */}
           <div className="lg:col-span-5 flex flex-col md:flex-row justify-between gap-12">
             <FooterColumn
-              title="Intelligence"
+              title=""
               links={[
                 { name: "Home", href: "/" },
                 { name: "About", href: "/about" },
@@ -297,7 +297,7 @@ export default function Footer() {
 
             {/* 🔒 LEGAL COLUMN (IMPRESSUM & PRIVACY HERE) */}
             <FooterColumn
-              title="Compliance"
+              title=""
               links={[
                 { name: "Legal Information", href: "/legal" },
                 { name: "Privacy Policy", href: "/privacy" },
@@ -314,8 +314,8 @@ export default function Footer() {
               >
                 <ArrowUpRight className="w-8 h-8 text-slate-500 relative z-10 group-hover:text-blue-500 transition-all group-hover:-rotate-45" />
               </motion.button>
-              <span className="mt-4 font-mono text-[9px] text-slate-600 uppercase tracking-[0.4em] font-bold">
-                Uplink_Top
+              <span className="mt-4 font-mono text-[11px] text-slate-400 uppercase tracking-[0.4em] font-bold">
+                Scroll_Up
               </span>
             </div>
           </div>
@@ -330,23 +330,20 @@ export default function Footer() {
 
         {/* BOTTOM BAR */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-4 text-[10px] font-mono text-slate-600 tracking-[0.3em] uppercase">
-            <span>© 2026 LOVELY_RESERVED</span>
+          <div className="flex items-center gap-4 text-[13px] font-mono text-slate-400 tracking-[0.3em] uppercase">
+            <span>© Lovely 2026</span>
             <span className="hidden md:block text-white/10">|</span>
             {/* 🔒 QUICK LINK TO IMPRESSUM */}
             <a
               href="/impressum"
               className="hover:text-blue-500 transition-colors flex items-center gap-2"
-            >
-              <Scale size={12} /> Legal_Dossier
-            </a>
+            ></a>
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="text-[11px] font-mono text-slate-500 uppercase tracking-[0.2em] px-5 py-2 border border-white/5 rounded-full bg-white/[0.02] whitespace-nowrap">
-              Engineered by <span className="text-blue-500 font-bold">SAM</span>{" "}
-              <span className="text-white/20 px-2">&</span>{" "}
-              <span className="text-white">LOVELY</span>
+            <div className="text-[13px] font-mono text-slate-400 uppercase tracking-[0.2em] px-5 py-2 border border-white/5 rounded-full bg-white/[0.02] whitespace-nowrap">
+              Built on{" "}
+              <span className="text-blue-500 font-bold">Clarity</span>{" "}
             </div>
           </div>
         </div>
@@ -366,7 +363,7 @@ function FooterColumn({ title, links }) {
           <li key={link.name}>
             <a
               href={link.href}
-              className="text-slate-500 hover:text-white transition-all text-[11px] font-bold uppercase tracking-[0.2em] flex items-center group italic"
+              className="text-slate-500 hover:text-white transition-all text-[11px] font-bold uppercase tracking-[0.3em] flex items-center group italic"
             >
               <span className="w-0 group-hover:w-6 overflow-hidden transition-all duration-300 text-blue-500 font-mono text-[10px]">
                 {">"}
