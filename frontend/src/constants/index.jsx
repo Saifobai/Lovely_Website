@@ -134,4 +134,23 @@ const WEEKLY_AVAILABILITY = {
   },
 };
 
-export { SERVICES, CANCELLATION_POLICY, WEEKLY_AVAILABILITY };
+const ContactServicesSelection = {
+  it: "AI & Technology Strategy",
+
+  business: "Business Advisory",
+
+  immigration: "Immigration Consulting Services",
+
+  realestate: "Real Estate Advisory",
+
+  events: "Qatar Strategic Access Program",
+
+  mobility: "Global Mobility & Relocation",
+};
+
+export {
+  SERVICES,
+  CANCELLATION_POLICY,
+  WEEKLY_AVAILABILITY,
+  ContactServicesSelection,
+};
