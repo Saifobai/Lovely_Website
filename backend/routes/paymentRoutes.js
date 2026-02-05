@@ -1,21 +1,18 @@
 import express from "express";
-import { fakePaypalConfirm, initPayment, paypalSuccess, stripeWebhook } from "../controllers/PaymentController.js";
-
+import {
+    initPayment,
+    paypalSuccess,
+    stripeWebhook,
+    fakeConfirm,
+} from "../controllers/paymentController.js";
 
 const router = express.Router();
 
 router.post("/init", initPayment);
 router.get("/paypal-success", paypalSuccess);
+router.post("/stripe-webhook", express.raw({ type: "application/json" }), stripeWebhook);
 
-
-// Stripe webhook endpoint fake for testing in dev/local mode
-router.post("/test-confirm/:bookingId", async (req, res) => {
-    await confirmBooking(req.params.bookingId);
-    res.json({ success: true, mode: "manual-test" });
-});
-
-// 🧪 FAKE PayPal (DEV ONLY)
-router.post("/paypal-fake-confirm", fakePaypalConfirm);
-
+// Fake (local only)
+router.post("/fake-confirm", fakeConfirm);
 
 export default router;

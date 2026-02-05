@@ -1,39 +1,29 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5000";
+const API = "http://localhost:5000/api/payment";
 
 export default function PaymentSelection({ bookingId }) {
   const [loading, setLoading] = useState(null);
 
-  // STRIPE
-  const payWithStripe = async () => {
+  const pay = async (provider) => {
     try {
-      setLoading("stripe");
+      setLoading(provider);
 
-      const res = await axios.post(`${API}/api/stripe/checkout`, { bookingId });
-
-      window.location.href = res.data.url;
-    } catch (err) {
-      console.error(err);
-      alert("Stripe payment failed");
-      setLoading(null);
-    }
-  };
-
-  // PAYPAL
-  const payWithPayPal = async () => {
-    try {
-      setLoading("paypal");
-
-      const res = await axios.post(`${API}/api/paypal/create-order`, {
+      const res = await axios.post(`${API}/init`, {
         bookingId,
+        provider,
       });
 
-      window.location.href = res.data.approvalUrl;
+      if (!res.data.paymentUrl) {
+        throw new Error("No payment URL returned");
+      }
+
+      // 🔥 redirect to Stripe / PayPal
+      window.location.href = res.data.paymentUrl;
     } catch (err) {
       console.error(err);
-      alert("PayPal payment failed");
+      alert("Payment initialization failed");
       setLoading(null);
     }
   };
@@ -43,16 +33,16 @@ export default function PaymentSelection({ bookingId }) {
       <h2>Complete Payment</h2>
 
       <p>
-        Your slot is <b>reserved for 1 hour</b>. Complete payment to confirm
+        Your slot is <b>reserved temporarily</b>. Complete payment to confirm
         your booking.
       </p>
 
-      <button onClick={payWithStripe} disabled={loading}>
-        {loading === "stripe" ? "Redirecting..." : "Pay with Card"}
+      <button onClick={() => pay("STRIPE")} disabled={loading}>
+        {loading === "STRIPE" ? "Redirecting..." : "Pay with Card"}
       </button>
 
-      <button onClick={payWithPayPal} disabled={loading}>
-        {loading === "paypal" ? "Redirecting..." : "Pay with PayPal"}
+      <button onClick={() => pay("PAYPAL")} disabled={loading}>
+        {loading === "PAYPAL" ? "Redirecting..." : "Pay with PayPal"}
       </button>
     </div>
   );

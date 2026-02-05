@@ -2,7 +2,7 @@ export const SERVICES = [
     {
         id: "ai-infrastructure",
         title: "AI & IT Infrastructure Diagnostic",
-        priceCents: 15000,
+        priceCents: 100,
         currency: "EUR",
         durationMinutes: 15,
         desc: "Critical technical guidance for entities navigating digital evolution and AI integration.",

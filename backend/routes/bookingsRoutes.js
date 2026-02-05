@@ -31,6 +31,7 @@ import {
     createBookingHold,
     cancelBooking,
     getBookedTimes,
+    getBookingById,
 } from "../controllers/bookingController.js";
 
 const router = express.Router();
@@ -38,5 +39,8 @@ const router = express.Router();
 router.post("/hold", createBookingHold);
 router.get("/date/:date", getBookedTimes);
 router.delete("/:id", cancelBooking);
+
+router.get("/:id", getBookingById);
+
 
 export default router;
