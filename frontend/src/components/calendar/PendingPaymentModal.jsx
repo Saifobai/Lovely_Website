@@ -467,29 +467,27 @@ export default function PendingPaymentModal({ booking, onClose }) {
   };
 
   // 🔹 FAKE LOCAL PAYMENTS (SAFE)
-  const payFake = async (provider) => {
+  const payFake = async () => {
     try {
-      setLoading(provider);
+      setLoading("FAKE");
 
-      const url =
-        provider === "STRIPE"
-          ? "http://localhost:5000/api/payments/stripe-fake-confirm"
-          : "http://localhost:5000/api/payments/paypal-fake-confirm";
-
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookingId: booking.id }),
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/payments/fake-confirm",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bookingId: booking.id }),
+        },
+      );
 
       const data = await res.json();
 
-      if (!res.ok || !data.success) {
-        throw new Error(data?.message || "Fake payment rejected");
+      if (!res.ok || data.success !== true) {
+        throw new Error("Fake payment rejected");
       }
 
-      alert(`✅ Fake ${provider} payment confirmed`);
-      onClose(); // close modal & refresh slots
+      alert("✅ Fake payment confirmed");
+      onClose();
     } catch (err) {
       console.error(err);
       alert("Fake payment failed or reservation expired.");
