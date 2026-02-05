@@ -1,11 +1,6 @@
 import { google } from "googleapis";
 
-/**
- * ================================
- * GOOGLE CALENDAR AUTH
- * ================================
- * Uses Service Account (recommended)
- */
+
 
 const auth = new google.auth.JWT({
     email: process.env.GOOGLE_CLIENT_EMAIL,

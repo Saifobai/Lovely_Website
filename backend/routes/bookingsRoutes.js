@@ -38,7 +38,8 @@ const router = express.Router();
 
 router.post("/hold", createBookingHold);
 router.get("/date/:date", getBookedTimes);
-router.delete("/:id", cancelBooking);
+router.delete("/cancel/:token", cancelBooking);
+
 
 router.get("/:id", getBookingById);
 
