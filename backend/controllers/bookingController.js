@@ -64,31 +64,50 @@ export const getBookedTimes = async (req, res) => {
    CANCEL BOOKING (TOKEN)
 ========================= */
 export const cancelBooking = async (req, res) => {
-    const { token } = req.params;
+    const { token } = req.params; // This is the cancelToken from the URL
 
+    // 1. Find the booking by the secret token
     const booking = await Booking.findOne({ cancelToken: token });
-    if (!booking) return res.status(404).json({ error: "Invalid token" });
+    if (!booking) {
+        return res.status(404).json({ error: "Invalid or expired cancellation link" });
+    }
 
     if (booking.status !== "CONFIRMED") {
-        return res.status(400).json({ error: "Not cancellable" });
+        return res.status(400).json({ error: "Booking is not in a cancellable state" });
     }
 
+    // 2. Check the 24-hour policy
     const start = new Date(`${booking.date}T${booking.time}`);
-    if (Date.now() > start.getTime() - 24 * 60 * 60 * 1000) {
-        return res.status(403).json({ error: "Cancellation window closed" });
-    }
+    const twentyFourHoursBefore = start.getTime() - (24 * 60 * 60 * 1000);
 
-    if (booking.googleEventId) {
-        await calendar.events.delete({
-            calendarId: "primary",
-            eventId: booking.googleEventId,
+    if (Date.now() > twentyFourHoursBefore) {
+        return res.status(403).json({
+            error: "Cancellation window has closed (less than 24h remaining)"
         });
     }
 
+    // 3. Delete from Google Calendar (with error handling)
+    if (booking.googleEventId) {
+        try {
+            await calendar.events.delete({
+                calendarId: "primary",
+                eventId: booking.googleEventId,
+            });
+            console.log("📅 Google Event deleted");
+        } catch (error) {
+            console.error("⚠️ Google Event already gone or could not be deleted:", error.message);
+            // We continue anyway so the database updates
+        }
+    }
+
+    // 4. Update Database
     booking.status = "CANCELLED";
+    // Optional: Clear the token so it can't be used twice
+    booking.cancelToken = null;
     await booking.save();
 
-    res.json({ success: true });
+    console.log(`✅ Booking ${booking._id} cancelled by user.`);
+    res.json({ success: true, message: "Appointment cancelled successfully" });
 };
 
 /* =========================
