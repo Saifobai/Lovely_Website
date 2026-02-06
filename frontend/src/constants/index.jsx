@@ -104,7 +104,7 @@ const CANCELLATION_POLICY = {
     afterDeadline: "none",
     noShow: "none",
   },
-  cancelMethod: "your account or by emailing support@yourdomain.com",
+  cancelMethod: "your account or by emailing hello@lovely.com.de",
   text: `
 Cancellations up to 24 hours before the appointment will be refunded in full.
 Cancellations less than 24 hours before the appointment or no-shows are non-refundable.

@@ -218,6 +218,7 @@ import ClientEngagement from "./pages/ClientEngagement/ClientEngagment";
 
 // Import your logo here
 import loading_logo from "./assets/Images/loading_logo_2.png";
+import PaymentSuccess from "./pages/payment/PaymentSuccess";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -241,6 +242,7 @@ export default function App() {
     "/legal",
     "/privacy",
     "/client-engagement",
+    "/success",
   ];
   const shouldHideUI = hideNavbarAndFooterPaths.includes(location.pathname);
 
@@ -337,6 +339,14 @@ export default function App() {
                   element={
                     <PageWrapper>
                       <ClientEngagement />
+                    </PageWrapper>
+                  }
+                />
+                <Route
+                  path="/success"
+                  element={
+                    <PageWrapper>
+                      <PaymentSuccess />
                     </PageWrapper>
                   }
                 />

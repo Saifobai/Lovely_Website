@@ -30,18 +30,21 @@ import express from "express";
 import {
     createBookingHold,
     cancelBooking,
-    getBookedTimes,
+
     getBookingById,
+    getBookingsByDate,
+    getBookingByToken,
 } from "../controllers/bookingController.js";
 
 const router = express.Router();
 
 router.post("/hold", createBookingHold);
-router.get("/date/:date", getBookedTimes);
+router.get("/date/:date", getBookingsByDate);
+router.get("/:id", getBookingById);
 router.delete("/cancel/:token", cancelBooking);
 
+router.get("/details/:id", getBookingByToken);
 
-router.get("/:id", getBookingById);
 
 
 export default router;

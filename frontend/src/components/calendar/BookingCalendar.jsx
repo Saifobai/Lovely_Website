@@ -162,6 +162,8 @@ export default function BookingCalendar({ activeService, isEmbedded }) {
               const slot = slots.find((s) => s.time === t);
               const status = slot?.status || "AVAILABLE";
               const past = isToday && t <= currentTime;
+
+              // A slot is disabled if it's in the past OR its status is NOT Available
               const disabled = status !== "AVAILABLE" || past;
 
               return (
@@ -170,15 +172,20 @@ export default function BookingCalendar({ activeService, isEmbedded }) {
                   disabled={disabled}
                   onClick={() => setSelectedTime(t)}
                   className={`py-4 rounded-xl font-mono text-xs border transition-all
-                    ${
-                      disabled
-                        ? "opacity-10 border-white/5 cursor-not-allowed"
-                        : selectedTime === t
-                          ? "bg-blue-600 border-blue-500 text-white"
-                          : "bg-white/5 border-white/5 hover:border-blue-500/40"
-                    }`}
+        ${
+          disabled
+            ? "opacity-30 border-white/5 cursor-not-allowed bg-red-950/10 text-red-500/50"
+            : selectedTime === t
+              ? "bg-blue-600 border-blue-500 text-white"
+              : "bg-white/5 border-white/5 hover:border-blue-500/40"
+        }`}
                 >
-                  {disabled ? status : t}
+                  {/* If disabled because of a booking, show "RESERVED", otherwise show the time */}
+                  {status === "CONFIRMED"
+                    ? "RESERVED"
+                    : status === "HOLD"
+                      ? "PENDING"
+                      : t}
                 </button>
               );
             })}

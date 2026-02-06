@@ -124,3 +124,40 @@ export const getBookingById = async (req, res) => {
 
     res.json({ booking });
 };
+
+
+// get booking by date 
+export const getBookingsByDate = async (req, res) => {
+    const { date } = req.params;
+    try {
+        // We find bookings that are either on HOLD (within 5 mins) OR already CONFIRMED
+        const bookings = await Booking.find({
+            date,
+            status: { $in: ["HOLD", "CONFIRMED"] }
+        }).select("time status");
+
+        res.json({ slots: bookings.map(b => ({ time: b.time, status: b.status })) });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch slots" });
+    }
+};
+
+
+// controllers/bookingController.js
+export const getBookingByToken = async (req, res) => {
+    try {
+        const { id } = req.params; // This is the token from the URL
+
+        // Find the booking where cancelToken matches the ID in the URL
+        const booking = await Booking.findOne({ cancelToken: id });
+
+        if (!booking) {
+            return res.status(404).json({ error: "Cancellation link is invalid or expired." });
+        }
+
+        res.json({ booking });
+    } catch (error) {
+        console.error("Error fetching booking by token:", error);
+        res.status(500).json({ error: "Internal server error." });
+    }
+};
