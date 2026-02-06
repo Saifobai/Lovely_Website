@@ -266,11 +266,8 @@ export default function BookingPage() {
 
               {/* BRIEFING CARD */}
               <div className="p-6 bg-blue-600/5 border border-blue-500/10 rounded-2xl space-y-6">
-                <h4 className="font-black italic uppercase text-blue-500 text-xs tracking-[0.3em]">
-                  Briefing_Dossier
-                </h4>
                 <p className="text-sm text-slate-300 italic leading-relaxed">
-                  "{activeService.desc}"
+                  {activeService.desc}
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-white/5">
@@ -291,14 +288,6 @@ export default function BookingPage() {
                   ))}
                 </div>
               </div>
-            </div>
-
-            <div className="hidden lg:flex justify-between items-center opacity-30 text-[8px] font-mono uppercase tracking-[0.5em] mt-8">
-              <div className="flex gap-2 items-center">
-                <Activity size={10} className="text-blue-500 animate-pulse" />
-                <span>Link_Stable</span>
-              </div>
-              <span>v.2.0.26</span>
             </div>
           </div>
 

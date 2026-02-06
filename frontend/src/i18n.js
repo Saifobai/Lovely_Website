@@ -305,6 +305,7 @@ i18n.use(initReactI18next).init({
                     list: {
                         mobility: {
                             title: "Global Mobility",
+                            description: "Strategically move executives, teams, and operations across borders with compliance and operational clarity.",
                             sections: {
                                 germany: {
                                     title: "Germany Desk",
@@ -348,6 +349,7 @@ i18n.use(initReactI18next).init({
 
                         business: {
                             title: "Business Advisory",
+                            description: "Design cross-border strategy, structure companies, and navigate operational complexity with clarity and precision.",
                             sections: {
                                 corporate: {
                                     title: "Corporate Clients (B2B)",
@@ -374,6 +376,7 @@ i18n.use(initReactI18next).init({
 
                         ai: {
                             title: "AI & Digital Transformation",
+                            description: "Leverage AI and technology to optimize high-stakes decisions, streamline operations, and scale strategic impact.",
                             items: [
                                 "Website Chatbots",
                                 "WhatsApp / SMS / Messenger Bots",
@@ -384,6 +387,7 @@ i18n.use(initReactI18next).init({
 
                         realestate: {
                             title: "Strategic Real Estate",
+                            description: "Identify, structure, and execute high-value property investments with cross-border insight and risk management.",
                             subtitle: "(with external partners)",
                             sections: {
                                 investors: {
@@ -415,7 +419,8 @@ i18n.use(initReactI18next).init({
                         },
 
                         events: {
-                            title: "Events & Training",
+                            title: "Curated Events",
+                            description: "Exclusive briefings, roundtables, and networking tailored for investors and senior decision-makers.",
                             items: [
                                 "Training Programs & Workshops",
                                 "Executive Coaching Sessions",

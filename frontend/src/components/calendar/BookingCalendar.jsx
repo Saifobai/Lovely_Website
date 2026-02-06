@@ -174,7 +174,7 @@ export default function BookingCalendar({ activeService, isEmbedded }) {
                   className={`py-4 rounded-xl font-mono text-xs border transition-all
         ${
           disabled
-            ? "opacity-30 border-white/5 cursor-not-allowed bg-red-950/10 text-red-500/50"
+            ? "opacity-30 border-white/5 cursor-not-allowed bg-red-950/10 text-red-100"
             : selectedTime === t
               ? "bg-blue-600 border-blue-500 text-white"
               : "bg-white/5 border-white/5 hover:border-blue-500/40"
@@ -182,7 +182,7 @@ export default function BookingCalendar({ activeService, isEmbedded }) {
                 >
                   {/* If disabled because of a booking, show "RESERVED", otherwise show the time */}
                   {status === "CONFIRMED"
-                    ? "RESERVED"
+                    ? "BOOKED"
                     : status === "HOLD"
                       ? "PENDING"
                       : t}

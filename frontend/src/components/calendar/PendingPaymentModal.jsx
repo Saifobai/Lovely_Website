@@ -734,9 +734,9 @@ export default function PendingPaymentModal({ booking, onClose }) {
                   </span>
                 </div>
                 <ul className="space-y-3 text-[12px] font-mono text-slate-400">
-                  <li>/ Full refund: {CANCELLATION_POLICY.text}</li>
+                  <li>Full refund: {CANCELLATION_POLICY.text}</li>
 
-                  <li>/ Method: {CANCELLATION_POLICY.cancelMethod}</li>
+                  <li>Email: {CANCELLATION_POLICY.cancelMethod}</li>
                 </ul>
               </div>
 
