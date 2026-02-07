@@ -1,137 +1,4 @@
 
-// export const userConfirmedTemplate = ({
-//   date,
-//   time,
-//   timezone,
-//   link,
-//   bookingId,
-// }) => `
-// <!DOCTYPE html>
-// <html>
-// <head>
-//   <meta charset="UTF-8" />
-//   <title>Session Initialized</title>
-// </head>
-// <body style="margin:0; padding:0; background-color:#050505; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#ffffff;">
-
-//   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#050505; padding:40px 0;">
-//     <tr>
-//       <td align="center">
-
-//         <table width="600" cellpadding="0" cellspacing="0" style="
-//           background:#0a0a0a;
-//           border-radius:24px;
-//           overflow:hidden;
-//           border:1px solid #333333;
-//           box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-//         ">
-
-//           <tr>
-//             <td style="height:4px; background: linear-gradient(90deg, #2563eb, #9333ea, #ef4444);"></td>
-//           </tr>
-
-//           <tr>
-//             <td style="padding:48px 40px 20px; text-align:left;">
-
-//               <h1 style="margin:16px 0 0; font-size:42px; font-weight:900; font-style:italic; text-transform:uppercase; color:#ffffff; line-height:0.9; letter-spacing:-2px;">
-//                 Session <br />
-//                 <span style="color:#9333ea;">Initialized.</span>
-//               </h1>
-//             </td>
-//           </tr>
-
-//           <tr>
-//             <td style="padding:0 40px 40px;">
-//               <p style="font-size:16px; line-height:1.6; color:#94a3b8; font-style:italic; margin-bottom:32px;">
-//                 Your boutique advisory module has been deployed. We have reserved your slot in the global execution calendar.
-//               </p>
-
-//               <table width="100%" cellpadding="0" cellspacing="0" style="
-//                 background: rgba(255,255,255,0.03);
-//                 border: 1px solid rgba(255,255,255,0.1);
-//                 border-radius:16px;
-//                 padding:24px;
-//                 margin-bottom:32px;
-//               ">
-//                 <tr>
-//                   <td style="padding:8px 0; font-family:monospace; color:#64748b; font-size:12px; text-transform:uppercase;">Scheduled_Date</td>
-//                   <td style="padding:8px 0; font-size:15px; color:#ffffff; text-align:right; font-weight:bold;">${date}</td>
-//                 </tr>
-//                 <tr>
-//                   <td style="padding:8px 0; font-family:monospace; color:#64748b; font-size:12px; text-transform:uppercase;">Entry_Time</td>
-//                   <td style="padding:8px 0; font-size:15px; color:#ffffff; text-align:right; font-weight:bold;">${time} (${timezone})</td>
-//                 </tr>
-//                 <tr>
-//                   <td style="padding:8px 0; font-family:monospace; color:#64748b; font-size:12px; text-transform:uppercase;">Status</td>
-//                   <td style="padding:8px 0; font-size:12px; color:#10b981; text-align:right; font-weight:bold; text-transform:uppercase;">● Live_Confirmed</td>
-//                 </tr>
-//               </table>
-
-//               <table width="100%" border="0" cellspacing="0" cellpadding="0">
-//                 <tr>
-//                   <td align="center">
-//                     <a href="${link}" target="_blank" style="
-//                       background: #ffffff;
-//                       color: #000000;
-//                       text-decoration: none;
-//                       padding: 16px 32px;
-//                       border-radius: 12px;
-//                       font-size: 14px;
-//                       font-weight: 900;
-//                       text-transform: uppercase;
-//                       display: inline-block;
-//                       letter-spacing: 1px;
-//                     ">
-//                       Sync to Google Calendar
-//                     </a>
-//                   </td>
-//                 </tr>
-//               </table>
-
-//               <div style="margin-top:40px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); padding-top:24px;">
-//                 <p style="font-size:11px; font-family:monospace; color:#475569; text-transform:uppercase; letter-spacing:1px;">
-//                   Need to terminate or reschedule? 
-//                   <a href="http://localhost:5173/cancel/${bookingId}" style="color:#ef4444; text-decoration:none; font-weight:bold; margin-left:8px;">
-//                     [ Cancel_Booking ]
-//                   </a>
-//                 </p>
-//               </div>
-
-//             </td>
-//           </tr>
-
-//           <tr>
-//             <td style="
-//               background:#000000;
-//               padding:30px;
-//               text-align:center;
-//               border-top:1px solid #1a1a1a;
-//             ">
-//               <div style="margin-bottom:15px;">
-//                 <span style="font-size:18px; font-weight:900; italic; text-transform:uppercase; color:#ffffff; letter-spacing:-1px;">Lovely</span>
-//                 <span style="display:block; font-size:8px; font-family:monospace; color:#444; text-transform:uppercase; letter-spacing:3px; margin-top:4px;">Boutique_Consulting_Group</span>
-//               </div>
-//               <p style="font-size:10px; color:#333; margin:0; font-family:monospace; text-transform:uppercase;">
-//                 Encryption: AES_256_ACTIVE // Session_ID: ${bookingId.substring(0, 8)}
-//               </p>
-//             </td>
-//           </tr>
-
-//         </table>
-
-//         <p style="margin-top:20px; font-size:10px; color:#444; text-align:center; font-family:monospace; text-transform:uppercase;">
-//           © ${new Date().getFullYear()} LOVELY. STRATEGY. PRECISION. OUTCOMES.
-//         </p>
-
-//       </td>
-//     </tr>
-//   </table>
-
-// </body>
-// </html>
-// `;
-
-//==============================================================
 export const userConfirmedTemplate = ({
   date,
   time,
@@ -139,79 +6,86 @@ export const userConfirmedTemplate = ({
   link,
   bookingId,
 }) => `
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Session Initialized</title>
+  <title>Booking Confirmed</title>
+  <style>
+    /* Adding web font support for systems that allow it */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&display=swap');
+  </style>
 </head>
-<body style="margin:0; padding:0; background-color:#050505; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#ffffff;">
+<body style="margin:0; padding:0; background-color:#050505; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color:#ffffff;">
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#050505; padding:40px 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#050505; padding:50px 0;">
     <tr>
       <td align="center">
 
         <table width="600" cellpadding="0" cellspacing="0" style="
           background:#0a0a0a;
-          border-radius:24px;
+          border-radius:40px;
           overflow:hidden;
-          border:1px solid #333333;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+          border:1px solid rgba(255,255,255,0.1);
         ">
 
           <tr>
-            <td style="height:4px; background: linear-gradient(90deg, #2563eb, #9333ea, #ef4444);"></td>
+            <td style="height:6px; background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);"></td>
           </tr>
 
           <tr>
-            <td style="padding:48px 40px 20px; text-align:left;">
-              <h1 style="margin:16px 0 0; font-size:42px; font-weight:900; font-style:italic; text-transform:uppercase; color:#ffffff; line-height:0.9; letter-spacing:-2px;">
-                Session <br />
-                <span style="color:#9333ea;">Initialized.</span>
+            <td style="padding:60px 50px 30px; text-align:left;">
+              
+              <h1 style="margin:0; font-size:32px; font-weight:900; font-style:italic; text-transform:uppercase; color:#ffffff; line-height:0.85; letter-spacing:-3px;">
+                Booking <br />
+                <span style="color:#3b82f6;">Confirmed.</span>
               </h1>
             </td>
           </tr>
 
           <tr>
-            <td style="padding:0 40px 40px;">
-              <p style="font-size:16px; line-height:1.6; color:#94a3b8; font-style:italic; margin-bottom:32px;">
-                Your boutique advisory module has been deployed. We have reserved your slot in the global execution calendar.
-              </p>
+            <td style="padding:0 50px 40px;">
+              
 
               <table width="100%" cellpadding="0" cellspacing="0" style="
-                background: rgba(255,255,255,0.03);
-                border: 1px solid rgba(255,255,255,0.1);
-                border-radius:16px;
-                padding:24px;
-                margin-bottom:24px;
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius:24px;
+                padding:32px;
+                margin-bottom:32px;
               ">
                 <tr>
-                  <td style="padding:8px 0; font-family:monospace; color:#64748b; font-size:12px; text-transform:uppercase;">Scheduled_Date</td>
-                  <td style="padding:8px 0; font-size:15px; color:#ffffff; text-align:right; font-weight:bold;">${date}</td>
+                  <td style="padding:10px 0; font-family:'JetBrains Mono', monospace; color:#64748b; font-size:11px; text-transform:uppercase; letter-spacing:1px;">Scheduled_Date</td>
+                  <td style="padding:10px 0; font-size:16px; color:#ffffff; text-align:right; font-weight:700; font-style:italic; text-transform:uppercase;">${date}</td>
                 </tr>
                 <tr>
-                  <td style="padding:8px 0; font-family:monospace; color:#64748b; font-size:12px; text-transform:uppercase;">Entry_Time</td>
-                  <td style="padding:8px 0; font-size:15px; color:#ffffff; text-align:right; font-weight:bold;">${time} (${timezone})</td>
+                  <td style="padding:10px 0; font-family:'JetBrains Mono', monospace; color:#64748b; font-size:11px; text-transform:uppercase; letter-spacing:1px;">Entry_Time</td>
+                  <td style="padding:10px 0; font-size:16px; color:#3b82f6; text-align:right; font-weight:700; font-style:italic; text-transform:uppercase;">${time} <span style="font-size:10px; color:#64748b;">(${timezone})</span></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0; font-family:'JetBrains Mono', monospace; color:#64748b; font-size:11px; text-transform:uppercase; letter-spacing:1px;">Transmission_ID</td>
+                  <td style="padding:10px 0; font-size:11px; color:#475569; text-align:right; font-family:'JetBrains Mono', monospace;">${bookingId.toUpperCase()}</td>
                 </tr>
               </table>
 
               <table width="100%" cellpadding="0" cellspacing="0" style="
-                background: rgba(239, 68, 68, 0.05);
-                border: 1px solid rgba(239, 68, 68, 0.2);
-                border-radius:16px;
-                padding:20px;
-                margin-bottom:32px;
+                border: 1px dashed rgba(255,255,255,0.05);
+                background: rgba(255,255,255,0.02);
+                border-radius:20px;
+                padding:24px;
+                margin-bottom:40px;
               ">
                 <tr>
-                  <td style="font-family:monospace; color:#ef4444; font-size:11px; text-transform:uppercase; font-weight:bold; letter-spacing:1px; padding-bottom:10px;">
-                    Policy_Protocol: Refund_Eligibility
+                  <td style="font-family:'JetBrains Mono', monospace; color:#ffffff; font-size:10px; text-transform:uppercase; font-weight:bold; letter-spacing:2px; padding-bottom:12px;">
+                    REFUND_PROTOCOL_ENFORCED
                   </td>
                 </tr>
                 <tr>
-                  <td style="font-size:12px; color:#94a3b8; line-height:1.5;">
-                    • Full refund available until 24 hours prior to session.<br />
-                    • Cancellations within 24 hours or no-shows are non-refundable.<br />
-                    • Use the terminal link below for all termination requests.
+                  <td style="font-size:12px; color:#64748b; line-height:1.6; font-style:italic;">
+                    • Full restoration available if terminated > 24h prior.<br />
+                    • Late-stage cancellations are non-refundable.<br />
+                    
                   </td>
                 </tr>
               </table>
@@ -220,16 +94,17 @@ export const userConfirmedTemplate = ({
                 <tr>
                   <td align="center">
                     <a href="${link}" target="_blank" style="
-                      background: #ffffff;
-                      color: #000000;
+                      background: #3b82f6;
+                      color: #ffffff;
                       text-decoration: none;
-                      padding: 16px 32px;
-                      border-radius: 12px;
-                      font-size: 14px;
+                      padding: 22px 40px;
+                      border-radius: 16px;
+                      font-size: 13px;
                       font-weight: 900;
                       text-transform: uppercase;
                       display: inline-block;
-                      letter-spacing: 1px;
+                      letter-spacing: 2px;
+                      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
                     ">
                       Sync to Google Calendar
                     </a>
@@ -237,11 +112,11 @@ export const userConfirmedTemplate = ({
                 </tr>
               </table>
 
-              <div style="margin-top:40px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); padding-top:24px;">
-                <p style="font-size:11px; font-family:monospace; color:#475569; text-transform:uppercase; letter-spacing:1px;">
-                  Protocol Termination Required? 
-                  <a href="http://localhost:5173/cancel/${bookingId}" style="color:#ef4444; text-decoration:none; font-weight:bold; margin-left:8px;">
-                    [ ACCESS_CANCEL_TERMINAL ]
+              <div style="margin-top:50px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); padding-top:30px;">
+                <p style="font-size:10px; font-family:'JetBrains Mono', monospace; color:#475569; text-transform:uppercase; letter-spacing:1px;">
+                 
+                  <a href="http://localhost:5173/cancel/${bookingId}" style="color:#3b82f6; text-decoration:none; font-weight:bold; margin-left:8px;">
+                    [ CANCELLATION_LINK ]
                   </a>
                 </p>
               </div>
@@ -254,22 +129,20 @@ export const userConfirmedTemplate = ({
               background:#000000;
               padding:30px;
               text-align:center;
-              border-top:1px solid #1a1a1a;
+              border-top:1px solid rgba(255,255,255,0.05);
             ">
-              <div style="margin-bottom:15px;">
-                <span style="font-size:18px; font-weight:900; font-style:italic; text-transform:uppercase; color:#ffffff; letter-spacing:-1px;">Lovely</span>
-                <span style="display:block; font-size:8px; font-family:monospace; color:#444; text-transform:uppercase; letter-spacing:3px; margin-top:4px;">Boutique_Consulting_Group</span>
+              <div style="margin-bottom:20px;">
+                <span style="font-size:24px; font-weight:900; font-style:italic; text-transform:uppercase; color:#ffffff; letter-spacing:-1px;">Lovely</span>
+                
               </div>
-              <p style="font-size:10px; color:#333; margin:0; font-family:monospace; text-transform:uppercase;">
-                Encryption: AES_256_ACTIVE // Session_ID: ${bookingId.substring(0, 8)}
-              </p>
+              
             </td>
           </tr>
 
         </table>
 
-        <p style="margin-top:20px; font-size:10px; color:#444; text-align:center; font-family:monospace; text-transform:uppercase;">
-          © ${new Date().getFullYear()} LOVELY. STRATEGY. PRECISION. OUTCOMES.
+        <p style="margin-top:30px; font-size:10px; color:#333; text-align:center; font-family:'JetBrains Mono', monospace; text-transform:uppercase; letter-spacing:2px;">
+          © ${new Date().getFullYear()} LOVELY.
         </p>
 
       </td>
@@ -278,4 +151,5 @@ export const userConfirmedTemplate = ({
 
 </body>
 </html>
+
 `;

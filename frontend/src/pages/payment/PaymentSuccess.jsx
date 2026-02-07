@@ -16,16 +16,15 @@ export default function PaymentSuccess() {
         </h1>
 
         <p className="text-slate-400 mb-10 font-mono text-xs uppercase tracking-[0.2em] leading-relaxed">
-          The protocol is active. Your strategic session is now officially
-          scheduled. Check your email for the calendar invitation and access
-          links.
+          Your strategic session is now officially scheduled. Check your email
+          for the calendar invitation and access links.
         </p>
 
         <button
           onClick={() => navigate("/")}
           className="w-full group flex items-center justify-center gap-3 px-8 py-5 bg-white text-black rounded-2xl font-black uppercase italic text-sm transition-all hover:bg-blue-600 hover:text-white"
         >
-          Return to Dashboard{" "}
+          Return to Home Page{" "}
           <ArrowRight
             size={18}
             className="group-hover:translate-x-1 transition-transform"

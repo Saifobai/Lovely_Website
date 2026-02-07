@@ -2,8 +2,9 @@ const SERVICES = [
   {
     id: "ai-infrastructure",
     title: "AI & IT Infrastructure Diagnostic",
-    price: "€150",
-    duration: "15 MIN",
+    priceCents: 15000,
+    currency: "EUR",
+    durationMinutes: 15,
     desc: "Critical technical guidance for entities navigating digital evolution and AI integration.",
     details: [
       {
@@ -21,8 +22,9 @@ const SERVICES = [
   {
     id: "business-diagnostic",
     title: "Strategic Business Diagnostic",
-    price: "€150",
-    duration: "15 MIN",
+    priceCents: 15000,
+    currency: "EUR",
+    durationMinutes: 15,
     desc: "Designed for founders and executives seeking surgical precision in business direction.",
     details: [
       {
@@ -40,8 +42,9 @@ const SERVICES = [
   {
     id: "asset-rebuilding",
     title: "Asset & Community Rebuilding Diagnostic",
-    price: "€150",
-    duration: "15 MIN",
+    priceCents: 15000,
+    currency: "EUR",
+    durationMinutes: 15,
     desc: "High-conviction advisory for investors focused on impactful, location-specific real estate.",
     details: [
       {
@@ -59,8 +62,9 @@ const SERVICES = [
   {
     id: "global-mobility",
     title: "Global Mobility Diagnostic",
-    price: "€150",
-    duration: "15 MIN",
+    priceCents: 15000,
+    currency: "EUR",
+    durationMinutes: 15,
     desc: "Direct advisory for high-net-worth individuals and professionals seeking global fluidity.",
     details: [
       {
@@ -77,11 +81,22 @@ const SERVICES = [
   },
   {
     id: "exclusive-call",
-    title: "Exclusive Introductory Call",
-    price: "€1500-5000",
-    duration: "30 MIN",
+    title: "Exclusive Introductory Call (By Invitation)",
+    // Base price set to the lowest tier: €500.00
+    priceCents: 50000,
+    currency: "EUR",
+    durationMinutes: 30,
     isExclusive: true,
-    desc: "By Invitation: Evaluation of vision, complementary skill sets, and long-term partnership viability.",
+    requiresUmsatz: true,
+    desc: "To ensure focus and alignment, the introductory call is subject to a fee based on the most recent annual revenue (Umsatz) of the organization. Fees are fully credited toward a formal engagement if we proceed.",
+    // New data structure for your dropdown menu
+    revenueTiers: [
+      { label: "Up to €500,000", priceCents: 50000 },
+      { label: "€500,001 – €1 million", priceCents: 100000 },
+      { label: "€1 million – €3 million", priceCents: 150000 },
+      { label: "€3 million – €5 million", priceCents: 250000 },
+      { label: "Above €5 million", priceCents: 300000 },
+    ],
     details: [
       {
         time: "05:00",

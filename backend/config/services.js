@@ -2,7 +2,7 @@ export const SERVICES = [
     {
         id: "ai-infrastructure",
         title: "AI & IT Infrastructure Diagnostic",
-        priceCents: 100,
+        priceCents: 15000,
         currency: "EUR",
         durationMinutes: 15,
         desc: "Critical technical guidance for entities navigating digital evolution and AI integration.",
@@ -82,14 +82,21 @@ export const SERVICES = [
     {
         id: "exclusive-call",
         title: "Exclusive Introductory Call (By Invitation)",
-        // Range: €1500 - €5000 based on Umsatz
-        priceCents: 150000,
-        priceMaxCents: 500000,
+        // Base price set to the lowest tier: €500.00
+        priceCents: 50000,
         currency: "EUR",
         durationMinutes: 30,
         isExclusive: true,
         requiresUmsatz: true,
-        desc: "By Invitation: Evaluation of long-term partnership viability. Clients must provide annual Umsatz.",
+        desc: "To ensure focus and alignment, the introductory call is subject to a fee based on the most recent annual revenue (Umsatz) of the organization. Fees are fully credited toward a formal engagement if we proceed.",
+        // New data structure for your dropdown menu
+        revenueTiers: [
+            { label: "Up to €500,000", priceCents: 50000 },
+            { label: "€500,001 – €1 million", priceCents: 100000 },
+            { label: "€1 million – €3 million", priceCents: 150000 },
+            { label: "€3 million – €5 million", priceCents: 250000 },
+            { label: "Above €5 million", priceCents: 300000 },
+        ],
         details: [
             {
                 time: "05:00",
