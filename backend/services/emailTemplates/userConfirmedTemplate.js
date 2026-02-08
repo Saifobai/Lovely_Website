@@ -113,7 +113,7 @@ export const userConfirmedTemplate = ({
               </table>
 
               <div style="margin-top:50px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); padding-top:30px;">
-                <p style="font-size:10px; font-family:'JetBrains Mono', monospace; color:#475569; text-transform:uppercase; letter-spacing:1px;">
+                <p style="font-size:11px; font-family:'JetBrains Mono', monospace; color:#475569; text-transform:uppercase; letter-spacing:1px;">
                  
                   <a href="http://localhost:5173/cancel/${bookingId}" style="color:#3b82f6; text-decoration:none; font-weight:bold; margin-left:8px;">
                     [ CANCELLATION_LINK ]

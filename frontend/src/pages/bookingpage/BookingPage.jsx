@@ -137,7 +137,7 @@ export default function BookingPage() {
                 {activeService.requiresUmsatz && (
                   <div className="pt-4 border-t border-white/10">
                     <label className="flex items-center gap-2 text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-3">
-                      <Landmark size={12} /> Annual Revenue Protocol
+                      <Landmark size={12} /> Annual Revenue
                     </label>
                     <div className="space-y-2">
                       {activeService.revenueTiers.map((tier, idx) => (
