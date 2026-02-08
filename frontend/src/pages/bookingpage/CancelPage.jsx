@@ -463,7 +463,7 @@ export default function CancelPage() {
                   onClick={() => navigate("/")}
                   className="py-5 rounded-2xl border border-white/10 text-slate-400 font-black uppercase italic text-xs hover:bg-white/5 transition-all"
                 >
-                  Abnormal_Abort
+                  Cancel
                 </button>
 
                 <button

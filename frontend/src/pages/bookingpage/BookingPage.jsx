@@ -49,7 +49,7 @@ export default function BookingPage() {
               className="group-hover:-translate-x-1 transition"
             />
             <span className="text-xl font-black italic tracking-tighter uppercase">
-              Terminate_Session
+              Back to Home
             </span>
           </button>
         </div>

@@ -4,26 +4,17 @@
 //   useMotionValue,
 //   AnimatePresence,
 // } from "framer-motion";
-// import {
-//   ArrowRight,
-//   ShieldCheck,
-//   Terminal as TerminalIcon,
-// } from "lucide-react";
+// import { ArrowDown, ArrowRight, ShieldCheck } from "lucide-react";
 // import Section from "../components/layout/Section";
 // import { useTranslation } from "react-i18next";
-// import { useEffect, useState } from "react";
+// import { useState } from "react";
 // import { ContactServicesSelection } from "../constants";
-
-// /* =========================
-//    CONTACT PAGE
-// ========================= */
 
 // export default function ContactUs() {
 //   const { t } = useTranslation();
 
 //   return (
 //     <Section id="contact" className="relative mt-20 lg:mt-32 pb-20">
-//       {/* Ambient Glows */}
 //       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#3B82F6]/5 rounded-full blur-[140px] opacity-40 pointer-events-none" />
 //       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#C2413A]/5 rounded-full blur-[120px] opacity-20 pointer-events-none" />
 
@@ -123,9 +114,8 @@
 //       onSubmit={handleSubmit}
 //       className="relative bg-[#0B1320]/90 backdrop-blur-3xl border border-[#1F2937] p-8 md:p-14 rounded-[40px] shadow-2xl overflow-hidden"
 //     >
-//       {/* Spotlight */}
 //       <motion.div
-//         className="pointer-events-none absolute -inset-px rounded-[40px] opacity-0 group-hover:opacity-100 transition"
+//         className="pointer-events-none absolute -inset-px rounded-[40px]"
 //         style={{
 //           background: useMotionTemplate`
 //             radial-gradient(
@@ -140,7 +130,6 @@
 //       <AnimatePresence mode="wait">
 //         {status === "success" ? (
 //           <motion.div
-//             key="success"
 //             initial={{ opacity: 0, scale: 0.9 }}
 //             animate={{ opacity: 1, scale: 1 }}
 //             className="text-center py-20"
@@ -162,6 +151,7 @@
 //                 label={t("contact.form.name.label")}
 //                 placeholder={t("contact.form.name.placeholder")}
 //                 value={form.name}
+//                 required
 //                 onChange={(e) => setForm({ ...form, name: e.target.value })}
 //                 isFocused={focused === "name"}
 //                 onFocus={() => setFocused("name")}
@@ -172,6 +162,7 @@
 //                 placeholder={t("contact.form.email.placeholder")}
 //                 type="email"
 //                 value={form.email}
+//                 required
 //                 onChange={(e) => setForm({ ...form, email: e.target.value })}
 //                 isFocused={focused === "email"}
 //                 onFocus={() => setFocused("email")}
@@ -180,7 +171,7 @@
 //             </div>
 
 //             <HoloInput
-//               label={t("contact.form.company.label") || "Organization"}
+//               label={t("contact.form.company.label")}
 //               placeholder={t("contact.form.company.placeholder")}
 //               value={form.company}
 //               onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -190,10 +181,11 @@
 //             />
 
 //             <HoloInput
-//               label={t("contact.form.service.label") || "Service"}
+//               label="select your service"
 //               type="select"
 //               placeholder="Select a service"
 //               value={form.service}
+//               required
 //               options={ContactServicesSelection}
 //               onChange={(e) => setForm({ ...form, service: e.target.value })}
 //               isFocused={focused === "service"}
@@ -206,6 +198,7 @@
 //               placeholder={t("contact.form.message.placeholder")}
 //               type="textarea"
 //               value={form.message}
+//               required
 //               onChange={(e) => setForm({ ...form, message: e.target.value })}
 //               isFocused={focused === "message"}
 //               onFocus={() => setFocused("message")}
@@ -215,7 +208,7 @@
 //             <button
 //               type="submit"
 //               disabled={!isFormValid || status === "loading"}
-//               className={`relative w-full py-6 rounded-xl uppercase tracking-[0.4em] font-black transition ${
+//               className={`w-full py-6 rounded-xl uppercase tracking-[0.4em] font-black transition ${
 //                 !isFormValid
 //                   ? "bg-[#1F2937] text-[#4B5563] cursor-not-allowed"
 //                   : "bg-white text-black hover:bg-[#3B82F6] hover:text-white"
@@ -247,33 +240,32 @@
 //   options,
 //   required = false,
 // }) => {
+//   const [isOpen, setIsOpen] = useState(false); // State for custom select
 //   const arrowX = useMotionValue(0);
 //   const arrowY = useMotionValue(0);
 
 //   const isInvalid = required && !value;
+//   const isEmailValid =
+//     type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : true;
 
-//   function handleArrowMouseMove(e) {
-//     const rect = e.currentTarget.getBoundingClientRect();
-//     arrowX.set((e.clientX - rect.left - rect.width / 2) * 0.25);
-//     arrowY.set((e.clientY - rect.top - rect.height / 2) * 0.25);
-//   }
-
-//   function resetArrow() {
-//     arrowX.set(0);
-//     arrowY.set(0);
-//   }
+//   // Custom Select Logic
+//   const handleSelect = (val) => {
+//     onChange({ target: { value: val } });
+//     setIsOpen(false);
+//     onBlur();
+//   };
 
 //   return (
 //     <div className="relative">
 //       <label
-//         className={`block text-[9px] font-mono uppercase tracking-[0.3em] mb-2 transition-colors ${
-//           isFocused ? "text-[#3B82F6]" : "text-[#4B5563]"
+//         className={`block text-[9px] font-mono uppercase tracking-[0.3em] mb-2 transition-colors duration-300 ${
+//           isFocused || isOpen ? "text-[#3B82F6]" : "text-[#4B5563]"
 //         }`}
 //       >
 //         {label}
 //       </label>
 
-//       {/* TEXTAREA */}
+//       {/* --- TEXTAREA --- */}
 //       {type === "textarea" && (
 //         <textarea
 //           rows={3}
@@ -282,139 +274,123 @@
 //           onFocus={onFocus}
 //           onBlur={onBlur}
 //           placeholder={placeholder}
-//           className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] focus:border-[#3B82F6] outline-none resize-none"
+//           className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] outline-none resize-none placeholder:text-[#1F2937] transition-all focus:border-[#3B82F6]/30"
 //         />
 //       )}
 
-//       {/* SELECT */}
+//       {/* --- CUSTOM SELECT (AWARD STYLE) --- */}
 //       {type === "select" && (
 //         <div className="relative">
-//           <select
-//             value={value}
-//             onChange={onChange}
-//             onFocus={onFocus}
-//             onBlur={onBlur}
-//             className="w-full bg-transparent border-b border-[#1F2937] py-2 pr-12 text-[#F5F7FA] focus:border-[#3B82F6] outline-none appearance-none cursor-pointer"
-//           >
-//             <option value="" disabled>
-//               {placeholder}
-//             </option>
-//             {Object.entries(options).map(([key, label]) => (
-//               <option key={key} value={key} className="bg-[#020617]">
-//                 {label}
-//               </option>
-//             ))}
-//           </select>
-
-//           {/* Dropdown Illusion Glow */}
-//           <motion.div
-//             initial={false}
-//             animate={{
-//               opacity: isFocused ? 1 : 0,
-//               scaleY: isFocused ? 1 : 0.6,
+//           <div
+//             onClick={() => {
+//               setIsOpen(!isOpen);
+//               onFocus();
 //             }}
-//             transition={{ duration: 0.35, ease: "easeOut" }}
-//             className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#3B82F6]/10 to-transparent"
-//           />
-
-//           {/* Magnetic Arrow */}
-//           <motion.div
-//             onMouseMove={handleArrowMouseMove}
-//             onMouseLeave={resetArrow}
-//             style={{ x: arrowX, y: arrowY }}
-//             animate={{
-//               rotate: isFocused ? 180 : 0,
-//               color: isFocused ? "#3B82F6" : "#4B5563",
-//             }}
-//             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-//             className="pointer-events-auto absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+//             className="w-full border-b border-[#1F2937] py-2 flex justify-between items-center cursor-pointer group"
 //           >
-//             <svg
-//               width="14"
-//               height="14"
-//               viewBox="0 0 24 24"
-//               fill="none"
-//               stroke="currentColor"
-//               strokeWidth="2"
-//               strokeLinecap="round"
-//               strokeLinejoin="round"
+//             <span
+//               className={`transition-all duration-300 ${value ? "text-[#F5F7FA]" : "text-[#1F2937] font-mono italic text-sm"}`}
 //             >
-//               <polyline points="6 9 12 15 18 9" />
-//             </svg>
-//           </motion.div>
+//               {value ? options[value] : placeholder}
+//             </span>
+
+//             <motion.div
+//               animate={{ rotate: isOpen ? 180 : 0 }}
+//               className={`${isOpen ? "text-[#3B82F6]" : "text-[#4B5563] group-hover:text-white"}`}
+//             >
+//               <ArrowDown size={14} />
+//             </motion.div>
+//           </div>
+
+//           <AnimatePresence>
+//             {isOpen && (
+//               <motion.div
+//                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
+//                 animate={{ opacity: 1, y: 0, scale: 1 }}
+//                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
+//                 className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#0B1320] border border-[#1F2937] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+//               >
+//                 {Object.entries(options).map(([key, label], idx) => (
+//                   <motion.div
+//                     key={key}
+//                     initial={{ opacity: 0, x: -10 }}
+//                     animate={{ opacity: 1, x: 0 }}
+//                     transition={{ delay: idx * 0.05 }}
+//                     onClick={() => handleSelect(key)}
+//                     className="px-6 py-4 text-sm font-medium text-[#9CA3AF] hover:text-white hover:bg-[#3B82F6]/10 cursor-pointer flex justify-between items-center group transition-all"
+//                   >
+//                     <span className="uppercase tracking-widest">{label}</span>
+//                     <ArrowRight
+//                       size={12}
+//                       className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#3B82F6]"
+//                     />
+//                   </motion.div>
+//                 ))}
+//               </motion.div>
+//             )}
+//           </AnimatePresence>
 //         </div>
 //       )}
 
-//       {/* INPUT */}
-//       {!type && (
+//       {/* --- STANDARD INPUT --- */}
+//       {type !== "textarea" && type !== "select" && (
 //         <input
-//           type="text"
+//           type={type || "text"}
 //           value={value}
 //           onChange={onChange}
 //           onFocus={onFocus}
 //           onBlur={onBlur}
 //           placeholder={placeholder}
-//           className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] focus:border-[#3B82F6] outline-none"
+//           className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] outline-none placeholder:text-[#1F2937] transition-all"
 //         />
 //       )}
 
-//       {/* Underline + Invalid Pulse */}
+//       {/* --- GLOWING UNDERSCORE ANIMATION --- */}
 //       <motion.div
 //         animate={{
-//           width: isFocused ? "100%" : "0%",
-//           opacity: isFocused ? 1 : 0,
-//           boxShadow:
-//             isInvalid && !isFocused
-//               ? "0 0 12px rgba(59,130,246,0.6)"
-//               : "0 0 10px rgba(59,130,246,0.9)",
+//           width: isFocused || isOpen ? "100%" : "0%",
+//           opacity: isFocused || isOpen ? 1 : 0,
 //         }}
-//         transition={{
-//           width: { duration: 0.4 },
-//           boxShadow: isInvalid
-//             ? { repeat: Infinity, duration: 1.6, repeatType: "mirror" }
-//             : { duration: 0.3 },
-//         }}
-//         className="absolute bottom-0 left-0 h-px bg-[#3B82F6]"
+//         className="absolute bottom-0 left-0 h-px bg-[#3B82F6] shadow-[0_0_15px_#3B82F6]"
 //       />
 //     </div>
 //   );
 // };
 
-//============================================================================
-//============================================================================
+//======================================================
 import {
   motion,
   useMotionTemplate,
   useMotionValue,
   AnimatePresence,
 } from "framer-motion";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowDown, ArrowRight, ShieldCheck } from "lucide-react";
 import Section from "../components/layout/Section";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ContactServicesSelection } from "../constants";
-
-/* =========================
-   CONTACT PAGE
-========================= */
 
 export default function ContactUs() {
   const { t } = useTranslation();
 
   return (
-    <Section id="contact" className="relative mt-20 lg:mt-32 pb-20">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#3B82F6]/5 rounded-full blur-[140px] opacity-40 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#C2413A]/5 rounded-full blur-[120px] opacity-20 pointer-events-none" />
+    <Section
+      id="contact"
+      className="relative mt-12 lg:mt-32 pb-20 overflow-hidden"
+    >
+      {/* Background Blobs - Slightly smaller for mobile to prevent layout shift */}
+      <div className="absolute top-0 right-0 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-[#3B82F6]/5 rounded-full blur-[80px] lg:blur-[140px] opacity-40 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[250px] lg:w-[500px] h-[250px] lg:h-[500px] bg-[#C2413A]/5 rounded-full blur-[70px] lg:blur-[120px] opacity-20 pointer-events-none" />
 
-      <div className="relative z-10 max-w-[1500px] mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-          {/* LEFT */}
-          <div className="w-full lg:w-[45%] space-y-12">
+      <div className="relative z-10 max-w-[1500px] mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-24">
+          {/* LEFT: Content */}
+          <div className="w-full lg:w-[45%] space-y-8 lg:space-y-12">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-7xl font-black uppercase leading-[0.9]"
+              className="text-4xl sm:text-5xl md:text-7xl font-black uppercase leading-[0.95] tracking-tighter"
             >
               {t("contact.title.line1")}
               <br />
@@ -427,22 +403,22 @@ export default function ContactUs() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-[#9CA3AF] text-lg md:text-2xl max-w-lg border-l border-[#3B82F6]/30 pl-6 italic"
+              className="text-[#9CA3AF] text-base sm:text-lg md:text-2xl max-w-lg border-l border-[#3B82F6]/30 pl-4 sm:pl-6 italic"
             >
               {t("contact.description")
                 .split(".")
                 .filter(Boolean)
                 .map((s, i) => (
-                  <span key={i} className="block">
+                  <span key={i} className="block mb-1">
                     {s.trim()}.
                   </span>
                 ))}
             </motion.p>
           </div>
 
-          {/* RIGHT */}
+          {/* RIGHT: Form */}
           <div className="w-full lg:w-[55%] relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#3B82F6]/20 to-transparent blur-2xl rounded-[40px] opacity-0 group-hover:opacity-100 transition duration-1000" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#3B82F6]/20 to-transparent blur-2xl rounded-[30px] lg:rounded-[40px] opacity-0 lg:group-hover:opacity-100 transition duration-1000" />
             <HoloForm t={t} />
           </div>
         </div>
@@ -450,10 +426,6 @@ export default function ContactUs() {
     </Section>
   );
 }
-
-/* =========================
-   FORM
-========================= */
 
 const HoloForm = ({ t }) => {
   const [focused, setFocused] = useState(null);
@@ -481,17 +453,10 @@ const HoloForm = ({ t }) => {
   function handleSubmit(e) {
     e.preventDefault();
     if (!isFormValid) return;
-
     setStatus("loading");
     setTimeout(() => {
       setStatus("success");
-      setForm({
-        name: "",
-        email: "",
-        company: "",
-        service: "",
-        message: "",
-      });
+      setForm({ name: "", email: "", company: "", service: "", message: "" });
       setTimeout(() => setStatus("idle"), 5000);
     }, 2000);
   }
@@ -500,10 +465,11 @@ const HoloForm = ({ t }) => {
     <form
       onMouseMove={handleMouseMove}
       onSubmit={handleSubmit}
-      className="relative bg-[#0B1320]/90 backdrop-blur-3xl border border-[#1F2937] p-8 md:p-14 rounded-[40px] shadow-2xl overflow-hidden"
+      className="relative bg-[#0B1320]/90 backdrop-blur-3xl border border-[#1F2937] p-6 sm:p-10 lg:p-14 rounded-[30px] lg:rounded-[40px] shadow-2xl overflow-visible"
     >
+      {/* Only show radial gradient on devices with hover capabilities */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[40px]"
+        className="pointer-events-none absolute -inset-px rounded-[30px] lg:rounded-[40px] hidden lg:block"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -520,21 +486,21 @@ const HoloForm = ({ t }) => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-20"
+            className="text-center py-12 lg:py-20"
           >
-            <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center text-[#3B82F6]">
-              <ShieldCheck size={40} />
+            <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 lg:mb-8 rounded-full bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center text-[#3B82F6]">
+              <ShieldCheck size={32} />
             </div>
-            <h3 className="text-3xl font-black uppercase italic mb-4">
+            <h3 className="text-xl lg:text-3xl font-black uppercase italic mb-2">
               Transmission_Received
             </h3>
-            <p className="text-[#9CA3AF] italic">
+            <p className="text-[#9CA3AF] text-sm lg:text-base italic">
               A principal advisor will contact you shortly.
             </p>
           </motion.div>
         ) : (
-          <div className="space-y-10 relative z-10">
-            <div className="grid md:grid-cols-2 gap-10">
+          <div className="space-y-8 lg:space-y-10 relative z-10">
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
               <HoloInput
                 label={t("contact.form.name.label")}
                 placeholder={t("contact.form.name.placeholder")}
@@ -569,7 +535,7 @@ const HoloForm = ({ t }) => {
             />
 
             <HoloInput
-              label={t("contact.form.service.label")}
+              label="Select your service"
               type="select"
               placeholder="Select a service"
               value={form.service}
@@ -596,14 +562,14 @@ const HoloForm = ({ t }) => {
             <button
               type="submit"
               disabled={!isFormValid || status === "loading"}
-              className={`w-full py-6 rounded-xl uppercase tracking-[0.4em] font-black transition ${
+              className={`w-full py-5 lg:py-6 rounded-xl uppercase tracking-[0.2em] lg:tracking-[0.4em] font-black text-xs lg:text-sm transition ${
                 !isFormValid
                   ? "bg-[#1F2937] text-[#4B5563] cursor-not-allowed"
-                  : "bg-white text-black hover:bg-[#3B82F6] hover:text-white"
+                  : "bg-white text-black active:scale-95 lg:hover:bg-[#3B82F6] lg:hover:text-white"
               }`}
             >
               {status === "loading" ? "Transmitting..." : "Initiate Contact"}
-              <ArrowRight className="inline ml-3" size={16} />
+              <ArrowRight className="inline ml-2" size={14} />
             </button>
           </div>
         )}
@@ -611,10 +577,6 @@ const HoloForm = ({ t }) => {
     </form>
   );
 };
-
-/* =========================
-   INPUT
-========================= */
 
 const HoloInput = ({
   label,
@@ -628,86 +590,91 @@ const HoloInput = ({
   options,
   required = false,
 }) => {
-  const arrowX = useMotionValue(0);
-  const arrowY = useMotionValue(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
 
-  const isInvalid = required && !value;
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const isEmailValid =
     type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : true;
 
-  function handleArrowMouseMove(e) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    arrowX.set((e.clientX - rect.left - rect.width / 2) * 0.25);
-    arrowY.set((e.clientY - rect.top - rect.height / 2) * 0.25);
-  }
-
-  function resetArrow() {
-    arrowX.set(0);
-    arrowY.set(0);
-  }
+  const handleSelect = (val) => {
+    onChange({ target: { value: val } });
+    setIsOpen(false);
+    onBlur();
+  };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <label
-        className={`block text-[9px] font-mono uppercase tracking-[0.3em] mb-2 ${
-          isFocused ? "text-[#3B82F6]" : "text-[#4B5563]"
-        }`}
+        className={`block text-[9px] font-mono uppercase tracking-[0.2em] mb-2 transition-colors duration-300 ${isFocused || isOpen ? "text-[#3B82F6]" : "text-[#4B5563]"}`}
       >
         {label}
       </label>
 
       {type === "textarea" && (
         <textarea
-          rows={3}
+          rows={2}
           value={value}
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] outline-none resize-none"
+          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-sm lg:text-base text-[#F5F7FA] outline-none resize-none placeholder:text-[#1F2937]"
         />
       )}
 
       {type === "select" && (
         <div className="relative">
-          <select
-            value={value}
-            onChange={onChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            className="w-full bg-transparent border-b border-[#1F2937] py-2 pr-12 text-slate-400 outline-none appearance-none cursor-pointer"
-          >
-            <option value="" disabled>
-              {placeholder}
-            </option>
-            {Object.entries(options).map(([key, label]) => (
-              <option key={key} value={key} className="bg-[#020617]">
-                {label}
-              </option>
-            ))}
-          </select>
-
-          <motion.div
-            animate={{
-              rotate: isFocused ? 180 : 0,
-              color: isFocused ? "#3B82F6" : "#4B5563",
+          <div
+            onClick={() => {
+              setIsOpen(!isOpen);
+              onFocus();
             }}
-            style={{ x: arrowX, y: arrowY }}
-            onMouseMove={handleArrowMouseMove}
-            onMouseLeave={resetArrow}
-            className="absolute right-2 top-1/2 -translate-y-1/2"
+            className="w-full border-b border-[#1F2937] py-2 flex justify-between items-center cursor-pointer"
           >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
+            <span
+              className={`text-sm lg:text-base transition-all duration-300 ${value ? "text-[#F5F7FA]" : "text-[#1F2937] font-mono italic"}`}
             >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </motion.div>
+              {value ? options[value] : placeholder}
+            </span>
+            <motion.div
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              className={`${isOpen ? "text-[#3B82F6]" : "text-[#4B5563]"}`}
+            >
+              <ArrowDown size={14} />
+            </motion.div>
+          </div>
+
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute left-0 right-0 top-full mt-2 z-[100] bg-[#0B1320] border border-[#1F2937] rounded-xl overflow-y-auto max-h-[200px] shadow-2xl"
+              >
+                {Object.entries(options).map(([key, label], idx) => (
+                  <div
+                    key={key}
+                    onClick={() => handleSelect(key)}
+                    className="px-5 py-4 text-xs lg:text-sm font-medium text-[#9CA3AF] active:bg-[#3B82F6]/20 lg:hover:text-white lg:hover:bg-[#3B82F6]/10 cursor-pointer flex justify-between items-center transition-all"
+                  >
+                    <span className="uppercase tracking-widest">{label}</span>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
@@ -719,27 +686,16 @@ const HoloInput = ({
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] outline-none"
+          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-sm lg:text-base text-[#F5F7FA] outline-none placeholder:text-[#1F2937]"
         />
       )}
 
       <motion.div
         animate={{
-          width: isFocused ? "100%" : "0%",
-          opacity: isFocused ? 1 : 0,
-          boxShadow:
-            isInvalid || (type === "email" && !isEmailValid)
-              ? "0 0 12px rgba(59,130,246,0.6)"
-              : "0 0 10px rgba(59,130,246,0.9)",
+          width: isFocused || isOpen ? "100%" : "0%",
+          opacity: isFocused || isOpen ? 1 : 0,
         }}
-        transition={{
-          width: { duration: 0.4 },
-          boxShadow:
-            isInvalid || (type === "email" && !isEmailValid)
-              ? { repeat: Infinity, duration: 1.6, repeatType: "mirror" }
-              : { duration: 0.3 },
-        }}
-        className="absolute bottom-0 left-0 h-px bg-[#3B82F6]"
+        className="absolute bottom-0 left-0 h-px bg-[#3B82F6] shadow-[0_0_10px_#3B82F6]"
       />
     </div>
   );
