@@ -140,14 +140,7 @@ export default function LegalInformation() {
               </section>
 
               {/* FOOTER */}
-              <div className="pt-4 flex flex-col sm:flex-row justify-between items-center gap-4 opacity-20">
-                <span className="text-[8px] font-mono tracking-[0.5em] uppercase text-center sm:text-left">
-                  Status: Official_Record
-                </span>
-                <span className="text-[8px] font-mono tracking-[0.5em] uppercase text-center sm:text-right">
-                  Ref: DDG_5_GER
-                </span>
-              </div>
+              <div className="pt-4 flex flex-col sm:flex-row justify-between items-center gap-4 opacity-20"></div>
             </motion.div>
           </div>
         </motion.div>

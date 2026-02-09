@@ -93,9 +93,9 @@ export const SERVICES = [
         revenueTiers: [
             { label: "Up to €500,000", priceCents: 50000 },
             { label: "€550000 – €1 million", priceCents: 100000 },
-            { label: "€1.1 million – €3 million", priceCents: 150000 },
-            { label: "€3.1 million – €5 million", priceCents: 250000 },
-            { label: "Above €5 million", priceCents: 300000 },
+            { label: "€1.5 million – €3 million", priceCents: 150000 },
+            { label: "€3.5 million – €5 million", priceCents: 250000 },
+            { label: "Above €5 million", priceCents: 500000 },
         ],
         details: [
             {

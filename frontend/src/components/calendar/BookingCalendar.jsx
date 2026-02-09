@@ -342,8 +342,8 @@ export default function BookingCalendar({ activeService, isEmbedded }) {
         {/* DAY PICKER */}
         <div className="lg:col-span-7 p-5 sm:p-6 md:p-8 lg:border-r border-white/5">
           <div className="flex justify-between items-center mb-8">
-            <span className="text-[10px] font-mono text-blue-500 tracking-[0.3em] uppercase">
-              Select_Day
+            <span className="text-[11px] font-mono text-blue-500 tracking-[0.3em] uppercase">
+              Select Day
             </span>
             <div className="flex items-center gap-4">
               <NavBtn
@@ -395,7 +395,7 @@ export default function BookingCalendar({ activeService, isEmbedded }) {
         {/* TIME PICKER */}
         <div className="lg:col-span-5 p-5 sm:p-6 md:p-8  bg-white/[0.01]">
           <span className="text-[11px] font-mono text-blue-500 tracking-[0.3em] uppercase">
-            Available_Times
+            Available Times
           </span>
 
           {dayLabel && (

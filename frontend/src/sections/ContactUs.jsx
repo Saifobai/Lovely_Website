@@ -562,13 +562,13 @@ const HoloForm = ({ t }) => {
             <button
               type="submit"
               disabled={!isFormValid || status === "loading"}
-              className={`w-full py-5 lg:py-6 rounded-xl uppercase tracking-[0.2em] lg:tracking-[0.4em] font-black text-xs lg:text-sm transition ${
+              className={`w-full py-5 lg:py-6 rounded-xl  tracking-[0.2em] lg:tracking-[0.4em] font-black text-xs lg:text-sm transition ${
                 !isFormValid
                   ? "bg-[#1F2937] text-[#4B5563] cursor-not-allowed"
                   : "bg-white text-black active:scale-95 lg:hover:bg-[#3B82F6] lg:hover:text-white"
               }`}
             >
-              {status === "loading" ? "Transmitting..." : "Initiate Contact"}
+              {status === "loading" ? "Transmitting..." : "Engage with Us"}
               <ArrowRight className="inline ml-2" size={14} />
             </button>
           </div>

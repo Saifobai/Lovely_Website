@@ -112,8 +112,8 @@ export default function Together() {
         {/* SECTION 2: PROCESS FLOW */}
         <div className="max-w-[1200px] mx-auto relative">
           <div className="text-center mb-16 lg:mb-24">
-            <h2 className="text-[#F5F7FA] font-mono text-[10px] lg:text-sm tracking-[0.4em] lg:tracking-[0.6em] uppercase opacity-30">
-              Execution Framework
+            <h2 className="text-[#F5F7FA] font-mono text-[10px] lg:text-lg tracking-[0.4em] lg:tracking-[0.6em]  opacity-30">
+              How We Work
             </h2>
           </div>
 

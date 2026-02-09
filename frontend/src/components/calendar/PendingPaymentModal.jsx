@@ -104,7 +104,8 @@ export default function PendingPaymentModal({ booking, onClose }) {
                   className="accent-blue-600"
                 />
                 <span className="text-[10px] font-mono uppercase text-slate-400">
-                  Confirm Policy Acknowledgement
+                  I agree to the Client Engagement Terms, the Privacy Policy,
+                  and the Cancellation Policy
                 </span>
               </label>
 

@@ -143,118 +143,6 @@ export default function ServicesSection() {
   );
 }
 
-// modal
-// function DetailedModal({ service, isOpen, onClose, navigate }) {
-//   const { t } = useTranslation();
-//   if (!service) return null;
-
-//   const data = t(`services.list.${service.key}`, { returnObjects: true });
-
-//   return (
-//     <AnimatePresence>
-//       {isOpen && (
-//         <>
-//           <motion.div
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             exit={{ opacity: 0 }}
-//             onClick={onClose}
-//             className="fixed inset-0 bg-[#020617]/95 backdrop-blur-2xl z-[200]"
-//           />
-
-//           <div className="fixed inset-0 z-[201] flex items-center justify-center p-4">
-//             <motion.div
-//               initial={{ opacity: 0, y: 30 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               exit={{ opacity: 0, y: 30 }}
-//               className="bg-[#0B1320] border border-[#1F2937] w-full max-w-5xl rounded-[40px] overflow-hidden shadow-2xl flex flex-col h-[65vh]"
-//             >
-//               {/* Header */}
-//               <div
-//                 className="h-36 w-full relative"
-//                 style={{ background: service.visual.gradient }}
-//               >
-//                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0B1320]" />
-
-//                 {/* Title + Subtitle */}
-//                 <div className="absolute bottom-6 left-10">
-//                   <h3 className="text-4xl font-black uppercase italic text-white leading-tight">
-//                     {t(`services.list.${service.key}.title`)}
-//                   </h3>
-//                   <p className="text-lg font-semibold italic text-slate-300">
-//                     {t(`services.list.${service.key}.description`)}
-//                   </p>
-//                 </div>
-
-//                 {/* Close button */}
-//                 <button
-//                   onClick={onClose}
-//                   className="absolute top-8 right-8 w-12 h-12 rounded-full bg-[#0B1320] border border-[#1F2937] flex items-center justify-center hover:bg-[#3B82F6]"
-//                 >
-//                   <X size={20} />
-//                 </button>
-//               </div>
-
-//               {/* Content */}
-//               <div className="p-10 md:p-20 overflow-y-auto flex-1 space-y-12">
-//                 {data.sections &&
-//                   Object.values(data.sections).map((section, i) => (
-//                     <div key={i} className="space-y-4">
-//                       <h4 className="text-[#F5F7FA] text-lg font-bold uppercase">
-//                         {section.title}
-//                       </h4>
-
-//                       {section.items && (
-//                         <ul className="space-y-2 text-[#9CA3AF]">
-//                           {section.items.map((item, idx) => (
-//                             <li key={idx}>{item}</li>
-//                           ))}
-//                         </ul>
-//                       )}
-
-//                       {Object.entries(section).map(([k, v]) =>
-//                         Array.isArray(v) ? (
-//                           <div key={k} className="mt-6">
-//                             <p className="text-[#3B82F6] uppercase text-sm tracking-widest">
-//                               {k}
-//                             </p>
-//                             <ul className="mt-2 space-y-2 text-[#9CA3AF]">
-//                               {v.map((x, j) => (
-//                                 <li key={j}>{x}</li>
-//                               ))}
-//                             </ul>
-//                           </div>
-//                         ) : null,
-//                       )}
-//                     </div>
-//                   ))}
-
-//                 {data.items && (
-//                   <ul className="space-y-3 text-[#9CA3AF]">
-//                     {data.items.map((item, i) => (
-//                       <li key={i}>{item}</li>
-//                     ))}
-//                   </ul>
-//                 )}
-//               </div>
-
-//               {/* Footer */}
-//               <div className="p-8 bg-[#111827]/50 border-t border-[#1F2937] flex justify-end">
-//                 <button
-//                   onClick={() => navigate("/book")}
-//                   className="px-12 py-5 bg-[#3B82F6] text-white font-black text-[11px] tracking-[0.3em] rounded-2xl hover:bg-white hover:text-black transition-all"
-//                 >
-//                   {t("services.modal.cta")}
-//                 </button>
-//               </div>
-//             </motion.div>
-//           </div>
-//         </>
-//       )}
-//     </AnimatePresence>
-//   );
-// }
-
 function DetailedModal({ service, isOpen, onClose, navigate }) {
   const { t } = useTranslation();
   if (!service) return null;
@@ -334,7 +222,7 @@ function DetailedModal({ service, isOpen, onClose, navigate }) {
                       )}
 
                       {Object.entries(section).map(([k, v]) =>
-                        Array.isArray(v) ? (
+                        Array.isArray(v) && k !== "items" ? (
                           <div key={k} className="mt-5">
                             <p className="text-[#3B82F6] uppercase text-xs tracking-widest">
                               {k}
