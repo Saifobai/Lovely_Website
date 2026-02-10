@@ -1,363 +1,3 @@
-// import {
-//   motion,
-//   useMotionTemplate,
-//   useMotionValue,
-//   AnimatePresence,
-// } from "framer-motion";
-// import { ArrowDown, ArrowRight, ShieldCheck } from "lucide-react";
-// import Section from "../components/layout/Section";
-// import { useTranslation } from "react-i18next";
-// import { useState } from "react";
-// import { ContactServicesSelection } from "../constants";
-
-// export default function ContactUs() {
-//   const { t } = useTranslation();
-
-//   return (
-//     <Section id="contact" className="relative mt-20 lg:mt-32 pb-20">
-//       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#3B82F6]/5 rounded-full blur-[140px] opacity-40 pointer-events-none" />
-//       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#C2413A]/5 rounded-full blur-[120px] opacity-20 pointer-events-none" />
-
-//       <div className="relative z-10 max-w-[1500px] mx-auto px-6">
-//         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-//           {/* LEFT */}
-//           <div className="w-full lg:w-[45%] space-y-12">
-//             <motion.h2
-//               initial={{ opacity: 0, y: 20 }}
-//               whileInView={{ opacity: 1, y: 0 }}
-//               viewport={{ once: true }}
-//               className="text-5xl md:text-7xl font-black uppercase leading-[0.9]"
-//             >
-//               {t("contact.title.line1")}
-//               <br />
-//               <span className="text-[#3B82F6] italic">
-//                 {t("contact.title.line2")}
-//               </span>
-//             </motion.h2>
-
-//             <motion.p
-//               initial={{ opacity: 0 }}
-//               whileInView={{ opacity: 1 }}
-//               transition={{ delay: 0.3 }}
-//               className="text-[#9CA3AF] text-lg md:text-2xl max-w-lg border-l border-[#3B82F6]/30 pl-6 italic"
-//             >
-//               {t("contact.description")
-//                 .split(".")
-//                 .filter(Boolean)
-//                 .map((s, i) => (
-//                   <span key={i} className="block">
-//                     {s.trim()}.
-//                   </span>
-//                 ))}
-//             </motion.p>
-//           </div>
-
-//           {/* RIGHT */}
-//           <div className="w-full lg:w-[55%] relative group">
-//             <div className="absolute -inset-1 bg-gradient-to-r from-[#3B82F6]/20 to-transparent blur-2xl rounded-[40px] opacity-0 group-hover:opacity-100 transition duration-1000" />
-//             <HoloForm t={t} />
-//           </div>
-//         </div>
-//       </div>
-//     </Section>
-//   );
-// }
-
-// /* =========================
-//    FORM
-// ========================= */
-
-// const HoloForm = ({ t }) => {
-//   const [focused, setFocused] = useState(null);
-//   const [status, setStatus] = useState("idle");
-//   const [form, setForm] = useState({
-//     name: "",
-//     email: "",
-//     company: "",
-//     service: "",
-//     message: "",
-//   });
-
-//   const mouseX = useMotionValue(0);
-//   const mouseY = useMotionValue(0);
-
-//   const isFormValid =
-//     form.name && form.email.includes("@") && form.service && form.message;
-
-//   function handleMouseMove({ currentTarget, clientX, clientY }) {
-//     const { left, top } = currentTarget.getBoundingClientRect();
-//     mouseX.set(clientX - left);
-//     mouseY.set(clientY - top);
-//   }
-
-//   function handleSubmit(e) {
-//     e.preventDefault();
-//     if (!isFormValid) return;
-
-//     setStatus("loading");
-//     setTimeout(() => {
-//       setStatus("success");
-//       setForm({
-//         name: "",
-//         email: "",
-//         company: "",
-//         service: "",
-//         message: "",
-//       });
-//       setTimeout(() => setStatus("idle"), 5000);
-//     }, 2000);
-//   }
-
-//   return (
-//     <form
-//       onMouseMove={handleMouseMove}
-//       onSubmit={handleSubmit}
-//       className="relative bg-[#0B1320]/90 backdrop-blur-3xl border border-[#1F2937] p-8 md:p-14 rounded-[40px] shadow-2xl overflow-hidden"
-//     >
-//       <motion.div
-//         className="pointer-events-none absolute -inset-px rounded-[40px]"
-//         style={{
-//           background: useMotionTemplate`
-//             radial-gradient(
-//               400px circle at ${mouseX}px ${mouseY}px,
-//               rgba(59,130,246,0.1),
-//               transparent 80%
-//             )
-//           `,
-//         }}
-//       />
-
-//       <AnimatePresence mode="wait">
-//         {status === "success" ? (
-//           <motion.div
-//             initial={{ opacity: 0, scale: 0.9 }}
-//             animate={{ opacity: 1, scale: 1 }}
-//             className="text-center py-20"
-//           >
-//             <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center text-[#3B82F6]">
-//               <ShieldCheck size={40} />
-//             </div>
-//             <h3 className="text-3xl font-black uppercase italic mb-4">
-//               Transmission_Received
-//             </h3>
-//             <p className="text-[#9CA3AF] italic">
-//               A principal advisor will contact you shortly.
-//             </p>
-//           </motion.div>
-//         ) : (
-//           <div className="space-y-10 relative z-10">
-//             <div className="grid md:grid-cols-2 gap-10">
-//               <HoloInput
-//                 label={t("contact.form.name.label")}
-//                 placeholder={t("contact.form.name.placeholder")}
-//                 value={form.name}
-//                 required
-//                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-//                 isFocused={focused === "name"}
-//                 onFocus={() => setFocused("name")}
-//                 onBlur={() => setFocused(null)}
-//               />
-//               <HoloInput
-//                 label={t("contact.form.email.label")}
-//                 placeholder={t("contact.form.email.placeholder")}
-//                 type="email"
-//                 value={form.email}
-//                 required
-//                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-//                 isFocused={focused === "email"}
-//                 onFocus={() => setFocused("email")}
-//                 onBlur={() => setFocused(null)}
-//               />
-//             </div>
-
-//             <HoloInput
-//               label={t("contact.form.company.label")}
-//               placeholder={t("contact.form.company.placeholder")}
-//               value={form.company}
-//               onChange={(e) => setForm({ ...form, company: e.target.value })}
-//               isFocused={focused === "company"}
-//               onFocus={() => setFocused("company")}
-//               onBlur={() => setFocused(null)}
-//             />
-
-//             <HoloInput
-//               label="select your service"
-//               type="select"
-//               placeholder="Select a service"
-//               value={form.service}
-//               required
-//               options={ContactServicesSelection}
-//               onChange={(e) => setForm({ ...form, service: e.target.value })}
-//               isFocused={focused === "service"}
-//               onFocus={() => setFocused("service")}
-//               onBlur={() => setFocused(null)}
-//             />
-
-//             <HoloInput
-//               label={t("contact.form.message.label")}
-//               placeholder={t("contact.form.message.placeholder")}
-//               type="textarea"
-//               value={form.message}
-//               required
-//               onChange={(e) => setForm({ ...form, message: e.target.value })}
-//               isFocused={focused === "message"}
-//               onFocus={() => setFocused("message")}
-//               onBlur={() => setFocused(null)}
-//             />
-
-//             <button
-//               type="submit"
-//               disabled={!isFormValid || status === "loading"}
-//               className={`w-full py-6 rounded-xl uppercase tracking-[0.4em] font-black transition ${
-//                 !isFormValid
-//                   ? "bg-[#1F2937] text-[#4B5563] cursor-not-allowed"
-//                   : "bg-white text-black hover:bg-[#3B82F6] hover:text-white"
-//               }`}
-//             >
-//               {status === "loading" ? "Transmitting..." : "Initiate Contact"}
-//               <ArrowRight className="inline ml-3" size={16} />
-//             </button>
-//           </div>
-//         )}
-//       </AnimatePresence>
-//     </form>
-//   );
-// };
-
-// /* =========================
-//    INPUT
-// ========================= */
-
-// const HoloInput = ({
-//   label,
-//   placeholder,
-//   type,
-//   value,
-//   onChange,
-//   isFocused,
-//   onFocus,
-//   onBlur,
-//   options,
-//   required = false,
-// }) => {
-//   const [isOpen, setIsOpen] = useState(false); // State for custom select
-//   const arrowX = useMotionValue(0);
-//   const arrowY = useMotionValue(0);
-
-//   const isInvalid = required && !value;
-//   const isEmailValid =
-//     type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : true;
-
-//   // Custom Select Logic
-//   const handleSelect = (val) => {
-//     onChange({ target: { value: val } });
-//     setIsOpen(false);
-//     onBlur();
-//   };
-
-//   return (
-//     <div className="relative">
-//       <label
-//         className={`block text-[9px] font-mono uppercase tracking-[0.3em] mb-2 transition-colors duration-300 ${
-//           isFocused || isOpen ? "text-[#3B82F6]" : "text-[#4B5563]"
-//         }`}
-//       >
-//         {label}
-//       </label>
-
-//       {/* --- TEXTAREA --- */}
-//       {type === "textarea" && (
-//         <textarea
-//           rows={3}
-//           value={value}
-//           onChange={onChange}
-//           onFocus={onFocus}
-//           onBlur={onBlur}
-//           placeholder={placeholder}
-//           className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] outline-none resize-none placeholder:text-[#1F2937] transition-all focus:border-[#3B82F6]/30"
-//         />
-//       )}
-
-//       {/* --- CUSTOM SELECT (AWARD STYLE) --- */}
-//       {type === "select" && (
-//         <div className="relative">
-//           <div
-//             onClick={() => {
-//               setIsOpen(!isOpen);
-//               onFocus();
-//             }}
-//             className="w-full border-b border-[#1F2937] py-2 flex justify-between items-center cursor-pointer group"
-//           >
-//             <span
-//               className={`transition-all duration-300 ${value ? "text-[#F5F7FA]" : "text-[#1F2937] font-mono italic text-sm"}`}
-//             >
-//               {value ? options[value] : placeholder}
-//             </span>
-
-//             <motion.div
-//               animate={{ rotate: isOpen ? 180 : 0 }}
-//               className={`${isOpen ? "text-[#3B82F6]" : "text-[#4B5563] group-hover:text-white"}`}
-//             >
-//               <ArrowDown size={14} />
-//             </motion.div>
-//           </div>
-
-//           <AnimatePresence>
-//             {isOpen && (
-//               <motion.div
-//                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
-//                 animate={{ opacity: 1, y: 0, scale: 1 }}
-//                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-//                 className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#0B1320] border border-[#1F2937] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl"
-//               >
-//                 {Object.entries(options).map(([key, label], idx) => (
-//                   <motion.div
-//                     key={key}
-//                     initial={{ opacity: 0, x: -10 }}
-//                     animate={{ opacity: 1, x: 0 }}
-//                     transition={{ delay: idx * 0.05 }}
-//                     onClick={() => handleSelect(key)}
-//                     className="px-6 py-4 text-sm font-medium text-[#9CA3AF] hover:text-white hover:bg-[#3B82F6]/10 cursor-pointer flex justify-between items-center group transition-all"
-//                   >
-//                     <span className="uppercase tracking-widest">{label}</span>
-//                     <ArrowRight
-//                       size={12}
-//                       className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#3B82F6]"
-//                     />
-//                   </motion.div>
-//                 ))}
-//               </motion.div>
-//             )}
-//           </AnimatePresence>
-//         </div>
-//       )}
-
-//       {/* --- STANDARD INPUT --- */}
-//       {type !== "textarea" && type !== "select" && (
-//         <input
-//           type={type || "text"}
-//           value={value}
-//           onChange={onChange}
-//           onFocus={onFocus}
-//           onBlur={onBlur}
-//           placeholder={placeholder}
-//           className="w-full bg-transparent border-b border-[#1F2937] py-2 text-[#F5F7FA] outline-none placeholder:text-[#1F2937] transition-all"
-//         />
-//       )}
-
-//       {/* --- GLOWING UNDERSCORE ANIMATION --- */}
-//       <motion.div
-//         animate={{
-//           width: isFocused || isOpen ? "100%" : "0%",
-//           opacity: isFocused || isOpen ? 1 : 0,
-//         }}
-//         className="absolute bottom-0 left-0 h-px bg-[#3B82F6] shadow-[0_0_15px_#3B82F6]"
-//       />
-//     </div>
-//   );
-// };
-
-//======================================================
 import {
   motion,
   useMotionTemplate,
@@ -450,15 +90,48 @@ const HoloForm = ({ t }) => {
     mouseY.set(clientY - top);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!isFormValid) return;
+    if (!isFormValid || status === "loading") return;
+
     setStatus("loading");
-    setTimeout(() => {
+
+    try {
+      const res = await fetch("/api/contact/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: `
+          Service: ${ContactServicesSelection[form.service]}
+          Company: ${form.company || "—"}
+
+          ${form.message}
+                `.trim(),
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to send message");
+      }
+
       setStatus("success");
-      setForm({ name: "", email: "", company: "", service: "", message: "" });
+      setForm({
+        name: "",
+        email: "",
+        company: "",
+        service: "",
+        message: "",
+      });
+
       setTimeout(() => setStatus("idle"), 5000);
-    }, 2000);
+    } catch (err) {
+      console.error("Contact form error:", err);
+      setStatus("error");
+    }
   }
 
   return (
@@ -482,6 +155,16 @@ const HoloForm = ({ t }) => {
       />
 
       <AnimatePresence mode="wait">
+        {status === "error" && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-red-400 text-sm italic text-center"
+          >
+            Failed to send message. Please try again.
+          </motion.p>
+        )}
+
         {status === "success" ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -495,7 +178,7 @@ const HoloForm = ({ t }) => {
               Transmission_Received
             </h3>
             <p className="text-[#9CA3AF] text-sm lg:text-base italic">
-              A principal advisor will contact you shortly.
+              Your message has been sent successfully .
             </p>
           </motion.div>
         ) : (
