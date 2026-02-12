@@ -10,6 +10,7 @@ import bookingRoutes from "./routes/bookingsRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js"
 import contactRoutes from "./routes/contactRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js"
+
 import { expirePendingBookings } from "./jobs/expireBookings.js";
 
 const app = express();
@@ -46,6 +47,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
