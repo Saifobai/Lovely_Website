@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import Booking from "../models/bookingModel.js";
 import { calendar } from "../config/calendar.js";
+import { getServiceById } from "../utils/getServiceById.js";
 
 /* =========================
    CREATE HOLD (5 MIN)
@@ -11,18 +12,23 @@ export const createBookingHold = async (req, res) => {
     try {
         const { serviceId, date, time, email, timezone } = req.body;
 
-        if (!serviceId || !date || !time || !email || !timezone) {
+        if (!serviceId || !email) {
             return res.status(400).json({ error: "Missing fields" });
+        }
+
+        const service = getServiceById(serviceId);
+        if (!service) {
+            return res.status(400).json({ error: "Invalid service" });
         }
 
         const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
         const booking = await Booking.create({
             serviceId,
-            date,
-            time,
             email,
-            timezone,
+            date: service.isExclusive ? null : date,
+            time: service.isExclusive ? null : time,
+            timezone: service.isExclusive ? null : timezone,
             expiresAt,
             status: "HOLD",
         });
@@ -39,6 +45,8 @@ export const createBookingHold = async (req, res) => {
         res.status(500).json({ error: "Failed to create hold" });
     }
 };
+
+
 
 /* =========================
    GET BOOKED TIMES

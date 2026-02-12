@@ -55,9 +55,9 @@ export default function BookingPage() {
         </div>
 
         {/* MAIN BOARD */}
-        <div className="relative z-10 w-full max-w-[1440px] flex flex-col lg:flex-row bg-white/[0.02] backdrop-blur-3xl border border-white/10 rounded-3xl md:rounded-[40px] overflow-hidden shadow-2xl">
+        <div className="relative z-10 w-full max-w-[1440px] flex flex-col lg:flex-row bg-white/[0.02] backdrop-blur-3xl border border-white/10 rounded-3xl md:rounded-[10px] shadow-2xl min-h-[720px]">
           {/* LEFT PANEL */}
-          <div className="w-full lg:w-[30%] border-b lg:border-b-0 lg:border-r border-white/10 p-6 sm:p-8 md:p-12 flex flex-col justify-between bg-black/40">
+          <div className="w-full lg:w-[30%] border-b lg:border-b-0 lg:border-r border-white/10 p-6 sm:p-8 md:p-12 flex flex-col bg-black/40 max-h-[720px] overflow-y-auto">
             <div className="space-y-10">
               <div>
                 <h2 className="text-4xl sm:text-5xl font-black italic uppercase leading-[0.85] tracking-tighter mb-6">
@@ -99,7 +99,7 @@ export default function BookingPage() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-[110%] w-full max-h-[60vh] overflow-y-auto bg-[#0a0a0a] border border-white/10 rounded-2xl z-50 shadow-2xl"
+                        className="absolute top-[110%] left-0 w-full max-h-[320px] overflow-y-auto bg-[#0a0a0a] border border-white/10 rounded-2xl z-50 shadow-2xl scrollbar-thin scrollbar-thumb-blue-600/50"
                       >
                         {services.map((s) => (
                           <button

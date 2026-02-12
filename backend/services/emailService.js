@@ -4,6 +4,7 @@ import nodemailer from "nodemailer";
 
 import { userConfirmedTemplate } from "./emailTemplates/userConfirmedTemplate.js";
 import { adminTemplate } from "./emailTemplates/adminTemplate.js";
+import { exclusiveConfirmedTemplate } from "./emailTemplates/exclusiveConfirmedTemplate.js.js";
 
 export const mail = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
@@ -47,5 +48,24 @@ export const sendAdminEmail = async ({ email, date, time }) => {
         to: process.env.MAIL_USER,
         subject: "📩 New Confirmed Booking",
         html: adminTemplate({ email, date, time }),
+    });
+};
+
+
+
+export const sendUserExclusiveEmail = async ({
+    email,
+    bookingId,
+}) => {
+    const firstName = email.split("@")[0];
+
+    await mail.sendMail({
+        from: `"Lovely Booking" <${process.env.MAIL_USER}>`,
+        to: email,
+        subject: "✨ Introduction Booking Confirmed",
+        html: exclusiveConfirmedTemplate({
+            firstName,
+            bookingId,
+        }),
     });
 };

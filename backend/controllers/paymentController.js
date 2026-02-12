@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import crypto from "crypto";
 import Booking from "../models/bookingModel.js";
 import { calendar } from "../config/calendar.js";
-import { sendUserConfirmedEmail, sendAdminEmail } from "../services/emailService.js";
+import { sendUserExclusiveEmail, sendUserConfirmedEmail, sendAdminEmail } from "../services/emailService.js";
 import { getServiceById } from "../utils/getServiceById.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -121,6 +121,75 @@ export const fakeConfirm = async (req, res) => {
     });
 };
 
+// async function confirmBooking(bookingId, provider) {
+//     try {
+//         const booking = await Booking.findById(bookingId);
+//         if (!booking || booking.status === "CONFIRMED") return;
+
+//         const service = getServiceById(booking.serviceId);
+
+//         // 1. Generate the working PUBLIC Google Link
+//         const datePart = booking.date.replace(/-/g, '');
+//         const timePart = booking.time.slice(0, 5).replace(/:/g, ''); // Ensure HHMM format
+//         const startTimestamp = `${datePart}T${timePart}00`;
+
+//         const endDateTime = new Date(`${booking.date}T${booking.time}`);
+//         endDateTime.setMinutes(endDateTime.getMinutes() + service.durationMinutes);
+//         const endTimestamp = endDateTime.toISOString().replace(/-|:|\.\d\d\d/g, "").slice(0, 15);
+
+//         const publicGoogleLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(service.title)}&dates=${startTimestamp}/${endTimestamp}&details=${encodeURIComponent("Your strategic session is confirmed.")}&location=${encodeURIComponent("Online Session")}&sf=true&output=xml`;
+
+//         // 2. Update Status and Security
+//         booking.status = "CONFIRMED";
+//         booking.paymentProvider = provider;
+//         booking.cancelToken = crypto.randomUUID(); // Generate the token for the cancel link
+//         booking.expiresAt = null; // Prevent the DB from deleting the record
+//         await booking.save();
+
+//         // 3. Insert into YOUR Google Calendar (Admin view)
+//         const startISO = new Date(`${booking.date}T${booking.time}`).toISOString();
+//         const endISO = new Date(new Date(startISO).getTime() + service.durationMinutes * 60000).toISOString();
+
+//         const event = await calendar.events.insert({
+//             calendarId: "primary",
+//             requestBody: {
+//                 summary: `Consultation: ${service.title}`,
+//                 description: `Client: ${booking.email}`,
+//                 start: { dateTime: startISO, timeZone: booking.timezone },
+//                 end: { dateTime: endISO, timeZone: booking.timezone },
+//             },
+//         });
+
+//         booking.googleEventId = event.data.id;
+//         await booking.save();
+
+//         // 4. Send Emails (Use the publicGoogleLink here!)
+//         try {
+//             await sendUserConfirmedEmail({
+//                 email: booking.email,
+//                 date: booking.date,
+//                 time: booking.time,
+//                 timezone: booking.timezone,
+//                 link: publicGoogleLink, // <--- USE THE PUBLIC LINK HERE
+//                 bookingId: booking.cancelToken,
+//             });
+
+//             await sendAdminEmail({
+//                 email: booking.email,
+//                 date: booking.date,
+//                 time: booking.time,
+//             });
+//             console.log("📧 Emails sent successfully with working calendar link");
+//         } catch (emailErr) {
+//             console.error("❌ Email failed but booking is confirmed:", emailErr);
+//         }
+
+//     } catch (err) {
+//         console.error("❌ Critical error in confirmBooking:", err);
+//     }
+// }
+
+
 async function confirmBooking(bookingId, provider) {
     try {
         const booking = await Booking.findById(bookingId);
@@ -128,63 +197,77 @@ async function confirmBooking(bookingId, provider) {
 
         const service = getServiceById(booking.serviceId);
 
-        // 1. Generate the working PUBLIC Google Link
-        const datePart = booking.date.replace(/-/g, '');
-        const timePart = booking.time.slice(0, 5).replace(/:/g, ''); // Ensure HHMM format
-        const startTimestamp = `${datePart}T${timePart}00`;
-
-        const endDateTime = new Date(`${booking.date}T${booking.time}`);
-        endDateTime.setMinutes(endDateTime.getMinutes() + service.durationMinutes);
-        const endTimestamp = endDateTime.toISOString().replace(/-|:|\.\d\d\d/g, "").slice(0, 15);
-
-        const publicGoogleLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(service.title)}&dates=${startTimestamp}/${endTimestamp}&details=${encodeURIComponent("Your strategic session is confirmed.")}&location=${encodeURIComponent("Online Session")}&sf=true&output=xml`;
-
-        // 2. Update Status and Security
         booking.status = "CONFIRMED";
         booking.paymentProvider = provider;
-        booking.cancelToken = crypto.randomUUID(); // Generate the token for the cancel link
-        booking.expiresAt = null; // Prevent the DB from deleting the record
+        booking.cancelToken = crypto.randomUUID();
+        booking.expiresAt = null;
+
         await booking.save();
 
-        // 3. Insert into YOUR Google Calendar (Admin view)
-        const startISO = new Date(`${booking.date}T${booking.time}`).toISOString();
-        const endISO = new Date(new Date(startISO).getTime() + service.durationMinutes * 60000).toISOString();
+        // 🔥 IF NOT EXCLUSIVE → CREATE GOOGLE EVENT
+        if (!service.isExclusive) {
+            const startISO = new Date(`${booking.date}T${booking.time}`).toISOString();
+            const endISO = new Date(
+                new Date(startISO).getTime() + service.durationMinutes * 60000
+            ).toISOString();
 
-        const event = await calendar.events.insert({
-            calendarId: "primary",
-            requestBody: {
-                summary: `Consultation: ${service.title}`,
-                description: `Client: ${booking.email}`,
-                start: { dateTime: startISO, timeZone: booking.timezone },
-                end: { dateTime: endISO, timeZone: booking.timezone },
-            },
-        });
+            const event = await calendar.events.insert({
+                calendarId: "primary",
+                requestBody: {
+                    summary: `Consultation: ${service.title}`,
+                    description: `Client: ${booking.email}`,
+                    start: { dateTime: startISO, timeZone: booking.timezone },
+                    end: { dateTime: endISO, timeZone: booking.timezone },
+                },
+            });
 
-        booking.googleEventId = event.data.id;
-        await booking.save();
+            booking.googleEventId = event.data.id;
+            await booking.save();
+        }
 
-        // 4. Send Emails (Use the publicGoogleLink here!)
-        try {
+        // 🔥 SEND CORRECT EMAIL
+        if (service.isExclusive) {
+            await sendUserExclusiveEmail({
+                email: booking.email,
+                bookingId: booking.cancelToken,
+            });
+        } else {
+            const datePart = booking.date.replace(/-/g, "");
+            const timePart = booking.time.slice(0, 5).replace(/:/g, "");
+            const startTimestamp = `${datePart}T${timePart}00`;
+
+            const endDateTime = new Date(`${booking.date}T${booking.time}`);
+            endDateTime.setMinutes(
+                endDateTime.getMinutes() + service.durationMinutes
+            );
+
+            const endTimestamp = endDateTime
+                .toISOString()
+                .replace(/-|:|\.\d\d\d/g, "")
+                .slice(0, 15);
+
+            const publicGoogleLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+                service.title
+            )}&dates=${startTimestamp}/${endTimestamp}`;
+
             await sendUserConfirmedEmail({
                 email: booking.email,
                 date: booking.date,
                 time: booking.time,
                 timezone: booking.timezone,
-                link: publicGoogleLink, // <--- USE THE PUBLIC LINK HERE
+                link: publicGoogleLink,
                 bookingId: booking.cancelToken,
             });
-
-            await sendAdminEmail({
-                email: booking.email,
-                date: booking.date,
-                time: booking.time,
-            });
-            console.log("📧 Emails sent successfully with working calendar link");
-        } catch (emailErr) {
-            console.error("❌ Email failed but booking is confirmed:", emailErr);
         }
 
+        await sendAdminEmail({
+            email: booking.email,
+            date: booking.date || "Manual Scheduling Required",
+            time: booking.time || "-",
+        });
+
+        console.log("✅ Booking confirmed successfully");
     } catch (err) {
-        console.error("❌ Critical error in confirmBooking:", err);
+        console.error("❌ Error in confirmBooking:", err);
     }
 }
