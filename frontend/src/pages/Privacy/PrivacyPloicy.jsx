@@ -383,8 +383,7 @@ export default function PrivacyPolicy() {
             <h1 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.8] text-[#F5F7FA]">
               Privacy <br />
               <span className="text-[#3B82F6] text-xl md:text-3xl font-light normal-case tracking-tight block mt-6 leading-relaxed max-w-2xl opacity-80">
-                At Lovely, we value your trust and respect your privacy
-                protocols.
+                At Lovely, we value your trust and respect your privacy.
               </span>
             </h1>
           </motion.div>

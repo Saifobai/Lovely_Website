@@ -10,12 +10,12 @@ export default function YouSection() {
     >
       {/* 1. INSTITUTIONAL HUD BACKGROUND */}
       {/* Hidden horizontal lines on small mobile to keep it clean, shown on md+ */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-[#1F2937] to-transparent hidden md:block" />
         <div className="absolute top-0 right-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-[#1F2937] to-transparent hidden md:block" />
         <div className="absolute top-1/4 -left-20 w-72 h-72 bg-[#3B82F6]/5 blur-[100px] rounded-full" />
         <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-[#C2413A]/5 blur-[100px] rounded-full" />
-      </div>
+      </div> */}
 
       {/* MAIN CONTENT WRAPPER */}
       <div className="max-w-[1600px] mx-auto relative z-10 px-6 flex flex-col lg:flex-row justify-between items-center gap-16 lg:gap-32 xl:gap-64">

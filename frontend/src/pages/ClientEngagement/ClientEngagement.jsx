@@ -338,7 +338,7 @@ export default function ClientEngagement() {
             />
           </div>
           <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.4em]">
-            Back_to_Home
+            Back to Home
           </span>
         </button>
       </nav>
@@ -388,7 +388,7 @@ export default function ClientEngagement() {
               </p>
               <p>Florastraße 31</p>
               <p>40217 Düsseldorf, Germany</p>
-              <p>Email: info@lovely.com.de</p>
+              <p>Email: hello@lovely.com.de</p>
               <p>Data Protection: dataprivacy@lovely.com.de</p>
             </div>
           </section>

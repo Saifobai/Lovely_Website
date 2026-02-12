@@ -220,7 +220,7 @@ const HoloForm = ({ t }) => {
             />
 
             <HoloInput
-              label="Select your service"
+              label=""
               type="select"
               placeholder="Select a service"
               value={form.service}

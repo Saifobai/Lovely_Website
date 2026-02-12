@@ -154,8 +154,6 @@ const ContactServicesSelection = {
 
   business: "Business Advisory",
 
-  immigration: "Immigration Consulting Services",
-
   realestate: "Real Estate Advisory",
 
   events: "Qatar Strategic Access Program",
