@@ -18,7 +18,12 @@ const app = express();
 // ======================
 // MIDDLEWARES
 // ======================
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({
+    origin: ["https://lovely.com.de", "https://www.lovely.com.de"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // 🚨 CRITICAL: The Webhook MUST come before express.json()
 // and it MUST use express.raw()
