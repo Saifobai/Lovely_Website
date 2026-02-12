@@ -1,6 +1,8 @@
+
+const API_URL = import.meta.env.VITE_API_URL;
 export async function initPayment({ bookingId, provider }) {
     const res = await fetch(
-        "http://localhost:5000/api/payments/init",
+        `${API_URL}/payments/init`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
