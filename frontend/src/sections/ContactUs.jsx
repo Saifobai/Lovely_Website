@@ -301,7 +301,7 @@ const HoloInput = ({
   return (
     <div className="relative" ref={containerRef}>
       <label
-        className={`block text-[19px] font-mono  tracking-[0.2em] mb-2 transition-colors duration-300 ${isFocused || isOpen ? "text-[#3B82F6]" : "text-slate-400"}`}
+        className={`block text-[10px] font-mono  tracking-[0.2em] mb-2 transition-colors duration-300 ${isFocused || isOpen ? "text-[#3B82F6]" : "text-slate-400"}`}
       >
         {label}
       </label>
