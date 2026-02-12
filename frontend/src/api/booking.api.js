@@ -1,7 +1,9 @@
 
 // booking.api.js
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function createBooking(payload) {
-    const res = await fetch("http://localhost:5000/api/bookings/hold", {
+    const res = await fetch(`${API_URL}/bookings/hold`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -14,14 +16,16 @@ export async function createBooking(payload) {
 }
 
 export async function fetchBookedTimes(date) {
-    const res = await fetch(`http://localhost:5000/api/bookings/date/${date}`);
+    const res = await fetch(`${API_URL}/bookings/date/${date}`);
     if (!res.ok) throw new Error("Failed to fetch slots");
     return res.json();
 }
 
+
+
 // payment.api.js
 export async function initPayment({ bookingId, provider }) {
-    const res = await fetch("http://localhost:5000/api/payments/init", {
+    const res = await fetch(`${API_URL}/payments/init`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ bookingId, provider }),

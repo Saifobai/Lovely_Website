@@ -10,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
 import { ContactServicesSelection } from "../constants";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ContactUs() {
   const { t } = useTranslation();
 
@@ -97,7 +99,7 @@ const HoloForm = ({ t }) => {
     setStatus("loading");
 
     try {
-      const res = await fetch("/api/contact/send", {
+      const res = await fetch(`${API_URL}/contact/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
