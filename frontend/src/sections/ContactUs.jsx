@@ -301,7 +301,7 @@ const HoloInput = ({
   return (
     <div className="relative" ref={containerRef}>
       <label
-        className={`block text-[9px] font-mono uppercase tracking-[0.2em] mb-2 transition-colors duration-300 ${isFocused || isOpen ? "text-[#3B82F6]" : "text-[#4B5563]"}`}
+        className={`block text-[19px] font-mono  tracking-[0.2em] mb-2 transition-colors duration-300 ${isFocused || isOpen ? "text-[#3B82F6]" : "text-slate-400"}`}
       >
         {label}
       </label>
@@ -314,7 +314,7 @@ const HoloInput = ({
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-sm lg:text-base text-[#F5F7FA] outline-none resize-none placeholder:text-[#1F2937]"
+          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-sm lg:text-base text-[#F5F7FA] outline-none resize-none placeholder:text-slate-500"
         />
       )}
 
@@ -328,7 +328,7 @@ const HoloInput = ({
             className="w-full border-b border-[#1F2937] py-2 flex justify-between items-center cursor-pointer"
           >
             <span
-              className={`text-sm lg:text-base transition-all duration-300 ${value ? "text-[#F5F7FA]" : "text-[#1F2937] font-mono italic"}`}
+              className={`text-sm lg:text-base transition-all duration-300 ${value ? "text-[#F5F7FA]" : "text-slate-500 font-mono italic"}`}
             >
               {value ? options[value] : placeholder}
             </span>
@@ -371,7 +371,7 @@ const HoloInput = ({
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-sm lg:text-base text-[#F5F7FA] outline-none placeholder:text-[#1F2937]"
+          className="w-full bg-transparent border-b border-[#1F2937] py-2 text-sm lg:text-base text-slate-500 outline-none placeholder:text-slate-500"
         />
       )}
 

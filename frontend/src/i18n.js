@@ -201,7 +201,7 @@ i18n.use(initReactI18next).init({
                     badge: "Secure Uplink Active",
                     title: { line1: "Connect", line2: "With Us" },
                     description:
-                        "Every engagement begins with a thoughtful conversation.\nIf you’re exploring strategic support or would like to understand how we work, please reach out using the form below.\nWe look forward to connecting with you.",
+                        "Every engagement begins with a thoughtful conversation.\nIf you’re exploring strategic support or would like to understand how we work, please reach out using the form .\nWe look forward to connecting with you.",
                     info: {
                         email: { label: "Secure Mail", sub: "Direct Protocol // Response < 4h" },
                         phone: { label: "Direct Line", sub: "Voice Uplink // 09:00 - 18:00" }
