@@ -5,7 +5,7 @@ export const SERVICES = [
         priceCents: 15000,
         currency: "EUR",
         durationMinutes: 15,
-        desc: "Critical technical guidance for entities navigating digital evolution and AI integration.",
+        desc: "Strategic diagnostic for organizations where technology decisions affect capital, security, and long-term control.",
         details: [
             {
                 time: "10:00",
@@ -25,7 +25,7 @@ export const SERVICES = [
         priceCents: 15000,
         currency: "EUR",
         durationMinutes: 15,
-        desc: "Designed for founders and executives seeking surgical precision in business direction.",
+        desc: "Designed for founders and executives facing high-stakes business decisions that require clarity, not opinions.",
         details: [
             {
                 time: "10:00",
@@ -45,7 +45,7 @@ export const SERVICES = [
         priceCents: 15000,
         currency: "EUR",
         durationMinutes: 15,
-        desc: "High-conviction advisory for investors focused on impactful, location-specific real estate.",
+        desc: "High-conviction diagnostic for investors assessing complex, location-specific real estate and community assets.",
         details: [
             {
                 time: "10:00",
@@ -65,7 +65,7 @@ export const SERVICES = [
         priceCents: 15000,
         currency: "EUR",
         durationMinutes: 15,
-        desc: "Direct advisory for high-net-worth individuals and professionals seeking global fluidity.",
+        desc: "Strategic diagnostic for individuals and professionals where mobility decisions intersect with jurisdiction, business, and long-term planning.",
         details: [
             {
                 time: "10:00",
@@ -88,7 +88,7 @@ export const SERVICES = [
         durationMinutes: 30,
         isExclusive: true,
         requiresUmsatz: true,
-        desc: "To ensure focus and alignment, the introductory call is subject to a fee based on the most recent annual revenue (Umsatz) of the organization. Fees are fully credited toward a formal engagement if we proceed.",
+        desc: "Reserved for situations where mutual fit has been established or strongly indicated.",
         // New data structure for your dropdown menu
         revenueTiers: [
             { label: "Up to €500,000", priceCents: 50000 },

@@ -50,7 +50,7 @@ i18n.use(initReactI18next).init({
                         badge: "[ System_Capabilities_Manifest ]",
                         core: "Services",
                         protocols:
-                            "Work designed around your objectives.\nEvery engagement adapts to your context and delivers measurable outcomes",
+                            "Work designed around your objectives.\nEvery engagement adapts to your context and delivers measurable outcomes.",
                         activeNodes: "Active_Nodes",
                         encryption: "Encryption",
                         status: "Status",
@@ -60,7 +60,7 @@ i18n.use(initReactI18next).init({
                     list: {
                         mobility: {
                             title: "Global Mobility",
-                            description: "Strategically move executives, teams, and operations across borders with compliance and operational clarity.",
+                            description: "When people, residency, and operations must move without breaking the business.",
                             sections: {
                                 germany: {
                                     title: "Germany Desk",
@@ -104,7 +104,7 @@ i18n.use(initReactI18next).init({
 
                         business: {
                             title: "Business Advisory",
-                            description: "Design cross-border strategy, structure companies, and navigate operational complexity with clarity and precision.",
+                            description: "When growth, capital, or structure forces irreversible trade-offs.",
                             sections: {
                                 corporate: {
                                     title: "Corporate Clients (B2B)",
@@ -131,7 +131,7 @@ i18n.use(initReactI18next).init({
 
                         ai: {
                             title: "AI & Digital Transformation",
-                            description: "Leverage AI and technology to optimize high-stakes decisions, streamline operations, and scale strategic impact.",
+                            description: "When technology decisions affect capital, compliance, and long-term control — not just efficiency.",
                             items: [
                                 "Website Chatbots",
                                 "WhatsApp / SMS / Messenger Bots",
@@ -142,7 +142,7 @@ i18n.use(initReactI18next).init({
 
                         realestate: {
                             title: "Strategic Real Estate",
-                            description: "Identify, structure, and execute high-value property investments with cross-border insight and risk management.",
+                            description: "When property decisions are inseparable from capital structure, jurisdiction, and long-term strategy.",
                             subtitle: "(with external partners)",
                             sections: {
                                 investors: {
@@ -175,7 +175,7 @@ i18n.use(initReactI18next).init({
 
                         events: {
                             title: "Curated Events",
-                            description: "Exclusive briefings, roundtables, and networking tailored for investors and senior decision-makers.",
+                            description: "When private dialogue, not visibility, is required to move capital and decisions forward.",
                             items: [
                                 "Training Programs & Workshops",
                                 "Executive Coaching Sessions",
@@ -193,7 +193,7 @@ i18n.use(initReactI18next).init({
                         global: "Global Compliance",
                         systemStatus: "System status",
                         optimal: "Optimal",
-                        cta: "Engage with Us"
+                        cta: "Request a strategic conversation →"
                     }
                 },
 

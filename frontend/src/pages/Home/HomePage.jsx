@@ -324,6 +324,7 @@ import WhyLovely from "../../components/layout/WhyLovely";
 import LovelyValues from "../../components/layout/LovelyValues";
 import Together from "../../components/layout/Together";
 import YouSection from "../../sections/YouSection";
+import WhyBoutiqueMatters from "../../components/layout/WhyBoutiqueMatters";
 
 /* --- GLOBAL BACKGROUND ENGINE --- */
 const GlobalBackground = () => {
@@ -391,6 +392,7 @@ export default function HomePage() {
         <AboutUs />
         <Together />
         <ServicesSection />
+        <WhyBoutiqueMatters />
         <ContactUs />
       </div>
     </main>
