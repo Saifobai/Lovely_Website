@@ -14,46 +14,58 @@
 //   useEffect(() => {
 //     const ctx = gsap.context(() => {
 //       gsap.from(".reveal-text", {
-//         y: 40,
+//         y: 30,
 //         opacity: 0,
-//         stagger: 0.2,
-//         duration: 1.2,
-//         ease: "power4.out",
+//         stagger: 0.15,
+//         duration: 1,
+//         ease: "power3.out",
 //         scrollTrigger: {
 //           trigger: sectionRef.current,
-//           start: "top 75%",
+//           start: "top 85%",
 //         },
 //       });
 //     }, sectionRef);
+
 //     return () => ctx.revert();
 //   }, []);
 
 //   return (
 //     <section
 //       ref={sectionRef}
-//       className="relative w-full py-24 md:py-40 mt-10 text-white overflow-hidden"
+//       className="relative w-full py-20 md:py-40 text-white overflow-hidden"
 //     >
+//       {/* CSS for Shimmer Animation */}
+//       <style>{`
+//         @keyframes shimmer-btn {
+//           0% { transform: translateX(-100%); }
+//           100% { transform: translateX(100%); }
+//         }
+//         .animate-shimmer {
+//           animation: shimmer-btn 2.5s infinite;
+//         }
+//       `}</style>
+
 //       {/* Background Subtle Gradient */}
 //       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent opacity-50 pointer-events-none" />
 
-//       <div className="max-w-[1540px] mx-auto px-6 md:px-12 relative z-10">
-//         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12">
-//           {/* LEFT SIDE: Headline (Span 5) */}
-//           <div className="lg:col-span-5">
-//             <motion.h2 className="reveal-text text-5xl md:text-7xl font-black uppercase italic leading-[0.85] tracking-tighter">
+//       <div className="max-w-[1540px] mx-auto px-6 sm:px-10 md:px-16 relative z-10">
+//         <div className="flex flex-col lg:flex-row lg:items-start gap-y-12">
+//           {/* LEFT: Headline */}
+//           <div className="w-full lg:w-[42%]">
+//             <motion.h2 className="reveal-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase italic leading-[0.9] tracking-tighter">
 //               We deliberately <br />
-//               <span className="text-blue-600">remain small</span>
+//               <span className="text-[#3B82F6] block mt-2">remain small</span>
 //             </motion.h2>
 //           </div>
 
-//           {/* THE GAP: col-span-1 hidden on mobile, creates clear air on desktop */}
-//           <div className="hidden lg:block lg:col-span-1" />
+//           {/* GAP (Desktop only) */}
+//           <div className="hidden lg:block lg:w-[8%]" />
 
-//           {/* RIGHT SIDE: Philosophy & Points (Span 6) */}
-//           <div className="lg:col-span-6 flex flex-col justify-between">
-//             <div className="space-y-12">
-//               {/* Logic: Splitting the text by the period to force the mission statement to a new line */}
-//               <div className="reveal-text text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
+//           {/* RIGHT: Philosophy & Points */}
+//           <div className="w-full lg:w-[50%] flex flex-col justify-between">
+//             <div className="space-y-10 md:space-y-12">
+//               {/* Mission Statement Split Logic */}
+//               <div className="reveal-text text-lg sm:text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
 //                 {"Large firms are built to scale frameworks, teams, and delivery. We’re built to stay close to decisions."
 //                   .split(". ")
 //                   .map((sentence, idx) => (
@@ -61,7 +73,7 @@
 //                       key={idx}
 //                       className={
 //                         idx === 1
-//                           ? "text-white font-bold italic block mt-6"
+//                           ? "text-white font-bold italic block mt-4 md:mt-6"
 //                           : ""
 //                       }
 //                     >
@@ -71,20 +83,25 @@
 //                   ))}
 //               </div>
 
-//               <div className="reveal-text space-y-8">
-//                 <h4 className="text-blue-500 font-bold tracking-[0.3em] text-[10px] flex items-center gap-4">
-//                   <span className="w-8 h-[1px] bg-blue-500/30"></span>
-//                   Our work typically begins where:
+//               {/* Points */}
+//               <div className="reveal-text space-y-6 md:space-y-8">
+//                 <h4 className="text-[#3B82F6] font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-[12px] flex items-center gap-4">
+//                   <span className="w-8 h-[1px] bg-[#3B82F6]/30"></span>
+//                   OUR WORK TYPICALLY BEGINS WHERE:
 //                 </h4>
-//                 <ul className="space-y-6">
+
+//                 <ul className="space-y-4 md:space-y-6">
 //                   {[
 //                     "The cost of a wrong decision is high",
 //                     "Jurisdictions, capital, and execution collide",
 //                     "Responsibility cannot be delegated down a hierarchy",
 //                   ].map((point, i) => (
-//                     <li key={i} className="flex items-start gap-5 group">
-//                       <span className="mt-3 w-1 h-1 rounded-full bg-blue-600 group-hover:scale-[2] transition-transform duration-500 shadow-[0_0_10px_rgba(37,99,235,0.8)]" />
-//                       <span className="text-lg md:text-xl text-slate-200 border-b border-white/5 pb-3 w-full group-hover:text-white group-hover:border-blue-500/30 transition-all duration-500">
+//                     <li
+//                       key={i}
+//                       className="flex items-start gap-4 md:gap-5 group"
+//                     >
+//                       <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_10px_rgba(59,130,246,0.6)]" />
+//                       <span className="text-base md:text-xl text-slate-200 border-b border-white/5 pb-2 md:pb-3 w-full group-hover:text-white group-hover:border-[#3B82F6]/40 transition-all duration-500">
 //                         {point}
 //                       </span>
 //                     </li>
@@ -92,27 +109,35 @@
 //                 </ul>
 //               </div>
 
-//               <p className="reveal-text text-slate-400 italic leading-relaxed max-w-xl text-sm md:text-base">
+//               <p className="reveal-text text-slate-400 italic leading-relaxed max-w-xl text-xs sm:text-sm md:text-base">
 //                 We don’t optimize for volume. We optimize for judgment,
 //                 discretion, and outcomes that endure. Engagements are selective
 //                 and based on strategic fit.
 //               </p>
 //             </div>
 
-//             {/* CTA Button */}
-//             <div className="reveal-text mt-16">
+//             {/* UPGRADED BUTTON: Responsive & Blue Theme */}
+//             <div className="reveal-text mt-12 md:mt-16">
 //               <button
 //                 onClick={() => navigate("/book")}
-//                 className="group relative flex items-center gap-6 bg-white text-black px-8 py-6 rounded-full overflow-hidden transition-all hover:pr-12 active:scale-95"
+//                 className="group relative h-16 lg:h-20 w-full max-w-[320px] overflow-hidden rounded-xl transition-all duration-500 shadow-2xl border border-[#3B82F6]/30"
 //               >
-//                 <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-//                 <span className="relative z-10 font-black uppercase italic tracking-tighter text-lg md:text-xl group-hover:text-white transition-colors">
-//                   Request a strategic conversation
-//                 </span>
-//                 <ArrowRight
-//                   className="relative z-10 group-hover:translate-x-2 transition-transform group-hover:text-white"
-//                   size={24}
-//                 />
+//                 {/* Background State */}
+//                 <div className="absolute inset-0 bg-[#3B82F6] transition-colors duration-500 group-hover:bg-[#2563EB]" />
+
+//                 {/* Shimmer Effect Logic */}
+//                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer opacity-30" />
+
+//                 {/* Content */}
+//                 <div className="relative z-10 flex items-center justify-between px-6 md:px-8">
+//                   <span className="font-black uppercase italic tracking-tighter text-base md:text-lg text-white">
+//                     Strategic conversation
+//                   </span>
+//                   <ArrowRight
+//                     className="text-white group-hover:translate-x-1 transition-transform"
+//                     size={20}
+//                   />
+//                 </div>
 //               </button>
 //             </div>
 //           </div>
@@ -122,7 +147,7 @@
 //   );
 // }
 
-//======================================================================
+//=====================================================================
 import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -139,14 +164,14 @@ export default function WhyBoutiqueMatters() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".reveal-text", {
-        y: 40,
+        y: 30,
         opacity: 0,
-        stagger: 0.2,
-        duration: 1.2,
-        ease: "power4.out",
+        stagger: 0.15,
+        duration: 1,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 75%",
+          start: "top 85%",
         },
       });
     }, sectionRef);
@@ -157,19 +182,28 @@ export default function WhyBoutiqueMatters() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 md:py-40 mt-10 ml-10 text-white overflow-hidden"
+      className="relative w-full py-20 md:py-40 text-white overflow-hidden"
     >
+      <style>{`
+        @keyframes shimmer-btn {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+          animation: shimmer-btn 2.5s infinite;
+        }
+      `}</style>
+
       {/* Background Subtle Gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent opacity-50 pointer-events-none" />
 
-      <div className="max-w-[1540px]   mx-auto px-6 md:px-12 relative z-10">
-        {/* FLEX CONTAINER */}
-        <div className="flex flex-col lg:flex-row gap-y-12">
-          {/* LEFT: Headline */}
-          <div className="lg:w-[42%]">
-            <motion.h2 className="reveal-text text-5xl md:text-6xl font-black uppercase italic leading-[0.85] tracking-tighter">
+      <div className="max-w-[1540px] mx-auto px-6 sm:px-10 md:px-16 relative z-10">
+        <div className="flex flex-col lg:flex-row lg:items-start">
+          {/* LEFT: Headline - Centers text on mobile, left-aligns on desktop */}
+          <div className="w-full lg:w-[42%] text-center lg:text-left mb-12 lg:mb-0">
+            <motion.h2 className="reveal-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase italic leading-[0.9] tracking-tighter">
               We deliberately <br />
-              <span className="text-blue-600">remain small</span>
+              <span className="text-[#3B82F6] block mt-2">remain small</span>
             </motion.h2>
           </div>
 
@@ -177,10 +211,10 @@ export default function WhyBoutiqueMatters() {
           <div className="hidden lg:block lg:w-[8%]" />
 
           {/* RIGHT: Philosophy & Points */}
-          <div className="lg:w-[50%] lg:ml-6 flex flex-col justify-between">
-            <div className="space-y-12">
+          <div className="w-full lg:w-[50%] flex flex-col">
+            <div className="space-y-10 md:space-y-12 text-center lg:text-left">
               {/* Mission Statement */}
-              <div className="reveal-text text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
+              <div className="reveal-text text-lg sm:text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
                 {"Large firms are built to scale frameworks, teams, and delivery. We’re built to stay close to decisions."
                   .split(". ")
                   .map((sentence, idx) => (
@@ -188,7 +222,7 @@ export default function WhyBoutiqueMatters() {
                       key={idx}
                       className={
                         idx === 1
-                          ? "text-white font-bold italic block mt-6"
+                          ? "text-white font-bold italic block mt-4 md:mt-6"
                           : ""
                       }
                     >
@@ -199,21 +233,24 @@ export default function WhyBoutiqueMatters() {
               </div>
 
               {/* Points */}
-              <div className="reveal-text space-y-8">
-                <h4 className="text-blue-500 font-bold tracking-[0.3em] text-[12px] flex items-center gap-4">
-                  <span className="w-8 h-[1px] bg-blue-500/30"></span>
-                  Our work typically begins where:
+              <div className="reveal-text space-y-6 md:space-y-8">
+                <h4 className="text-[#3B82F6] font-bold tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-[12px] flex items-center justify-center lg:justify-start gap-4">
+                  <span className="w-8 h-[1px] bg-[#3B82F6]/30"></span>
+                  OUR WORK TYPICALLY BEGINS WHERE:
                 </h4>
 
-                <ul className="space-y-6">
+                <ul className="space-y-4 md:space-y-6 inline-block text-left mx-auto lg:mx-0">
                   {[
                     "The cost of a wrong decision is high",
                     "Jurisdictions, capital, and execution collide",
                     "Responsibility cannot be delegated down a hierarchy",
                   ].map((point, i) => (
-                    <li key={i} className="flex items-start gap-5 group">
-                      <span className="mt-3 w-1 h-1 rounded-full bg-blue-600 group-hover:scale-[2] transition-transform duration-500 shadow-[0_0_10px_rgba(37,99,235,0.8)]" />
-                      <span className="text-lg md:text-xl text-slate-200 border-b border-white/5 pb-3 w-full group-hover:text-white group-hover:border-blue-500/30 transition-all duration-500">
+                    <li
+                      key={i}
+                      className="flex items-start gap-4 md:gap-5 group"
+                    >
+                      <span className="mt-2.5 w-1.5 h-1.5 shrink-0 rounded-full bg-[#3B82F6] shadow-[0_0_10px_rgba(59,130,246,0.6)]" />
+                      <span className="text-base md:text-xl text-slate-200 border-b border-white/5 pb-2 md:pb-3 w-full group-hover:text-white group-hover:border-[#3B82F6]/40 transition-all duration-500">
                         {point}
                       </span>
                     </li>
@@ -221,27 +258,31 @@ export default function WhyBoutiqueMatters() {
                 </ul>
               </div>
 
-              <p className="reveal-text text-slate-400 italic leading-relaxed max-w-xl text-sm md:text-base">
+              <p className="reveal-text text-slate-400 italic leading-relaxed max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm md:text-base">
                 We don’t optimize for volume. We optimize for judgment,
                 discretion, and outcomes that endure. Engagements are selective
                 and based on strategic fit.
               </p>
             </div>
 
-            {/* CTA */}
-            <div className="reveal-text mt-16">
+            {/* UPGRADED BUTTON: Centered on mobile, Left on desktop */}
+            <div className="reveal-text mt-12 md:mt-16 flex justify-center lg:justify-start">
               <button
                 onClick={() => navigate("/book")}
-                className="group relative flex items-center gap-6 bg-white text-black px-8 py-6 rounded-full overflow-hidden transition-all hover:pr-12 active:scale-95"
+                className="group relative h-16 lg:h-20 w-full max-w-[320px] overflow-hidden rounded-xl transition-all duration-500 shadow-2xl border border-[#3B82F6]/30"
               >
-                <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                <span className="relative z-10 font-black uppercase italic tracking-tighter text-lg md:text-xl group-hover:text-white transition-colors">
-                  Request a strategic conversation
-                </span>
-                <ArrowRight
-                  className="relative z-10 group-hover:translate-x-2 transition-transform group-hover:text-white"
-                  size={24}
-                />
+                <div className="absolute inset-0 bg-[#3B82F6] transition-colors duration-500 group-hover:bg-[#2563EB]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer opacity-30" />
+
+                <div className="relative z-10 flex items-center justify-between px-6 md:px-8 h-full">
+                  <span className="font-black uppercase italic tracking-tighter text-base md:text-lg text-white">
+                    Strategic conversation
+                  </span>
+                  <ArrowRight
+                    className="text-white group-hover:translate-x-1 transition-transform"
+                    size={20}
+                  />
+                </div>
               </button>
             </div>
           </div>
