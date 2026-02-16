@@ -225,8 +225,9 @@ function DetailedModal({ service, isOpen, onClose, navigate }) {
                         Array.isArray(v) && k !== "items" ? (
                           <div key={k} className="mt-5">
                             <p className="text-[#3B82F6] uppercase text-xs tracking-widest">
-                              {k}
+                              {k.replace(/([A-Z])/g, " $1")}
                             </p>
+
                             <ul className="mt-2 space-y-2 text-[#9CA3AF] text-sm md:text-base">
                               {v.map((x, j) => (
                                 <li key={j}>{x}</li>
