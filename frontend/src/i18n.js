@@ -131,7 +131,7 @@ i18n.use(initReactI18next).init({
 
                         ai: {
                             title: "AI & Digital Transformation",
-                            description: "When technology decisions affect capital, compliance, and long-term control — not just efficiency.",
+                            description: "When technology decisions affect capital, compliance, and long-term control.",
                             items: [
                                 "Website Chatbots",
                                 "WhatsApp / SMS / Messenger Bots",
