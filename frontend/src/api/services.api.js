@@ -1,6 +1,9 @@
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function fetchServices() {
     try {
-        const res = await fetch("/api/services", {
+        const res = await fetch(`${API_URL}/services`, {
             credentials: "include",
         });
 

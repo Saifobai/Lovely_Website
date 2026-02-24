@@ -96,7 +96,7 @@ export default function BookingPage() {
 
                 <p className="text-4xl sm:text-[16px] text-slate-400 tracking-tighter mb-6">
                   Each diagnostic is a short, paid conversation, designed to
-                  assess strategic fit and clarify whether, deeper collaboration
+                  assess strategic fit and clarify whether deeper collaboration
                   makes sense.
                 </p>
 

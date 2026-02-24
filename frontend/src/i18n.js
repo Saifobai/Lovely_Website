@@ -210,7 +210,7 @@ i18n.use(initReactI18next).init({
                         name: { label: "Name", placeholder: "Enter your name" },
                         email: { label: "Email", placeholder: "email@domain.com" },
                         company: { label: "Company", placeholder: "Enter your company name" },
-                        message: { label: "Message", placeholder: "Describe the challenge…" },
+                        message: { label: "Message", placeholder: "Describe your challenge…" },
                         submit: "Connect with our team",
                         loading: "Syncing...",
                         securityNote: "End-to-End Encryption Guaranteed",
