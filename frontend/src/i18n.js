@@ -1,4 +1,3 @@
-
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
@@ -181,6 +180,66 @@ i18n.use(initReactI18next).init({
                                 "Executive Coaching Sessions",
                                 "Curated Private Events"
                             ]
+                        },
+
+                        sustainability: {
+                            title: "Sustainability & ESG",
+                            description: "R&D, sustainability, packaging, EU funding, and eco-shopping consulting for founders, SMEs, and individuals building sustainably.",
+                            sections: {
+                                strategy: {
+                                    title: "Sustainability Strategy Consultation (60 min · €120)",
+                                    items: [
+                                        "Sustainability roadmap",
+                                        "Circular economy ideas",
+                                        "Eco-friendly business improvements",
+                                        "Technical feasibility and research planning",
+                                        "ESG basics",
+                                        "First sustainability initiatives"
+                                    ]
+                                },
+                                packaging: {
+                                    title: "Eco Packaging Consultation (60 min · €140)",
+                                    items: [
+                                        "Packaging assessment",
+                                        "Recyclable alternatives",
+                                        "Plastic reduction ideas",
+                                        "Sustainability regulation",
+                                        "Customer perception",
+                                        "Packaging trends"
+                                    ]
+                                },
+                                funding: {
+                                    title: "EU Funding Discovery Session (90 min · €190)",
+                                    items: [
+                                        "Review of the client's project",
+                                        "Identification of relevant EU programmes",
+                                        "Funding readiness assessment",
+                                        "Next steps"
+                                    ]
+                                },
+                                shopping: {
+                                    title: "Personal Eco Shopping Consultation (60 min · €85)",
+                                    items: [
+                                        "Vegan cosmetics & FMCG",
+                                        "Eco products",
+                                        "Best sustainable solutions",
+                                        "Bio certifications",
+                                        "Avoiding greenwashing",
+                                        "Product recommendations"
+                                    ]
+                                },
+                                executiveConsult: {
+                                    title: "Innovation & Sustainability Executive Consultation (2 hours · €320)",
+                                    items: [
+                                        "R&D",
+                                        "Sustainability",
+                                        "Packaging",
+                                        "Innovation",
+                                        "EU funding opportunities",
+                                        "Best awards"
+                                    ]
+                                }
+                            }
                         }
                     },
 
@@ -367,6 +426,66 @@ i18n.use(initReactI18next).init({
                                 "Executive-Coachings",
                                 "Kuratierten Private Events"
                             ]
+                        },
+
+                        sustainability: {
+                            title: "Nachhaltigkeit & ESG",
+                            description: "Beratung zu F&E, Nachhaltigkeit, Verpackung, EU-Förderung und Öko-Einkauf für Gründer, KMU und Privatpersonen.",
+                            sections: {
+                                strategy: {
+                                    title: "Nachhaltigkeitsstrategie-Beratung (60 Min · 120€)",
+                                    items: [
+                                        "Nachhaltigkeits-Roadmap",
+                                        "Ideen zur Kreislaufwirtschaft",
+                                        "Umweltfreundliche Geschäftsverbesserungen",
+                                        "Technische Machbarkeit und Forschungsplanung",
+                                        "ESG-Grundlagen",
+                                        "Erste Nachhaltigkeitsinitiativen"
+                                    ]
+                                },
+                                packaging: {
+                                    title: "Öko-Verpackungsberatung (60 Min · 140€)",
+                                    items: [
+                                        "Verpackungsbewertung",
+                                        "Recycelbare Alternativen",
+                                        "Ideen zur Plastikreduzierung",
+                                        "Nachhaltigkeitsvorschriften",
+                                        "Kundenwahrnehmung",
+                                        "Verpackungstrends"
+                                    ]
+                                },
+                                funding: {
+                                    title: "EU-Förderungs-Sondierungsgespräch (90 Min · 190€)",
+                                    items: [
+                                        "Prüfung des Kundenprojekts",
+                                        "Identifikation relevanter EU-Programme",
+                                        "Bewertung der Förderfähigkeit",
+                                        "Nächste Schritte"
+                                    ]
+                                },
+                                shopping: {
+                                    title: "Persönliche Öko-Einkaufsberatung (60 Min · 85€)",
+                                    items: [
+                                        "Vegane Kosmetik & FMCG",
+                                        "Öko-Produkte",
+                                        "Beste nachhaltige Lösungen",
+                                        "Bio-Zertifizierungen",
+                                        "Vermeidung von Greenwashing",
+                                        "Produktempfehlungen"
+                                    ]
+                                },
+                                executiveConsult: {
+                                    title: "Innovations- & Nachhaltigkeits-Executive-Beratung (2 Stunden · 320€)",
+                                    items: [
+                                        "F&E",
+                                        "Nachhaltigkeit",
+                                        "Verpackung",
+                                        "Innovation",
+                                        "EU-Fördermöglichkeiten",
+                                        "Wichtige Auszeichnungen"
+                                    ]
+                                }
+                            }
                         }
                     },
 

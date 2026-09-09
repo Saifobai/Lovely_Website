@@ -1,3 +1,4 @@
+
 import "dotenv/config";
 import express from "express";
 import cookieParser from "cookie-parser";
@@ -15,11 +16,16 @@ import { expirePendingBookings } from "./jobs/expireBookings.js";
 
 const app = express();
 
+app.use((req, res, next) => {
+    console.log("➡️", req.method, req.originalUrl);
+    next();
+});
+
 // ======================
 // MIDDLEWARES
 // ======================
 app.use(cors({
-    origin: ["https://lovely.com.de", "https://www.lovely.com.de"],
+    origin: ["https://lovely.com.de", "https://www.lovely.com.de", "http://localhost:5173"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -53,6 +59,11 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
 
+
+
+app.get("/api/test", (req, res) => {
+    res.json({ success: true });
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
