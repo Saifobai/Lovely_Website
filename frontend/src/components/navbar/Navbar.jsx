@@ -22,6 +22,9 @@ const Navbar = () => {
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
+      // Manually sync the address bar since preventDefault() stops the
+      // browser from doing this on its own for in-page anchor links.
+      window.history.pushState(null, "", href);
     }
   };
 
@@ -29,6 +32,8 @@ const Navbar = () => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
     setMobileOpen(false);
+    // Clear the hash back to the bare path when returning to the top.
+    window.history.pushState(null, "", window.location.pathname);
   };
 
   const menuItems = [

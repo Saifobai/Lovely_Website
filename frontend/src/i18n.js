@@ -187,7 +187,7 @@ i18n.use(initReactI18next).init({
                             description: "R&D, sustainability, packaging, EU funding, and eco-shopping consulting for founders, SMEs, and individuals building sustainably.",
                             sections: {
                                 strategy: {
-                                    title: "Sustainability Strategy Consultation (60 min · €120)",
+                                    title: "Sustainability Strategy Consultation",
                                     items: [
                                         "Sustainability roadmap",
                                         "Circular economy ideas",
@@ -198,7 +198,7 @@ i18n.use(initReactI18next).init({
                                     ]
                                 },
                                 packaging: {
-                                    title: "Eco Packaging Consultation (60 min · €140)",
+                                    title: "Eco Packaging Consultation ",
                                     items: [
                                         "Packaging assessment",
                                         "Recyclable alternatives",
@@ -209,7 +209,7 @@ i18n.use(initReactI18next).init({
                                     ]
                                 },
                                 funding: {
-                                    title: "EU Funding Discovery Session (90 min · €190)",
+                                    title: "EU Funding Discovery Session",
                                     items: [
                                         "Review of the client's project",
                                         "Identification of relevant EU programmes",
@@ -218,7 +218,7 @@ i18n.use(initReactI18next).init({
                                     ]
                                 },
                                 shopping: {
-                                    title: "Personal Eco Shopping Consultation (60 min · €85)",
+                                    title: "Personal Eco Shopping Consultation",
                                     items: [
                                         "Vegan cosmetics & FMCG",
                                         "Eco products",
@@ -229,7 +229,7 @@ i18n.use(initReactI18next).init({
                                     ]
                                 },
                                 executiveConsult: {
-                                    title: "Innovation & Sustainability Executive Consultation (2 hours · €320)",
+                                    title: "Innovation & Sustainability Executive Consultation",
                                     items: [
                                         "R&D",
                                         "Sustainability",
