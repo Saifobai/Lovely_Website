@@ -11,10 +11,12 @@ import bookingRoutes from "./routes/bookingsRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js"
 import contactRoutes from "./routes/contactRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js"
+import waitlistRoutes from "./routes/waitlistRoutes.js";
 
 import { expirePendingBookings } from "./jobs/expireBookings.js";
 
 const app = express();
+app.set("trust proxy", 1);
 
 app.use((req, res, next) => {
     console.log("➡️", req.method, req.originalUrl);
@@ -58,6 +60,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
+app.use("/api/waitlist", waitlistRoutes);
 
 
 

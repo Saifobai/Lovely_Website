@@ -12,6 +12,7 @@ import LegalInformation from "./pages/LegalInfo/LegalInformation";
 import PrivacyPolicy from "./pages/Privacy/PrivacyPloicy";
 import ClientEngagement from "./pages/ClientEngagement/ClientEngagement";
 import PaymentSuccess from "./pages/payment/PaymentSuccess";
+import Waitlist from "./pages/waitlist/Waitlist";
 
 // ✅ hook
 import useIsMobile from "./components/hooks/useIsMobile";
@@ -55,6 +56,12 @@ export default function App() {
   const shouldHideUI =
     hideNavbarAndFooterPaths.includes(location.pathname) ||
     location.pathname.startsWith("/cancel/");
+
+  // The waitlist page ships with its own top bar and footer, so the main
+  // site navbar and footer are both hidden there.
+  const isWaitlist = location.pathname === "/waitlist";
+  const shouldHideNavbar = shouldHideUI || isWaitlist;
+  const shouldHideFooter = shouldHideUI || isWaitlist;
 
   return (
     <>
@@ -109,15 +116,29 @@ export default function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            {!shouldHideUI && <Navbar />}
+            {!shouldHideNavbar && <Navbar />}
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence
+              mode="wait"
+              onExitComplete={() => {
+                // Start every new page at the top (unless a #hash is in the URL).
+                if (!window.location.hash) window.scrollTo(0, 0);
+              }}
+            >
               <Routes location={location} key={location.pathname}>
                 <Route
                   path="/"
                   element={
                     <PageWrapper>
                       <HomePage />
+                    </PageWrapper>
+                  }
+                />
+                <Route
+                  path="/waitlist"
+                  element={
+                    <PageWrapper>
+                      <Waitlist />
                     </PageWrapper>
                   }
                 />
@@ -180,7 +201,7 @@ export default function App() {
               </Routes>
             </AnimatePresence>
 
-            {!shouldHideUI && <Footer />}
+            {!shouldHideFooter && <Footer />}
           </motion.div>
         )}
       </AnimatePresence>
