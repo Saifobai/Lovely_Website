@@ -1,7 +1,9 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
 
 // Toast look that matches the page (navy + gold). <Toaster /> already lives in App.jsx.
+// Only used for errors now; success has its own card.
 const TOAST_OPTIONS = {
   id: "waitlist", // one toast at a time, no stacking on repeated clicks
   style: {
@@ -113,12 +115,52 @@ const CONTROL =
   "h-[46px] w-full rounded-none border border-[#dfe1e8] bg-[#fcfcfd] px-[13px] text-base text-[#30394d] outline-none transition md:text-xs focus:border-[#8c82bf] focus:shadow-[0_0_0_3px_rgba(166,155,218,.14)]";
 
 /* ------------------------------------------------------------------ */
+/*  Success card (replaces the form after a successful submit)         */
+/* ------------------------------------------------------------------ */
+
+const SuccessCard = ({ name }) => (
+  <div
+    role="status"
+    className="border border-[#e3e1eb] bg-white px-[19px] py-8 shadow-[0_18px_50px_rgba(27,42,74,.07)] sm:p-[34px]"
+  >
+    <div className="mb-5 flex h-9 w-9 items-center justify-center rounded-full border border-[#c7b58a] text-sm text-[#c7b58a]">
+      ✓
+    </div>
+    <p className={`${SERIF} mb-4 text-[22px] text-[#1b2a4a]`}>Dear {name},</p>
+    <div className="space-y-4 text-[13px] leading-[1.85] text-[#4d5669]">
+      <p>Thank you for your interest in International Off-market deals.</p>
+      <p>
+        We’re delighted to welcome you to our waitlist. Your interest means a
+        great deal to us, and we’re excited to share what we’re creating with
+        you.
+      </p>
+      <p>
+        We’re carefully preparing something special, and you’ll be among the
+        first to hear when it’s ready.
+      </p>
+      <p className={`${SERIF} text-[17px] italic text-[#8279b5]`}>
+        You’re on the list. Something lovely is on its way.
+      </p>
+      <p>Good things are worth waiting for.</p>
+    </div>
+    <p className="mt-6 text-[13px] leading-[1.7] text-[#4d5669]">
+      With appreciation,
+      <br />
+      <span className={`${SERIF} text-[16px] text-[#1b2a4a]`}>
+        The Lovely Team
+      </span>
+    </p>
+  </div>
+);
+
+/* ------------------------------------------------------------------ */
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
 
 const Waitlist = () => {
   const [form, setForm] = useState(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
   const [loading, setLoading] = useState(false);
 
   // In-page smooth scroll that leaves the router / address bar alone.
@@ -154,11 +196,11 @@ const Waitlist = () => {
         );
       }
 
+      setSubmittedName(form.firstName.trim());
       setSubmitted(true);
-      toast.success(
-        "Request received. We’ll be in touch if there’s a relevant introduction.",
-        { ...TOAST_OPTIONS, duration: 6000 },
-      );
+      document
+        .getElementById("access")
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (err) {
       // fetch() rejects with a TypeError when the server can't be reached.
       toast.error(
@@ -206,12 +248,12 @@ const Waitlist = () => {
               <span className="grid size-[29px] shrink-0 rotate-45 place-items-center border border-[#c7b58a] font-[Georgia,serif] text-[15px] text-[#c7b58a]">
                 <span className="-rotate-45">✦</span>
               </span>
-              <span>PRIVATE MARKETS</span>
+              <span className="hidden min-[400px]:inline">PRIVATE MARKETS</span>
             </a>
 
             <nav
               aria-label="Main navigation"
-              className="flex items-center gap-[34px] text-xs text-white/80"
+              className="flex items-center gap-3 text-xs text-white/80 md:gap-[34px]"
             >
               {NAV_LINKS.map((link) => (
                 <a
@@ -223,12 +265,13 @@ const Waitlist = () => {
                   {link.label}
                 </a>
               ))}
+              <LanguageSwitcher />
               <a
                 href="#access"
                 onClick={(e) => scrollToId(e, "access")}
                 className="border border-white/50 px-[11px] py-[9px] text-[10px] text-white transition duration-200 hover:bg-white hover:text-[#1b2a4a] md:px-[17px] md:py-[11px] md:text-xs"
               >
-                {`Request access  ${ARROW}`}
+                {`Request access  ${ARROW}`}
               </a>
             </nav>
           </header>
@@ -403,157 +446,157 @@ const Waitlist = () => {
               </div>
             </div>
 
-            {/* form */}
-            <form
-              id="waitlist-form"
-              onSubmit={handleSubmit}
-              className="border border-[#e3e1eb] bg-white px-[19px] py-6 shadow-[0_18px_50px_rgba(27,42,74,.07)] sm:p-[34px]"
-            >
-              <div className="mb-[26px] flex items-center justify-between gap-3">
-                <h3
-                  className={`${SERIF} m-0 text-[25px] font-normal text-[#1b2a4a]`}
-                >
-                  Request early access
-                </h3>
-                <span className="shrink-0 border border-[#e4e0f1] px-[9px] py-[7px] text-[9px] uppercase tracking-[.13em] text-[#8c84b8]">
-                  Founding list
-                </span>
-              </div>
-
-              {/* Locks every field + the button while sending / after success */}
-              <fieldset
-                disabled={loading || submitted}
-                className="m-0 min-w-0 border-0 p-0 disabled:opacity-80"
+            {/* form, or the success card once submitted */}
+            {submitted ? (
+              <SuccessCard name={submittedName} />
+            ) : (
+              <form
+                id="waitlist-form"
+                onSubmit={handleSubmit}
+                className="border border-[#e3e1eb] bg-white px-[19px] py-6 shadow-[0_18px_50px_rgba(27,42,74,.07)] sm:p-[34px]"
               >
-                {/* Honeypot: hidden from people, tempting for bots */}
-                <input
-                  type="text"
-                  name="website"
-                  value={form.website}
-                  onChange={handleChange}
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
-                />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[13px]">
-                  <div className="mb-[17px]">
-                    <label htmlFor="firstName" className={LABEL}>
-                      First name
-                    </label>
-                    <input
-                      id="firstName"
-                      name="firstName"
-                      autoComplete="given-name"
-                      placeholder="Your first name"
-                      value={form.firstName}
-                      onChange={handleChange}
-                      required
-                      className={CONTROL}
-                    />
-                  </div>
-                  <div className="mb-[17px]">
-                    <label htmlFor="lastName" className={LABEL}>
-                      Last name
-                    </label>
-                    <input
-                      id="lastName"
-                      name="lastName"
-                      autoComplete="family-name"
-                      placeholder="Your last name"
-                      value={form.lastName}
-                      onChange={handleChange}
-                      required
-                      className={CONTROL}
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-[17px]">
-                  <label htmlFor="email" className={LABEL}>
-                    Work email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="you@company.com"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    className={CONTROL}
-                  />
-                </div>
-
-                <div className="mb-[17px]">
-                  <label htmlFor="role" className={LABEL}>
-                    I’m joining as…
-                  </label>
-                  <select
-                    id="role"
-                    name="role"
-                    value={form.role}
-                    onChange={handleChange}
-                    required
-                    className={CONTROL}
+                <div className="mb-[26px] flex items-center justify-between gap-3">
+                  <h3
+                    className={`${SERIF} m-0 text-[25px] font-normal text-[#1b2a4a]`}
                   >
-                    <option value="" disabled>
-                      Select your role
-                    </option>
-                    {ROLES.map((r) => (
-                      <option key={r} value={r}>
-                        {r}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="mb-[17px]">
-                  <label htmlFor="interest" className={LABEL}>
-                    Primary area of interest
-                  </label>
-                  <select
-                    id="interest"
-                    name="interest"
-                    value={form.interest}
-                    onChange={handleChange}
-                    required
-                    className={CONTROL}
-                  >
-                    <option value="" disabled>
-                      Select an area
-                    </option>
-                    {INTERESTS.map((i) => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <button
-                  type="submit"
-                  className="mt-[5px] flex min-h-[49px] w-full cursor-pointer items-center justify-between border-0 bg-[#1b2a4a] px-[17px] text-xs font-[650] text-white transition hover:bg-[#24385d] disabled:cursor-not-allowed"
-                >
-                  <span>
-                    {loading
-                      ? "Sending…"
-                      : submitted
-                        ? "Request received"
-                        : "Request a place on the list"}
+                    Request early access
+                  </h3>
+                  <span className="shrink-0 border border-[#e4e0f1] px-[9px] py-[7px] text-[9px] uppercase tracking-[.13em] text-[#8c84b8]">
+                    Founding list
                   </span>
-                  <span>{submitted ? "✓" : ARROW}</span>
-                </button>
-              </fieldset>
+                </div>
 
-              <p className="mt-[14px] mb-0 text-[10px] leading-[1.7] text-[#8a90a0] md:text-[9px]">
-                By submitting, you agree that your details may be used to
-                respond to your access request. Add your final privacy notice
-                and consent wording before launch.
-              </p>
-            </form>
+                {/* Locks every field + the button while sending */}
+                <fieldset
+                  disabled={loading}
+                  className="m-0 min-w-0 border-0 p-0 disabled:opacity-80"
+                >
+                  {/* Honeypot: hidden from people, tempting for bots */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={form.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[13px]">
+                    <div className="mb-[17px]">
+                      <label htmlFor="firstName" className={LABEL}>
+                        First name
+                      </label>
+                      <input
+                        id="firstName"
+                        name="firstName"
+                        autoComplete="given-name"
+                        placeholder="Your first name"
+                        value={form.firstName}
+                        onChange={handleChange}
+                        required
+                        className={CONTROL}
+                      />
+                    </div>
+                    <div className="mb-[17px]">
+                      <label htmlFor="lastName" className={LABEL}>
+                        Last name
+                      </label>
+                      <input
+                        id="lastName"
+                        name="lastName"
+                        autoComplete="family-name"
+                        placeholder="Your last name"
+                        value={form.lastName}
+                        onChange={handleChange}
+                        required
+                        className={CONTROL}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-[17px]">
+                    <label htmlFor="email" className={LABEL}>
+                      Work email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="you@company.com"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      className={CONTROL}
+                    />
+                  </div>
+
+                  <div className="mb-[17px]">
+                    <label htmlFor="role" className={LABEL}>
+                      I’m joining as…
+                    </label>
+                    <select
+                      id="role"
+                      name="role"
+                      value={form.role}
+                      onChange={handleChange}
+                      required
+                      className={CONTROL}
+                    >
+                      <option value="" disabled>
+                        Select your role
+                      </option>
+                      {ROLES.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="mb-[17px]">
+                    <label htmlFor="interest" className={LABEL}>
+                      Primary area of interest
+                    </label>
+                    <select
+                      id="interest"
+                      name="interest"
+                      value={form.interest}
+                      onChange={handleChange}
+                      required
+                      className={CONTROL}
+                    >
+                      <option value="" disabled>
+                        Select an area
+                      </option>
+                      {INTERESTS.map((i) => (
+                        <option key={i} value={i}>
+                          {i}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="mt-[5px] flex min-h-[49px] w-full cursor-pointer items-center justify-between border-0 bg-[#1b2a4a] px-[17px] text-xs font-[650] text-white transition hover:bg-[#24385d] disabled:cursor-not-allowed"
+                  >
+                    <span>
+                      {loading ? "Sending…" : "Request a place on the list"}
+                    </span>
+                    <span>{ARROW}</span>
+                  </button>
+                </fieldset>
+
+                <p className="mt-[14px] mb-0 text-[10px] leading-[1.7] text-[#8a90a0] md:text-[9px]">
+                  By submitting, you agree that your details may be used to
+                  respond to your access request. Add your final privacy notice
+                  and consent wording before launch.
+                </p>
+              </form>
+            )}
           </div>
         </section>
 

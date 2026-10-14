@@ -12,7 +12,7 @@ import LegalInformation from "./pages/LegalInfo/LegalInformation";
 import PrivacyPolicy from "./pages/Privacy/PrivacyPloicy";
 import ClientEngagement from "./pages/ClientEngagement/ClientEngagement";
 import PaymentSuccess from "./pages/payment/PaymentSuccess";
-import Waitlist from "./pages/waitlist/Waitlist";
+import WaitlistPage from "./pages/WaitlistPage";
 
 // ✅ hook
 import useIsMobile from "./components/hooks/useIsMobile";
@@ -59,9 +59,9 @@ export default function App() {
 
   // The waitlist page ships with its own top bar and footer, so the main
   // site navbar and footer are both hidden there.
-  const isWaitlist = location.pathname === "/waitlist";
-  const shouldHideNavbar = shouldHideUI || isWaitlist;
-  const shouldHideFooter = shouldHideUI || isWaitlist;
+  const isWaitlistPage = location.pathname === "/waitlistPage";
+  const shouldHideNavbar = shouldHideUI || isWaitlistPage;
+  const shouldHideFooter = shouldHideUI || isWaitlistPage;
 
   return (
     <>
@@ -135,10 +135,10 @@ export default function App() {
                   }
                 />
                 <Route
-                  path="/waitlist"
+                  path="/waitlistPage"
                   element={
                     <PageWrapper>
-                      <Waitlist />
+                      <WaitlistPage />
                     </PageWrapper>
                   }
                 />
