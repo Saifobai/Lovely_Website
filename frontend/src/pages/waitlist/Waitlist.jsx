@@ -242,13 +242,15 @@ const Waitlist = () => {
             <a
               href="#top"
               onClick={(e) => scrollToId(e, "top")}
-              aria-label="Private Markets — back to top"
+              aria-label="Off-market Deals — back to top"
               className="flex items-center gap-2.5 text-[10px] font-bold tracking-[.12em] sm:text-[11px] md:gap-3 md:text-[13px] md:tracking-[.18em]"
             >
               <span className="grid size-[29px] shrink-0 rotate-45 place-items-center border border-[#c7b58a] font-[Georgia,serif] text-[15px] text-[#c7b58a]">
                 <span className="-rotate-45">✦</span>
               </span>
-              <span className="hidden min-[400px]:inline">PRIVATE MARKETS</span>
+              <span className="hidden min-[400px]:inline">
+                OFF-MARKET DEALS
+              </span>
             </a>
 
             <nav
@@ -612,7 +614,7 @@ const Waitlist = () => {
                 The right introduction changes everything.
               </h2>
               <p className="m-0 text-xs text-white/60">
-                Join the founding waitlist for Private Markets.
+                Join the founding waitlist for Off-market Deals.
               </p>
             </div>
             <a
@@ -631,7 +633,7 @@ const Waitlist = () => {
         <div className={SHELL}>
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center md:gap-5">
             <div className="text-[10px] font-bold tracking-[.16em] text-white">
-              PRIVATE MARKETS
+              OFF-MARKET DEALS
             </div>
             <div>Discreet connections. Considered opportunities.</div>
             <div className="flex flex-wrap gap-x-5 gap-y-2">
