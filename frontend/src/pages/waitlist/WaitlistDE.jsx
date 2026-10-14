@@ -59,7 +59,7 @@ const INTERESTS = [
   },
   {
     value: "Cross-border Opportunities",
-    label: "Grenzüberschreitende Gelegenheiten",
+    label: "Grenzüberschreitende Optionen",
   },
   { value: "Multiple sectors", label: "Mehrere Sektoren" },
 ];
@@ -74,8 +74,8 @@ const STAKEHOLDERS = [
 const FEATURES = [
   {
     number: "01 / ZUGANG",
-    title: "Kuratierte Gelegenheiten",
-    text: "Entdecken Sie selektiv geteilte Off-Market-Gelegenheiten in Immobilien, operativen Unternehmen und strategischen Projekten.",
+    title: "Kuratierte Optionen",
+    text: "Entdecken Sie selektiv geteilte Off-Market-Optionen in Immobilien, operativen Unternehmen und strategischen Projekten.",
   },
   {
     number: "02 / VERBINDUNG",
@@ -291,7 +291,7 @@ const WaitlistDE = () => {
           <div className={`${SHELL} relative z-10`}>
             <div className="max-w-[740px]">
               <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.23em] text-[#c7b58a] before:h-px before:w-[30px] before:shrink-0 before:bg-[#c7b58a] before:content-['']">
-                Ein privates Netzwerk für außergewöhnliche Gelegenheiten
+                Ein privates Netzwerk für außergewöhnliche Optionen
               </div>
 
               <h1
@@ -306,7 +306,7 @@ const WaitlistDE = () => {
               <p className="mb-[31px] max-w-[565px] text-sm leading-[1.8] text-white/75 md:text-base">
                 Ein diskretes Netzwerk, das qualifizierte Investoren,
                 Eigentümer, Projektentwickler und Finanzierungspartner rund um
-                sorgfältig vermittelte Gelegenheiten zusammenbringt.
+                sorgfältig vermittelte Optionen zusammenbringt.
               </p>
 
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -381,15 +381,15 @@ const WaitlistDE = () => {
                 <h2
                   className={`${SERIF} mt-3 max-w-[600px] text-[36px] leading-[1.13] font-normal tracking-[-.025em] text-[#1b2a4a] md:text-[clamp(34px,4vw,49px)]`}
                 >
-                  Weniger Rauschen.
+                  Weniger Öffentlichkeit.
                   <br />
-                  Bessere Kontakte.
+                  Mehr Zugang.
                 </h2>
               </div>
               <p className="mt-5 mb-1 max-w-[370px] text-[13px] leading-[1.8] text-[#687185] md:mt-0">
-                Wichtige Gelegenheiten verdienen mehr als ein überfülltes
-                Inserat. Das Netzwerk hilft den richtigen Parteien, sich mit
-                Klarheit, Diskretion und Zielstrebigkeit zu verbinden.
+                Wichtige Optionen verdienen mehr als ein überfülltes Inserat.
+                Das Netzwerk hilft den richtigen Parteien, sich mit Klarheit,
+                Diskretion und Zielstrebigkeit zu verbinden.
               </p>
             </div>
 
@@ -426,7 +426,7 @@ const WaitlistDE = () => {
           >
             <div>
               <div className="text-[10px] font-bold uppercase tracking-[.19em] text-[#8279b5]">
-                Gründungsnetzwerk · Früher Zugang
+                Früher Zugang
               </div>
               <h2
                 className={`${SERIF} mt-[13px] mb-[19px] text-[36px] leading-[1.12] font-normal tracking-[-.03em] text-[#1b2a4a] md:text-[clamp(36px,4vw,52px)]`}
@@ -473,9 +473,6 @@ const WaitlistDE = () => {
                   >
                     Frühen Zugang anfragen
                   </h3>
-                  <span className="shrink-0 border border-[#e4e0f1] px-[9px] py-[7px] text-[9px] uppercase tracking-[.13em] text-[#8c84b8]">
-                    Gründungsliste
-                  </span>
                 </div>
 
                 <fieldset
@@ -626,8 +623,7 @@ const WaitlistDE = () => {
                 Die richtige Vermittlung verändert alles.
               </h2>
               <p className="m-0 text-xs text-white/60">
-                Tragen Sie sich in die Gründungs-Warteliste von Off-market Deals
-                ein.
+                Tragen Sie sich in die Warteliste von Off-market Deals ein.
               </p>
             </div>
             <a
@@ -648,7 +644,7 @@ const WaitlistDE = () => {
             <div className="text-[10px] font-bold tracking-[.16em] text-white">
               OFF-MARKET DEALS
             </div>
-            <div>Diskrete Verbindungen. Durchdachte Gelegenheiten.</div>
+            <div>Diskrete Verbindungen. Durchdachte Optionen.</div>
             <div className="flex flex-wrap gap-x-5 gap-y-2">
               <a href="#access" onClick={(e) => scrollToId(e, "access")}>
                 Kontakt
